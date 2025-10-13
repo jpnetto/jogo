@@ -1,4 +1,5 @@
 #include "raylib.h"
+#include "snake.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -12,42 +13,6 @@
 #define COOLDOWN 0.2
 #define SNAKE_COLOR YELLOW
 #define FOOD_COLOR BLUE
-
-typedef struct Bordas{
-    Rectangle pos;
-}Bordas;
-
-typedef struct Body{
-    Rectangle pos;
-    Color color;
-    int direcao;
-}Body;
-
-typedef struct Food{
-    Rectangle pos;
-    Color color;
-}Food;
-
-typedef struct Jogo{
-    Body body;
-    Food food;
-    Bordas bordas[4];
-    double tempo;
-    double cooldown;
-}Jogo;
-
-void IniciaBody(Jogo *j);
-void IniciaBordas(Jogo *j);
-void IniciaFood(Jogo *j);
-void IniciaJogo(Jogo *j);
-void DesenhaBody(Jogo *j);
-void DesenhaFood(Jogo *j);
-void DesenhaBordas(Jogo *j);
-void DesenhaJogo(Jogo *j);
-void AtualizaDirecao(Jogo *j);
-void AtualizaPosBody(Jogo *j);
-void AtualizaRodada(Jogo *j);
-int ColisaoFood(Jogo *j);
 
 int main(){
     Jogo jogo;
@@ -66,9 +31,14 @@ int main(){
             DesenhaJogo(&jogo);
             AtualizaRodada(&jogo);
             if (ColisaoFood(&jogo)){
+                AtualizaLocalFood(&jogo);
+            }
+            if (ColisaoBordas(&jogo)){
                 gameOver = 0;
             }
         } else {
+            DrawText("FIM DE JOGO!", 200, 250, 40, RED);
+            DrawText("PRESSIONE ENTER PARA REINICIAR", 50, 350, 30, RED);
             if (IsKeyPressed(KEY_ENTER)){
                 IniciaJogo(&jogo);
                 gameOver = 1;
@@ -175,8 +145,20 @@ void AtualizaRodada(Jogo *j){
     }
 }
 
+//função que atualiza o local da comida toda vez que a cobra se alimenta dela
+void AtualizaLocalFood(Jogo *j){ 
+    j->food.pos = (Rectangle) {(float)(rand() % ((ALTURA - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10), (float)(rand() % ((ALTURA - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10), STD_SIZE_X, STD_SIZE_Y};
+}
+
 int ColisaoFood(Jogo *j){
     if (CheckCollisionRecs(j->body.pos, j->food.pos)){
+        return 1;
+    }
+    return 0;
+}
+
+int ColisaoBordas(Jogo *j){
+    if (CheckCollisionRecs(j->body.pos, j->bordas[0].pos) || CheckCollisionRecs(j->body.pos, j->bordas[1].pos) || CheckCollisionRecs(j->body.pos, j->bordas[2].pos) || CheckCollisionRecs(j->body.pos, j->bordas[3].pos)){
         return 1;
     }
     return 0;
