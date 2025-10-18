@@ -11,26 +11,28 @@
 #define STD_SIZE_Y 40
 #define TEMPO 0.2
 #define COOLDOWN 0.2
-#define SNAKE_COLOR YELLOW
-#define FOOD_COLOR BLUE
+#define SNAKE_COLOR BLACK
+#define FOOD_COLOR RED
 
 int main(){
     Jogo jogo;
     int gameOver = 1;
+    int Contador = 0; //Contador de quantas comidas foram pegas
 
     //Cria a janela;
-    InitWindow(LARGURA, ALTURA, "Snake Game");
+    InitWindow(LARGURA, ALTURA, "Cobrinha dos BackyEndigans");
     SetTargetFPS(60);
     srand(time(NULL));
     
     IniciaJogo(&jogo);
     while (!WindowShouldClose()){
         BeginDrawing();
-        ClearBackground(BLACK);
+        ClearBackground(SKYBLUE);
         if (gameOver){
             DesenhaJogo(&jogo);
             AtualizaRodada(&jogo);
             if (ColisaoFood(&jogo)){
+                Contador++; //Toda vez que encosta na comida o Contador aumenta
                 AtualizaLocalFood(&jogo);
             }
             if (ColisaoBordas(&jogo)){
@@ -40,10 +42,12 @@ int main(){
             DrawText("FIM DE JOGO!", 200, 250, 40, RED);
             DrawText("PRESSIONE ENTER PARA REINICIAR", 50, 350, 30, RED);
             if (IsKeyPressed(KEY_ENTER)){
+                Contador = 0; //Quando aperta enter, começa um jogo novo, então o contador é resetado também
                 IniciaJogo(&jogo);
                 gameOver = 1;
             }
         }
+        DrawText(TextFormat("Pontuação: %d", Contador), 15, 15, 30, WHITE); 
         EndDrawing();
     }
     CloseWindow();
