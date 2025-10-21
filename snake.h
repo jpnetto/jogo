@@ -56,6 +56,7 @@ void AtualizaRodada(Jogo *j);
 // Funções atualizadas
 int ColisaoFood(Jogo *j);
 int ColisaoBordas(Jogo *j);
+int ColisaoBody(Jogo *j);
 
 
 

@@ -38,6 +38,10 @@ int main(){
             if (ColisaoBordas(&jogo)){
                 gameOver = 0;
             }
+            if (ColisaoBody(&jogo)){
+                gameOver = 0;
+            }
+                
         } else {
             DrawText("FIM DE JOGO!", 200, 250, 40, RED);
             DrawText("PRESSIONE ENTER PARA REINICIAR", 50, 350, 30, RED);
@@ -223,6 +227,22 @@ int ColisaoFood(Jogo *j){
 int ColisaoBordas(Jogo *j){
     if (CheckCollisionRecs(j->body.head->pos, j->bordas[0].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[1].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[2].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[3].pos)){
         return 1;
+    }
+    return 0;
+}
+
+int ColisaoBody(Jogo *j){
+    if(j->body.size>3){
+        Block* aux = j->body.head->prox;
+        for(int i=0; i<=2; i++){
+            aux = aux->prox;
+        }
+        while(aux!=j->body.tail->prox){
+            if (CheckCollisionRecs(j->body.head->pos, aux->pos)){
+                return 1;
+            }
+            aux = aux->prox;
+        }
     }
     return 0;
 }
