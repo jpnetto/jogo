@@ -44,7 +44,7 @@ int main(){
             if (IsKeyPressed(KEY_ENTER)){
                 Contador = 0; //Quando aperta enter, começa um jogo novo, então o contador é resetado também
                 IniciaJogo(&jogo);
-                gameOver = 1;
+                 gameOver = 1;
             }
         }
         DrawText(TextFormat("Pontuação: %d", Contador), 15, 15, 30, WHITE); 
@@ -54,10 +54,27 @@ int main(){
     return 0;
 }
 
+
 void IniciaBody(Jogo *j){
-    j->body.pos = (Rectangle) {LARGURA/2 - STD_SIZE_X, ALTURA - STD_SIZE_Y -10, STD_SIZE_X, STD_SIZE_Y};
+    Block* new = (Block*)malloc(sizeof(Block));
+    if(new == NULL){
+        return;
+    }
+    new->pos = (Rectangle){LARGURA/2 - STD_SIZE_X, ALTURA/2, STD_SIZE_X, STD_SIZE_Y};
+    // conferir posição
+
+    new->color = SNAKE_COLOR;
+    new->prox = NULL;
+    j->body.head = new;
+    j->body.tail = new;
+    j->body.size = 1;
     j->body.direcao = 0;
     j->body.color = SNAKE_COLOR;
+
+    for(int i=0; i<2; i++){
+        AtualizaHead(&j->body, j->body.head->pos.x, j->body.head->pos.y);
+    }
+    
 }
 
 void IniciaBordas(Jogo *j){
@@ -83,10 +100,6 @@ void IniciaJogo(Jogo *j){
     j->tempo = GetTime();
 }
 
-void DesenhaBody(Jogo *j){
-    DrawRectangleRec(j->body.pos, j->body.color);
-}
-
 void DesenhaFood(Jogo *j){
     DrawRectangleRec(j->food.pos, j->food.color);
 }
@@ -98,11 +111,6 @@ void DesenhaBordas(Jogo *j){
     }
 }
 
-void DesenhaJogo(Jogo *j){
-    DesenhaBordas(j);
-    DesenhaBody(j);
-    DesenhaFood(j);
-}
 
 void AtualizaDirecao(Jogo *j){
     //Atualiza para qual direção a cobra vai  
@@ -124,19 +132,46 @@ void AtualizaDirecao(Jogo *j){
     }
 }
 
+
+void DesenhaBody(Jogo *j){
+    Block *aux = j->body.head;
+
+    while(aux!=NULL){
+        DrawRectangleRec(aux->pos, aux->color);
+        aux = aux->prox;
+    }
+}
+
+void DesenhaJogo(Jogo *j){
+    DesenhaBordas(j);
+    DesenhaBody(j);
+    DesenhaFood(j);
+}
+
 void AtualizaPosBody(Jogo *j){
 
-    if (j->body.direcao == 0){
-        j->body.pos.y -= STD_SIZE_Y;
+    float x = j->body.head->pos.x;
+    float y = j->body.head->pos.y;
+
+    if(j->body.direcao == 0){
+        y -= STD_SIZE_Y; 
+    } 
+    else if(j->body.direcao == 1){
+        x += STD_SIZE_X;
     }
-    if (j->body.direcao == 1){
-        j->body.pos.x += STD_SIZE_X;
+    else if(j->body.direcao == 2){
+        y += STD_SIZE_Y;
     }
-    if (j->body.direcao == 2){
-        j->body.pos.y += STD_SIZE_Y;
+    else if(j->body.direcao == 3){
+        x -= STD_SIZE_X;
     }
-    if (j->body.direcao == 3){
-        j->body.pos.x -= STD_SIZE_X;
+
+    AtualizaHead(&j->body, x, y);
+    if(ColisaoFood(j)){
+        AtualizaLocalFood(j);
+    }
+    else{
+        RemoveCauda(&j->body);
     }
 }
 
@@ -154,15 +189,39 @@ void AtualizaLocalFood(Jogo *j){
     j->food.pos = (Rectangle) {(float)(rand() % ((ALTURA - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10), (float)(rand() % ((ALTURA - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10), STD_SIZE_X, STD_SIZE_Y};
 }
 
+void AtualizaHead(Body *body, float x, float y){
+    Block* new = (Block*)malloc(sizeof(Block));
+    new->pos = (Rectangle){x, y, body->head->pos.width, body->head->pos.height};
+    new->color = body->color;
+    new->prox = body->head;
+    body->head = new;
+    body->size++;
+}
+
+void RemoveCauda(Body* body){
+    if(body->size <= 1){
+        return;
+    }
+
+    Block* aux = body->head;
+    while(aux->prox != body->tail){
+        aux = aux->prox;
+    }
+    free(body->tail);
+    body->tail = aux;
+    body->tail->prox = NULL;
+    body->size--;
+
+}
 int ColisaoFood(Jogo *j){
-    if (CheckCollisionRecs(j->body.pos, j->food.pos)){
+    if (CheckCollisionRecs(j->body.head->pos, j->food.pos)){
         return 1;
     }
     return 0;
 }
 
 int ColisaoBordas(Jogo *j){
-    if (CheckCollisionRecs(j->body.pos, j->bordas[0].pos) || CheckCollisionRecs(j->body.pos, j->bordas[1].pos) || CheckCollisionRecs(j->body.pos, j->bordas[2].pos) || CheckCollisionRecs(j->body.pos, j->bordas[3].pos)){
+    if (CheckCollisionRecs(j->body.head->pos, j->bordas[0].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[1].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[2].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[3].pos)){
         return 1;
     }
     return 0;
