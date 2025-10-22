@@ -188,9 +188,33 @@ void AtualizaRodada(Jogo *j){
     }
 }
 
+int verificaColisaoFoodCorpo(Jogo *j, float ca, float cl){
+    Block* aux = j->body.head;
+    int colide = 0;
+
+    while(aux != NULL){
+        if(aux->pos.height == ca && aux->pos.width == cl){
+            colide = 1;
+            break;
+        }
+        aux = aux->prox;
+    }
+    return colide;
+}
+
 //função que atualiza o local da comida toda vez que a cobra se alimenta dela
 void AtualizaLocalFood(Jogo *j){ 
-    j->food.pos = (Rectangle) {(float)(rand() % ((ALTURA - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10), (float)(rand() % ((ALTURA - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10), STD_SIZE_X, STD_SIZE_Y};
+    float coordAltura, coordLargura;
+
+    coordAltura = (float)(rand() % ((ALTURA - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10);
+    coordLargura = (float)(rand() % ((ALTURA - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10);
+    
+    if(verificaColisaoFoodCorpo(j, coordAltura, coordLargura)){
+        AtualizaLocalFood(j);
+    } else{
+        j->food.pos = (Rectangle) {coordAltura, coordLargura, STD_SIZE_X, STD_SIZE_Y};
+    }
+
 }
 
 void AtualizaHead(Body *body, float x, float y){
