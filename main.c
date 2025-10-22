@@ -14,32 +14,32 @@
 #define SNAKE_COLOR BLACK
 #define FOOD_COLOR RED
 
+int Contador = 0;//Contador de quantas comidas foram pegas (Criei momentaneamente de forma global mas depois pretendo mudar)
+
 int main(){
     Jogo jogo;
     int gameOver = 1;
-    int Contador = 0; //Contador de quantas comidas foram pegas
 
     //Cria a janela;
     InitWindow(LARGURA, ALTURA, "Cobrinha dos BackyEndigans");
-    SetTargetFPS(60);
+    SetTargetFPS(40);
     srand(time(NULL));
     
     IniciaJogo(&jogo);
     while (!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(SKYBLUE);
+        DrawText(TextFormat("Pontuação: %d", Contador), 15, 15, 30, WHITE); 
         if (gameOver){
             DesenhaJogo(&jogo);
             AtualizaRodada(&jogo);
-            if (ColisaoFood(&jogo)){
-                Contador++; //Toda vez que encosta na comida o Contador aumenta
-                AtualizaLocalFood(&jogo);
-            }
             if (ColisaoBordas(&jogo)){
                 gameOver = 0;
+                continue;
             }
             if (ColisaoBody(&jogo)){
                 gameOver = 0;
+                continue;
             }
                 
         } else {
@@ -51,7 +51,6 @@ int main(){
                  gameOver = 1;
             }
         }
-        DrawText(TextFormat("Pontuação: %d", Contador), 15, 15, 30, WHITE); 
         EndDrawing();
     }
     CloseWindow();
@@ -173,6 +172,7 @@ void AtualizaPosBody(Jogo *j){
     AtualizaHead(&j->body, x, y);
     if(ColisaoFood(j)){
         AtualizaLocalFood(j);
+        Contador++;//Toda vez que encosta na comida o Contador aumenta
     }
     else{
         RemoveCauda(&j->body);
