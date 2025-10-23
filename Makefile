@@ -22,6 +22,6 @@ run: $(TARGET)
 	./jogo
 
 clean:
-	rm *.o
+	rm -f $(TARGET) $(OBJS)
 
 .PHONY: all run clean #Isso aqui é só para indicar que all run e clean não sao arquivos
