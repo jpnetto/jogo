@@ -1,6 +1,17 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 #include "raylib.h"
+#include "janela.h"
+
+#define LARGURA 660
+#define ALTURA 660
+#define STD_SIZE_X 40
+#define STD_SIZE_Y 40
+#define TEMPO 0.2
+#define COOLDOWN 0.2
+#define SNAKE_COLOR BLACK
+#define FOOD_COLOR RED
+
 
 typedef struct Bordas{
     Rectangle pos;
