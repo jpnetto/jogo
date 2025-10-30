@@ -209,7 +209,7 @@ int ColisaoBody(Jogo *j){
         for(int i=0; i<=2; i++){
             aux = aux->prox;
         }
-        while(aux!=j->body.tail->prox){
+        while(aux!=NULL){
             if (CheckCollisionRecs(j->body.head->pos, aux->pos)){
                 return 1;
             }
