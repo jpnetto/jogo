@@ -6,13 +6,17 @@
 #include <time.h>
 #include "janela.h"
 
+
 void IniciaBody(Jogo *j){
+
+    // Inicializa a cobrinha, o primeiro bloco.
     Block* new = (Block*)malloc(sizeof(Block));
     if(new == NULL){
         return;
     }
-    new->pos = (Rectangle){LARGURA/2 - STD_SIZE_X, ALTURA/2, STD_SIZE_X, STD_SIZE_Y};
-    // conferir posição
+
+    new->pos = (Rectangle){LARGURA/2 - STD_SIZE_X, ALTURA - STD_SIZE_Y - 10, STD_SIZE_X, STD_SIZE_Y};
+    // Mantive as coordenadas de início utilizadas no IniciaBody do código base enviado pelo professor.
 
     new->color = SNAKE_COLOR;
     new->prox = NULL;
@@ -22,10 +26,10 @@ void IniciaBody(Jogo *j){
     j->body.direcao = 0;
     j->body.color = SNAKE_COLOR;
 
-    for(int i=0; i<2; i++){
+    // É o que dá corpo à cobrinha inicial.
+    for(int i=1; i<3; i++){
         AtualizaHead(&j->body, j->body.head->pos.x, j->body.head->pos.y);
     }
-    
 }
 
 void IniciaBordas(Jogo *j){
@@ -101,6 +105,9 @@ void DesenhaJogo(Jogo *j){
 
 void AtualizaPosBody(Jogo *j){
 
+    // Movimentação da cobra. 
+    // Armazenamos a posição atual da cabeça da cobra e calculamos as novas.
+
     float x = j->body.head->pos.x;
     float y = j->body.head->pos.y;
 
@@ -117,7 +124,19 @@ void AtualizaPosBody(Jogo *j){
         x -= STD_SIZE_X;
     }
 
+    // Enviamos as coordenadas calculadas para a AtualizaHead.
+    // Ou seja, toda posição que a cobra anda, aumenta um novo block. 
     AtualizaHead(&j->body, x, y);
+
+
+    // Para impedir que a cauda seja removida em caso de colisão com o último bloco.
+    if(ColisaoBody(j)){
+        return;
+    }
+
+    // Movimentação:
+    // Caso tenha encontrado comida, esse novo bloco fica.
+    // Caso não tenha, o bloco de trás é removido. 
     if(ColisaoFood(j)){
         AtualizaLocalFood(j);
         Increase_score();//Toda vez que encosta na comida o Contador aumenta
@@ -204,17 +223,22 @@ int ColisaoBordas(Jogo *j){
 }
 
 int ColisaoBody(Jogo *j){
-    if(j->body.size>3){
-        Block* aux = j->body.head->prox;
-        for(int i=0; i<=2; i++){
-            aux = aux->prox;
-        }
-        while(aux!=NULL){
-            if (CheckCollisionRecs(j->body.head->pos, aux->pos)){
-                return 1;
-            }
-            aux = aux->prox;
-        }
+    if(j->body.size<3){
+        return 0;
     }
+
+    Block* aux = j->body.head->prox;
+    for(int i=0; i<2; i++){
+           if(aux != NULL){
+             aux = aux->prox;
+           }
+    }
+    while(aux != NULL){
+        if (CheckCollisionRecs(j->body.head->pos, aux->pos)){
+            return 1;
+        }
+        aux = aux->prox;
+    }
+    
     return 0;
 }
