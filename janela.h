@@ -1,10 +1,9 @@
 #ifndef JANELA
 #define JANELA
 #include "raylib.h"
+#include "snake.h"
 
-extern int Contador;
-
-void Reset_score();
-void Increase_score();
+void Reset_score(Jogo*);
+void Increase_score(Jogo*);
 
 #endif
