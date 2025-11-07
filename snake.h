@@ -1,7 +1,6 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 #include "raylib.h"
-#include "janela.h"
 
 #define LARGURA 660
 #define ALTURA 660
@@ -20,6 +19,7 @@ typedef struct Bordas{
 typedef struct Food{
     Rectangle pos;
     Color color;
+    //Texture texture;(Não tem funcionalidade ainda)
 }Food;
 
 // Estruturas novas/atualizadas
@@ -35,6 +35,7 @@ typedef struct Body{
     int direcao;
     int size;
     Color color;
+    //Texture texture;(Não tem funcionalidade ainda)
 } Body;
 
 typedef struct Jogo{
@@ -43,6 +44,8 @@ typedef struct Jogo{
     Food food;
     double tempo;
     double cooldown;
+    int contador;
+    //Texture2D fundo;(Não tem funcionalidade ainda)
 } Jogo;
 
 
