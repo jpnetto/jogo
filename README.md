@@ -6,15 +6,9 @@ Este projeto tem como objetivo desenvolver um jogo no estilo do famoso "jogo da 
 ---
 
 ## 👨‍💻 Desenvolvedores
-<<<<<<< HEAD
 Bernardo Rezende Brasil - Bernardoresende2006 \\
 João Pedro Netto Lima - jpnetto \\
 Sophia Santana Silva - sophiasantanas 
-=======
-Bernardo Resende Brasil - Bernardoresende2006
-João Pedro Netto Lima - jpnetto
-Sophia Santana Silva - sophiasantanas
->>>>>>> 10bfb4b5bf4fae65f9132bfc061c79849b6c1f3d
 
 ---
 
