@@ -9,11 +9,12 @@
 
 int main(){
     Jogo jogo;
+    Reset_score(&jogo); //Começa o jogo com contador 0
     int gameOver = 1;
 
     //Cria a janela;
     InitWindow(LARGURA, ALTURA, "Cobrinha dos BackyEndigans");
-    SetTargetFPS(40);
+    SetTargetFPS(60);
     srand(time(NULL));
     
     IniciaJogo(&jogo);
@@ -31,17 +32,18 @@ int main(){
                 gameOver = 0;
                 continue;
             }
-                
+            DrawText(TextFormat("Pontuação: %d", jogo.contador), 15, 15, 30, WHITE);
         } else {
-            DrawText("FIM DE JOGO!", 200, 250, 40, RED);
-            DrawText("PRESSIONE ENTER PARA REINICIAR", 50, 350, 30, RED);
+            DrawText("FIM DE JOGO!", 155, 160, 50, RED);
+            DrawText(TextFormat("Sua Pontuação: %d", jogo.contador), 110, 280, 50, BLACK);
+            DrawText("PRESSIONE ENTER PARA REINICIAR", 50, 420, 30, RED);
             if (IsKeyPressed(KEY_ENTER)){
-                Reset_score(); //Quando aperta enter, começa um jogo novo, então o contador é resetado também
+                Reset_score(&jogo); //Quando aperta enter, começa um jogo novo, então o contador é resetado também
                 IniciaJogo(&jogo);
                  gameOver = 1;
             }
         }
-        DrawText(TextFormat("Pontuação: %d", Contador), 15, 15, 30, WHITE); 
+         
         EndDrawing();
     }
     CloseWindow();
