@@ -7,7 +7,7 @@ Este projeto tem como objetivo desenvolver um jogo no estilo do famoso "jogo da 
 
 ## 👨‍💻 Desenvolvedores
 
-- Bernardo Rezende Brasil — `Bernardoresende2006`
+- Bernardo Resende Brasil — `Bernardoresende2006`
 - João Pedro Netto Lima — `jpnetto`
 - Sophia Santana Silva — `sophiasantanas`
 
