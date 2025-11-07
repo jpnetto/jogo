@@ -139,7 +139,7 @@ void AtualizaPosBody(Jogo *j){
     // Caso não tenha, o bloco de trás é removido. 
     if(ColisaoFood(j)){
         AtualizaLocalFood(j);
-        Increase_score();//Toda vez que encosta na comida o Contador aumenta
+        Increase_score(j);//Toda vez que encosta na comida o Contador aumenta
     }
     else{
         RemoveCauda(&j->body);
