@@ -6,12 +6,10 @@
 #include <time.h>
 #include "janela.h"
 
-int Contador = 0;//Contador de quantas comidas foram pegas (Criei momentaneamente de forma global mas depois pretendo mudar)
-
-void Reset_score(){
-    Contador = 0;
+void Reset_score(Jogo* j){
+    j->contador = 0;
 }
 
-void Increase_score(){
-    Contador++;
+void Increase_score(Jogo* j){
+    j->contador++;
 }
