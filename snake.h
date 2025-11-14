@@ -2,8 +2,6 @@
 #define SNAKE_H
 #include "raylib.h"
 
-#define LARGURA 660
-#define ALTURA 660
 #define STD_SIZE_X 40
 #define STD_SIZE_Y 40
 #define TEMPO 0.2
@@ -39,6 +37,8 @@ typedef struct Body{
 } Body;
 
 typedef struct Jogo{
+    int largura;
+    int altura;
     Body body;
     Bordas bordas[4];
     Food food;
