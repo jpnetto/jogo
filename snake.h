@@ -66,7 +66,6 @@ typedef struct Jogo{
 
 
 void IniciaBordas(Jogo *j);
-void IniciaObstaculos(Jogo *j);
 void IniciaFood(Jogo *j);
 void DesenhaBordas(Jogo *j);
 void DesenhaFood(Jogo *j);
@@ -86,10 +85,10 @@ void IniciaJogo(Jogo *j);
 void AtualizaDirecao(Jogo *j);
 void AtualizaPosBody(Jogo *j);
 void AtualizaRodada(Jogo *j);
+int ColisaoBordas(Jogo *j);
 
 // Funções atualizadas
 int ColisaoFood(Jogo *j);
-int ColisaoBordas(Jogo *j);
 int ColisaoBody(Jogo *j);
 
 #endif

@@ -2,6 +2,7 @@
 #include "raylib.h"
 #include "snake.h"
 #include "janela.h"
+#include "obstaculos.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -32,14 +33,11 @@ int main(){
             if (gameOver){
                 DesenhaJogo(&jogo);
                 AtualizaRodada(&jogo);
-                if (ColisaoBordas(&jogo)){
+                if ((ColisaoBody(&jogo))||(ColisaoObstaculos(&jogo))){
                     gameOver = 0;
                     continue;
                 }
-                if (ColisaoBody(&jogo)){
-                    gameOver = 0;
-                    continue;
-                }
+                ColisaoBordas(&jogo);
                 DrawText(TextFormat("Pontuação: %d", jogo.contador), 15, 15, 30, WHITE);
             } else {
                 Death_message(&jogo);
