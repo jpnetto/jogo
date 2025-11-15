@@ -105,19 +105,22 @@ void Options_screen(Jogo* j){
         DrawText("Aperte ENTER na posicao desejada", 55, 100, 30, WHITE);
         DrawText("Tamanho", 240, 200, 40, WHITE);
         DrawText("Mapas", 260, 350, 40, WHITE);
+        DrawText("Retornar", 235, 500, 40, WHITE);
         
         if(IsKeyPressed(KEY_UP)){
             if(cursor<=0)cursor = 0;
             else cursor--;
         };
         if(IsKeyPressed(KEY_DOWN)){
-            if(cursor>=1)cursor = 1;
+            if(cursor>1)cursor = 2;
             else cursor++;
         };
         if(cursor <= 0){
             Size_cursor(&selection, 230, 245, 200, 5);
         } else if(cursor == 1){
             Size_cursor(&selection, 230, 395, 200, 5);
+        } else if(cursor ==2){
+            Size_cursor(&selection, 230, 545, 200, 5);
         }
         if(IsKeyPressed(KEY_ENTER)){
             if(cursor == 0){
@@ -129,9 +132,10 @@ void Options_screen(Jogo* j){
                 CloseWindow();
                 Choose_of_map(j);
                 InitWindow(660, 660, "Cobrinha dos BackyEndigans");
+            } else{
+                EndDrawing();
+                break; 
             }
-            EndDrawing();
-            break; 
         }
         DrawRectangleRec(selection, WHITE);
         EndDrawing();

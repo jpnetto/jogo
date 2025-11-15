@@ -18,7 +18,7 @@ int main(){
         spacereset = 0;
         InitWindow(660, 660, " ");
     
-        if (Menu_screen(&jogo)) return 0; //Garante que o jogo só rode se o jogador apertar em iniciar
+        if (Menu_screen(&jogo))return 0; //Garante que o jogo só rode se o jogador apertar em iniciar
         int gameOver = 1;
         
         InitWindow(jogo.largura, jogo.altura, "Cobrinha dos BackyEndigans");
