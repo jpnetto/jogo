@@ -15,7 +15,7 @@ void IniciaBody(Jogo *j){
         return;
     }
 
-    new->pos = (Rectangle){LARGURA/2 - STD_SIZE_X, ALTURA - STD_SIZE_Y - 10, STD_SIZE_X, STD_SIZE_Y};
+    new->pos = (Rectangle){j->largura/2 - STD_SIZE_X, j->altura - STD_SIZE_Y - 10, STD_SIZE_X, STD_SIZE_Y};
     // Mantive as coordenadas de início utilizadas no IniciaBody do código base enviado pelo professor.
 
     new->color = SNAKE_COLOR;
@@ -34,18 +34,24 @@ void IniciaBody(Jogo *j){
 
 void IniciaBordas(Jogo *j){
     //Borda de cima
-    j->bordas[0].pos = (Rectangle) {0, 0, LARGURA, 10};
+    j->bordas[0].pos = (Rectangle) {0, 0, j->largura, 10};
     //Borda da direita
-    j->bordas[1].pos = (Rectangle) {LARGURA - 10, 0, 10, ALTURA};
+    j->bordas[1].pos = (Rectangle) {j->largura - 10, 0, 10, j->altura};
     //Borda de baixo
-    j->bordas[2].pos = (Rectangle) {0, ALTURA - 10, LARGURA, 10};
+    j->bordas[2].pos = (Rectangle) {0, j->altura - 10, j->largura, 10};
     //Borda da esquerda
-    j->bordas[3].pos = (Rectangle) {0, 0, 10, ALTURA};
+    j->bordas[3].pos = (Rectangle) {0, 0, 10, j->altura};
 }
 
 void IniciaFood(Jogo *j){
-    j->food.pos = (Rectangle) {(float)(rand() % ((ALTURA - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10), (float)(rand() % ((ALTURA - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10), STD_SIZE_X, STD_SIZE_Y};
+    j->food.pos = (Rectangle) {(float)(rand() % ((j->altura - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10), (float)(rand() % ((j->altura - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10), STD_SIZE_X, STD_SIZE_Y};
     j->food.color = FOOD_COLOR;
+}
+
+void IniciaTrilhaSonora(Jogo *j){
+    j->trilhaSonora.colisaoCorpo = LoadSound("assets/curtoCircuito.mp3");
+    j->trilhaSonora.colisaoFruta = LoadSound("assets/carregaBateria.mp3");
+    // j->trilhaSonora.musica = LoadMusicStream(""); 
 }
 
 void IniciaJogo(Jogo *j){
@@ -61,11 +67,30 @@ void DesenhaFood(Jogo *j){
 
 void DesenhaBordas(Jogo *j){
     //Desenha as barreiras nas bordas
-    for (int i = 0; i < 4; i++){
-        DrawRectangleRec(j->bordas[i].pos, LIGHTGRAY);
+    if(j->map == 0){
+        for (int i = 0; i < 4; i++){
+            DrawRectangleRec(j->bordas[i].pos, LIGHTGRAY);
+        }
+    } else if(j->map == 1){
+        for (int i = 0; i < 4; i++){
+            DrawRectangleRec(j->bordas[i].pos, PINK);
+        }
+    } else {
+        for (int i = 0; i < 4; i++){
+            DrawRectangleRec(j->bordas[i].pos, YELLOW);
+        }
     }
 }
 
+void Draw_Backgound(Jogo* j){
+    if(j->map == 0){
+        ClearBackground(SKYBLUE);
+    } else if(j->map == 1){
+        ClearBackground(BLUE);
+    } else {
+        ClearBackground(GREEN);
+    }
+}
 
 void AtualizaDirecao(Jogo *j){
     //Atualiza para qual direção a cobra vai  
@@ -173,8 +198,8 @@ int verificaColisaoFoodCorpo(Jogo *j, float ca, float cl){
 void AtualizaLocalFood(Jogo *j){ 
     float coordAltura, coordLargura;
 
-    coordAltura = (float)(rand() % ((ALTURA - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10);
-    coordLargura = (float)(rand() % ((LARGURA - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10);
+    coordAltura = (float)(rand() % ((j->altura - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10);
+    coordLargura = (float)(rand() % ((j->largura - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10);
     
     if(verificaColisaoFoodCorpo(j, coordAltura, coordLargura)){
         AtualizaLocalFood(j);
@@ -208,8 +233,27 @@ void RemoveCauda(Body* body){
     body->size--;
 
 }
+
+void FinalizaTrilhaSonora(Jogo *j) {
+    UnloadSound(j->trilhaSonora.colisaoCorpo);
+    UnloadSound(j->trilhaSonora.colisaoFruta);
+}
+
+void FinalizaCobra(Jogo *j){
+    Block *aux = j->body.head;
+    while (aux != NULL) {
+        Block *prox = aux->prox;
+        free(aux);
+        aux = prox;
+    }
+    j->body.head = NULL;
+    j->body.tail = NULL;
+    j->body.size = 0;
+}
+
 int ColisaoFood(Jogo *j){
     if (CheckCollisionRecs(j->body.head->pos, j->food.pos)){
+        PlaySound(j->trilhaSonora.colisaoFruta);
         return 1;
     }
     return 0;
@@ -217,10 +261,19 @@ int ColisaoFood(Jogo *j){
 
 int ColisaoBordas(Jogo *j){
     if (CheckCollisionRecs(j->body.head->pos, j->bordas[0].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[1].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[2].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[3].pos)){
+        PlaySound(j->trilhaSonora.colisaoCorpo);
         return 1;
     }
     return 0;
 }
+
+/*
+int ColisaoObstaculos(Jogo *j){
+    if(CheckCollisionRecs(j->body->head->pos, j->obstaculos)){
+
+    }
+}
+    */
 
 int ColisaoBody(Jogo *j){
     if(j->body.size<3){
@@ -235,6 +288,7 @@ int ColisaoBody(Jogo *j){
     }
     while(aux != NULL){
         if (CheckCollisionRecs(j->body.head->pos, aux->pos)){
+            PlaySound(j->trilhaSonora.colisaoCorpo);
             return 1;
         }
         aux = aux->prox;
