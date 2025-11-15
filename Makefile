@@ -1,7 +1,7 @@
 CC = gcc 
 CFLAGS = -Wall -std=c99 #Usando isso só para confirmar que os warnings vao aparecer e garantir que o codigo vai rodar na versão mais recente, que é o c99
 TARGET = jogo #nome do nosso executável 
-OBJS = main.o snake.o janela.o#aqui é a lista de arquivos que vão ser ligados para formar o executável
+OBJS = main.o snake.o janela.o obstaculos.o#aqui é a lista de arquivos que vão ser ligados para formar o executável
 RAYLIB = -lraylib -lm
 
 all: $(TARGET)
@@ -17,6 +17,9 @@ snake.o: snake.c snake.h
 
 janela.o: janela.c janela.h
 	$(CC) $(CFLAGS) -c janela.c
+
+obstaculos.o: obstaculos.c obstaculos.h
+	$(CC) $(CFLAGS) -c obstaculos.c
 
 run: $(TARGET)
 	./jogo

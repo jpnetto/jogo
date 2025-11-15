@@ -14,6 +14,10 @@ typedef struct Bordas{
     Rectangle pos;
 }Bordas;
 
+typedef struct Obstaculos{
+    Rectangle pos;
+}Obstaculos;
+
 typedef struct Food{
     Rectangle pos;
     Color color;
@@ -53,6 +57,10 @@ typedef struct Jogo{
     int contador;
     TrilhaSonora trilhaSonora;
     int map;
+
+    Obstaculos obstaculosLaterais[4];
+    Obstaculos obstaculos;
+    
     //Texture2D fundo;(Não tem funcionalidade ainda)
 } Jogo;
 

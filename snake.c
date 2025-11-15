@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <time.h>
 #include "janela.h"
+#include "obstaculos.h"
 
 
 void IniciaBody(Jogo *j){
@@ -58,13 +59,14 @@ void IniciaJogo(Jogo *j){
     IniciaBordas(j);
     IniciaBody(j);
     IniciaFood(j);
+    IniciaObstaculos(j);
     j->tempo = GetTime();
 }
 
 void DesenhaFood(Jogo *j){
     DrawRectangleRec(j->food.pos, j->food.color);
 }
-
+/*
 void DesenhaBordas(Jogo *j){
     //Desenha as barreiras nas bordas
     if(j->map == 0){
@@ -79,8 +81,9 @@ void DesenhaBordas(Jogo *j){
         for (int i = 0; i < 4; i++){
             DrawRectangleRec(j->bordas[i].pos, YELLOW);
         }
-    }
+    }  
 }
+    */
 
 void Draw_Backgound(Jogo* j){
     if(j->map == 0){
@@ -123,9 +126,10 @@ void DesenhaBody(Jogo *j){
 }
 
 void DesenhaJogo(Jogo *j){
-    DesenhaBordas(j);
+    // DesenhaBordas(j);
     DesenhaBody(j);
     DesenhaFood(j);
+    DesenhaObstaculos(j);
 }
 
 void AtualizaPosBody(Jogo *j){
@@ -267,13 +271,6 @@ int ColisaoBordas(Jogo *j){
     return 0;
 }
 
-/*
-int ColisaoObstaculos(Jogo *j){
-    if(CheckCollisionRecs(j->body->head->pos, j->obstaculos)){
-
-    }
-}
-    */
 
 int ColisaoBody(Jogo *j){
     if(j->body.size<3){
