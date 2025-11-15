@@ -7,6 +7,7 @@
 #include "janela.h"
 
 void Startgame(Jogo*j){
+    j->mapa = 0;
     j->contador = 0;
     j->largura = 660;
     j->altura = 660;
@@ -78,7 +79,7 @@ int Menu_screen(Jogo* j){
                 break;
             } else if(cursor == 1){
                 CloseWindow();
-                Size_map(j);
+                Options_screen(j);
                 InitWindow(660, 660, " ");
             } else{
                 retorno = 0;
@@ -93,7 +94,50 @@ int Menu_screen(Jogo* j){
     return retorno;    
 }
 
+void Options_screen(Jogo* j){
+    InitWindow(660, 660, "Cobrinha dos BackyEndigans");
+    int cursor = 0;
+    Rectangle selection;
+    while (!WindowShouldClose()){
+        BeginDrawing();
+        ClearBackground(BLACK);
+        DrawText("Configurações:", 20, 20, 30, WHITE);
+        DrawText("Aperte ENTER na posicao desejada", 55, 100, 30, WHITE);
+        DrawText("Tamanho", 240, 200, 40, WHITE);
+        DrawText("Mapas", 260, 350, 40, WHITE);
+        
+        if(IsKeyPressed(KEY_UP)){
+            if(cursor<=0)cursor = 0;
+            else cursor--;
+        };
+        if(IsKeyPressed(KEY_DOWN)){
+            if(cursor>=1)cursor = 1;
+            else cursor++;
+        };
+        if(cursor <= 0){
+            Size_cursor(&selection, 230, 245, 200, 5);
+        } else if(cursor == 1){
+            Size_cursor(&selection, 230, 395, 200, 5);
+        }
+        if(IsKeyPressed(KEY_ENTER)){
+            if(cursor == 0){
+                CloseWindow();
+                Size_map(j);
+                InitWindow(660, 660, "Cobrinha dos BackyEndigans");
 
+            } else if(cursor == 1){
+                CloseWindow();
+                Choose_of_map(j);
+                InitWindow(660, 660, "Cobrinha dos BackyEndigans");
+            }
+            EndDrawing();
+            break; 
+        }
+        DrawRectangleRec(selection, WHITE);
+        EndDrawing();
+    }
+    CloseWindow();
+}
 
 
 void Size_map(Jogo* j){
@@ -103,6 +147,7 @@ void Size_map(Jogo* j){
     while (!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(BLACK);
+        DrawText("Tamanho:", 20, 20, 30, WHITE);
         DrawText("Aperte ENTER na posicao desejada", 55, 100, 30, WHITE);
         DrawText("Mapa Pequeno", 185, 200, 40, WHITE);
         DrawText("Mapa Médio", 185, 350, 40, WHITE);
@@ -148,4 +193,49 @@ void Size_cursor(Rectangle* selection, int a, int b, int c, int d){
     selection->y = b;
     selection->width = c;
     selection->height = d;
+}
+
+void Choose_of_map(Jogo* j){
+    InitWindow(660, 660, "Cobrinha dos BackyEndigans");
+    int cursor = 0;
+    Rectangle selection;
+    while (!WindowShouldClose()){
+        BeginDrawing();
+        ClearBackground(BLACK);
+        DrawText("Mapas:", 20, 20, 30, WHITE);
+        DrawText("Aperte ENTER na posicao desejada", 55, 100, 30, WHITE);
+        DrawText("Mapa 1", 250, 200, 40, WHITE);
+        DrawText("Mapa 2", 250, 350, 40, WHITE);
+        DrawText("Mapa 3", 250, 500, 40, WHITE);
+        
+        if(IsKeyPressed(KEY_UP)){
+            if(cursor<=0)cursor = 0;
+            else cursor--;
+        };
+        if(IsKeyPressed(KEY_DOWN)){
+            if(cursor>1)cursor = 2;
+            else cursor++;
+        };
+        if(cursor <= 0){
+            Size_cursor(&selection, 220, 245, 200, 5);
+        } else if(cursor == 1){
+            Size_cursor(&selection, 220, 395, 200, 5);
+        } else if(cursor > 1){
+            Size_cursor(&selection, 220, 545, 200, 5);
+        }
+        if(IsKeyPressed(KEY_ENTER)){
+            if(cursor == 0){
+                j->mapa = 0;
+            } else if(cursor == 1){
+                j->mapa = 1;
+            } else{
+                j->mapa = 2;
+            }
+            EndDrawing();
+            break; 
+        }
+        DrawRectangleRec(selection, WHITE);
+        EndDrawing();
+    }
+    CloseWindow();
 }

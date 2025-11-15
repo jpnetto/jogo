@@ -17,4 +17,8 @@ int Menu_screen(Jogo*);
 
 void Startgame(Jogo*j);
 
+void Choose_of_map(Jogo* j);
+
+void Options_screen(Jogo* j);
+
 #endif

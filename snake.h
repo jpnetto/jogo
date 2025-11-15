@@ -52,6 +52,7 @@ typedef struct Jogo{
     double cooldown;
     int contador;
     TrilhaSonora trilhaSonora;
+    int mapa;
     //Texture2D fundo;(Não tem funcionalidade ainda)
 } Jogo;
 
