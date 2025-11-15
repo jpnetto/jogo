@@ -15,7 +15,7 @@ void IniciaBody(Jogo *j){
         return;
     }
 
-    new->pos = (Rectangle){j->largura/2 - STD_SIZE_X, j->altura - STD_SIZE_Y - 10, STD_SIZE_X, STD_SIZE_Y};
+    new->pos = (Rectangle){LARGURA/2 - STD_SIZE_X, ALTURA - STD_SIZE_Y - 10, STD_SIZE_X, STD_SIZE_Y};
     // Mantive as coordenadas de início utilizadas no IniciaBody do código base enviado pelo professor.
 
     new->color = SNAKE_COLOR;
@@ -34,17 +34,17 @@ void IniciaBody(Jogo *j){
 
 void IniciaBordas(Jogo *j){
     //Borda de cima
-    j->bordas[0].pos = (Rectangle) {0, 0, j->largura, 10};
+    j->bordas[0].pos = (Rectangle) {0, 0, LARGURA, 10};
     //Borda da direita
-    j->bordas[1].pos = (Rectangle) {j->largura - 10, 0, 10, j->altura};
+    j->bordas[1].pos = (Rectangle) {LARGURA - 10, 0, 10, ALTURA};
     //Borda de baixo
-    j->bordas[2].pos = (Rectangle) {0, j->altura - 10, j->largura, 10};
+    j->bordas[2].pos = (Rectangle) {0, ALTURA - 10, LARGURA, 10};
     //Borda da esquerda
-    j->bordas[3].pos = (Rectangle) {0, 0, 10, j->altura};
+    j->bordas[3].pos = (Rectangle) {0, 0, 10, ALTURA};
 }
 
 void IniciaFood(Jogo *j){
-    j->food.pos = (Rectangle) {(float)(rand() % ((j->altura - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10), (float)(rand() % ((j->altura - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10), STD_SIZE_X, STD_SIZE_Y};
+    j->food.pos = (Rectangle) {(float)(rand() % ((ALTURA - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10), (float)(rand() % ((ALTURA - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10), STD_SIZE_X, STD_SIZE_Y};
     j->food.color = FOOD_COLOR;
 }
 
@@ -139,7 +139,7 @@ void AtualizaPosBody(Jogo *j){
     // Caso não tenha, o bloco de trás é removido. 
     if(ColisaoFood(j)){
         AtualizaLocalFood(j);
-        Increase_score(j);//Toda vez que encosta na comida o Contador aumenta
+        Increase_score();//Toda vez que encosta na comida o Contador aumenta
     }
     else{
         RemoveCauda(&j->body);
@@ -173,8 +173,8 @@ int verificaColisaoFoodCorpo(Jogo *j, float ca, float cl){
 void AtualizaLocalFood(Jogo *j){ 
     float coordAltura, coordLargura;
 
-    coordAltura = (float)(rand() % ((j->altura - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10);
-    coordLargura = (float)(rand() % ((j->largura - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10);
+    coordAltura = (float)(rand() % ((ALTURA - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10);
+    coordLargura = (float)(rand() % ((LARGURA - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10);
     
     if(verificaColisaoFoodCorpo(j, coordAltura, coordLargura)){
         AtualizaLocalFood(j);
