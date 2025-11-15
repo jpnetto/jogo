@@ -36,6 +36,12 @@ typedef struct Body{
     //Texture texture;(Não tem funcionalidade ainda)
 } Body;
 
+typedef struct TrilhaSonora{
+    Sound colisaoCorpo;
+    Sound colisaoFruta;
+    Music musica;
+} TrilhaSonora;
+
 typedef struct Jogo{
     int largura;
     int altura;
@@ -45,13 +51,13 @@ typedef struct Jogo{
     double tempo;
     double cooldown;
     int contador;
-    Sound colisaoCorpo;
-    Sound colisaoFruta;
+    TrilhaSonora trilhaSonora;
     //Texture2D fundo;(Não tem funcionalidade ainda)
 } Jogo;
 
 
 void IniciaBordas(Jogo *j);
+void IniciaObstaculos(Jogo *j);
 void IniciaFood(Jogo *j);
 void DesenhaBordas(Jogo *j);
 void DesenhaFood(Jogo *j);
@@ -62,7 +68,8 @@ void AtualizaDirecao(Jogo *j);
 // Funções novas
 void AtualizaHead(Body *body, float x, float y);
 void RemoveCauda(Body *body);
-void FinalizaSom(Jogo* j);
+void IniciaTrilhaSonora(Jogo* j);
+void FinalizaTrilhaSonora(Jogo* j);
 void FinalizaCobra(Jogo* j);
 
 // Funções muito modificadas
@@ -75,6 +82,5 @@ void AtualizaRodada(Jogo *j);
 int ColisaoFood(Jogo *j);
 int ColisaoBordas(Jogo *j);
 int ColisaoBody(Jogo *j);
-
 
 #endif

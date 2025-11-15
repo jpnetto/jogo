@@ -12,6 +12,8 @@ int main(){
     int spacereset = 1;
     Jogo jogo;
     Startgame(&jogo); //Começa o jogo com o tamanho médio e contador zerado
+    IniciaTrilhaSonora(&jogo);
+
     while(spacereset){
         spacereset = 0;
         InitWindow(660, 660, " ");
@@ -42,12 +44,12 @@ int main(){
             } else {
                 Death_message(&jogo);
                 if (IsKeyPressed(KEY_ENTER)){
-                    FinalizaSom(&jogo);
                     FinalizaCobra(&jogo);
                     Reset_score(&jogo); //Quando aperta enter, começa um jogo novo, então o contador é resetado também
                     IniciaJogo(&jogo);
                     gameOver = 1;
                 } else if(IsKeyPressed(KEY_SPACE)){
+                    FinalizaCobra(&jogo);
                     spacereset = 1;
                     break;
                 };
@@ -56,8 +58,11 @@ int main(){
             EndDrawing();
         }
         CloseWindow();
-        CloseAudioDevice();
+
     }
+
+    FinalizaTrilhaSonora(&jogo);
+    CloseAudioDevice();
 
     return 0;
 }

@@ -48,12 +48,16 @@ void IniciaFood(Jogo *j){
     j->food.color = FOOD_COLOR;
 }
 
+void IniciaTrilhaSonora(Jogo *j){
+    j->trilhaSonora.colisaoCorpo = LoadSound("curtoCircuito.mp3");
+    j->trilhaSonora.colisaoFruta = LoadSound("carregaBateria.mp3");
+    // j->trilhaSonora.musica = LoadMusicStream(""); 
+}
+
 void IniciaJogo(Jogo *j){
     IniciaBordas(j);
     IniciaBody(j);
     IniciaFood(j);
-    j->colisaoCorpo = LoadSound("curtoCircuito.mp3");
-    j->colisaoFruta = LoadSound("carregaBateria.mp3");
     j->tempo = GetTime();
 }
 
@@ -211,9 +215,9 @@ void RemoveCauda(Body* body){
 
 }
 
-void FinalizaSom(Jogo *j) {
-    UnloadSound(j->colisaoCorpo);
-    UnloadSound(j->colisaoFruta);
+void FinalizaTrilhaSonora(Jogo *j) {
+    UnloadSound(j->trilhaSonora.colisaoCorpo);
+    UnloadSound(j->trilhaSonora.colisaoFruta);
 }
 
 void FinalizaCobra(Jogo *j){
@@ -230,7 +234,7 @@ void FinalizaCobra(Jogo *j){
 
 int ColisaoFood(Jogo *j){
     if (CheckCollisionRecs(j->body.head->pos, j->food.pos)){
-        PlaySound(j->colisaoFruta);
+        PlaySound(j->trilhaSonora.colisaoFruta);
         return 1;
     }
     return 0;
@@ -238,11 +242,19 @@ int ColisaoFood(Jogo *j){
 
 int ColisaoBordas(Jogo *j){
     if (CheckCollisionRecs(j->body.head->pos, j->bordas[0].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[1].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[2].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[3].pos)){
-        PlaySound(j->colisaoCorpo);
+        PlaySound(j->trilhaSonora.colisaoCorpo);
         return 1;
     }
     return 0;
 }
+
+/*
+int ColisaoObstaculos(Jogo *j){
+    if(CheckCollisionRecs(j->body->head->pos, j->obstaculos)){
+
+    }
+}
+    */
 
 int ColisaoBody(Jogo *j){
     if(j->body.size<3){
@@ -257,7 +269,7 @@ int ColisaoBody(Jogo *j){
     }
     while(aux != NULL){
         if (CheckCollisionRecs(j->body.head->pos, aux->pos)){
-            PlaySound(j->colisaoCorpo);
+            PlaySound(j->trilhaSonora.colisaoCorpo);
             return 1;
         }
         aux = aux->prox;
