@@ -53,7 +53,7 @@ void IniciaJogo(Jogo *j){
     IniciaBody(j);
     IniciaFood(j);
     j->colisaoCorpo = LoadSound("curtoCircuito.mp3");
-    j->colisaoFruta = LoadSound("aumentaBateria");
+    j->colisaoFruta = LoadSound("carregaBateria.mp3");
     j->tempo = GetTime();
 }
 
