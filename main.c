@@ -28,7 +28,7 @@ int main(){
         IniciaJogo(&jogo);
         while (!WindowShouldClose()){
             BeginDrawing();
-            ClearBackground(SKYBLUE);
+            Draw_Backgound(&jogo);
             if (gameOver){
                 DesenhaJogo(&jogo);
                 AtualizaRodada(&jogo);

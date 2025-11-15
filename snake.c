@@ -67,11 +67,30 @@ void DesenhaFood(Jogo *j){
 
 void DesenhaBordas(Jogo *j){
     //Desenha as barreiras nas bordas
-    for (int i = 0; i < 4; i++){
-        DrawRectangleRec(j->bordas[i].pos, LIGHTGRAY);
+    if(j->map == 0){
+        for (int i = 0; i < 4; i++){
+            DrawRectangleRec(j->bordas[i].pos, LIGHTGRAY);
+        }
+    } else if(j->map == 1){
+        for (int i = 0; i < 4; i++){
+            DrawRectangleRec(j->bordas[i].pos, PINK);
+        }
+    } else {
+        for (int i = 0; i < 4; i++){
+            DrawRectangleRec(j->bordas[i].pos, YELLOW);
+        }
     }
 }
 
+void Draw_Backgound(Jogo* j){
+    if(j->map == 0){
+        ClearBackground(SKYBLUE);
+    } else if(j->map == 1){
+        ClearBackground(BLUE);
+    } else {
+        ClearBackground(GREEN);
+    }
+}
 
 void AtualizaDirecao(Jogo *j){
     //Atualiza para qual direção a cobra vai  

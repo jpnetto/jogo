@@ -7,7 +7,7 @@
 #include "janela.h"
 
 void Startgame(Jogo*j){
-    j->mapa = 0;
+    j->map = 0;
     j->contador = 0;
     j->largura = 660;
     j->altura = 660;
@@ -225,11 +225,11 @@ void Choose_of_map(Jogo* j){
         }
         if(IsKeyPressed(KEY_ENTER)){
             if(cursor == 0){
-                j->mapa = 0;
+                j->map = 0;
             } else if(cursor == 1){
-                j->mapa = 1;
+                j->map = 1;
             } else{
-                j->mapa = 2;
+                j->map = 2;
             }
             EndDrawing();
             break; 

@@ -21,4 +21,6 @@ void Choose_of_map(Jogo* j);
 
 void Options_screen(Jogo* j);
 
+void Draw_Backgound(Jogo* j);
+
 #endif
