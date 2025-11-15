@@ -49,8 +49,8 @@ void IniciaFood(Jogo *j){
 }
 
 void IniciaTrilhaSonora(Jogo *j){
-    j->trilhaSonora.colisaoCorpo = LoadSound("curtoCircuito.mp3");
-    j->trilhaSonora.colisaoFruta = LoadSound("carregaBateria.mp3");
+    j->trilhaSonora.colisaoCorpo = LoadSound("assets/curtoCircuito.mp3");
+    j->trilhaSonora.colisaoFruta = LoadSound("assets/carregaBateria.mp3");
     // j->trilhaSonora.musica = LoadMusicStream(""); 
 }
 
