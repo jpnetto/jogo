@@ -86,10 +86,10 @@ void IniciaJogo(Jogo *j);
 void AtualizaDirecao(Jogo *j);
 void AtualizaPosBody(Jogo *j);
 void AtualizaRodada(Jogo *j);
+void ColisaoBordas(Jogo *j);
 
 // Funções atualizadas
 int ColisaoFood(Jogo *j);
-int ColisaoBordas(Jogo *j);
 int ColisaoBody(Jogo *j);
 
 #endif
