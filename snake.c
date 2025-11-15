@@ -210,6 +210,24 @@ void RemoveCauda(Body* body){
     body->size--;
 
 }
+
+void FinalizaSom(Jogo *j) {
+    UnloadSound(j->colisaoCorpo);
+    UnloadSound(j->colisaoFruta);
+}
+
+void FinalizaCobra(Jogo *j){
+    Block *aux = j->body.head;
+    while (aux != NULL) {
+        Block *prox = aux->prox;
+        free(aux);
+        aux = prox;
+    }
+    j->body.head = NULL;
+    j->body.tail = NULL;
+    j->body.size = 0;
+}
+
 int ColisaoFood(Jogo *j){
     if (CheckCollisionRecs(j->body.head->pos, j->food.pos)){
         PlaySound(j->colisaoFruta);
@@ -246,19 +264,4 @@ int ColisaoBody(Jogo *j){
     }
     
     return 0;
-}
-
-void FinalizaJogo(Jogo *j) {
-    UnloadSound(j->colisaoCorpo);
-    UnloadSound(j->colisaoFruta);
-    
-    Block *aux = j->body.head;
-    while (aux != NULL) {
-        Block *prox = aux->prox;
-        free(aux);
-        aux = prox;
-    }
-    j->body.head = NULL;
-    j->body.tail = NULL;
-    j->body.size = 0;
 }

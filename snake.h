@@ -62,7 +62,8 @@ void AtualizaDirecao(Jogo *j);
 // Funções novas
 void AtualizaHead(Body *body, float x, float y);
 void RemoveCauda(Body *body);
-void FinalizaJogo(Jogo* j);
+void FinalizaSom(Jogo* j);
+void FinalizaCobra(Jogo* j);
 
 // Funções muito modificadas
 void IniciaJogo(Jogo *j);

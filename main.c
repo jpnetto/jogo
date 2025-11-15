@@ -42,7 +42,8 @@ int main(){
             } else {
                 Death_message(&jogo);
                 if (IsKeyPressed(KEY_ENTER)){
-                    FinalizaJogo(&jogo);
+                    FinalizaSom(&jogo);
+                    FinalizaCobra(&jogo);
                     Reset_score(&jogo); //Quando aperta enter, começa um jogo novo, então o contador é resetado também
                     IniciaJogo(&jogo);
                     gameOver = 1;
