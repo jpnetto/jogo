@@ -15,8 +15,9 @@ void IniciaBody(Jogo *j){
     if(new == NULL){
         return;
     }
-
-    new->pos = (Rectangle){j->largura/2 - STD_SIZE_X, j->altura - STD_SIZE_Y - 10, STD_SIZE_X, STD_SIZE_Y};
+    
+    new->pos = (Rectangle){j->largura/2 - STD_SIZE_X - 200, j->altura - STD_SIZE_Y - 100, STD_SIZE_X, STD_SIZE_Y};
+    
     // Mantive as coordenadas de início utilizadas no IniciaBody do código base enviado pelo professor.
 
     new->color = SNAKE_COLOR;
@@ -50,9 +51,23 @@ void IniciaFood(Jogo *j){
 }
 
 void IniciaTrilhaSonora(Jogo *j){
-    j->trilhaSonora.colisaoCorpo = LoadSound("assets/curtoCircuito.mp3");
-    j->trilhaSonora.colisaoFruta = LoadSound("assets/carregaBateria.mp3");
-    // j->trilhaSonora.musica = LoadMusicStream(""); 
+    if(j->map==0){
+        j->trilhaSonora.colisaoCorpo = LoadSound("assets/gameOver.mp3");
+        j->trilhaSonora.colisaoFruta = LoadSound("assets/coleta.mp3");
+        j->trilhaSonora.musica = LoadMusicStream("assets/theBackyardigans.mp3");
+    }
+    else if(j->map==1){
+        j->trilhaSonora.colisaoCorpo = LoadSound("assets/curtoCircuito.mp3");
+        j->trilhaSonora.colisaoFruta = LoadSound("assets/carregaBateria.mp3");
+    }
+    else if(j->map==2){
+        j->trilhaSonora.colisaoCorpo = LoadSound("assets/curtoCircuito.mp3");
+        j->trilhaSonora.colisaoFruta = LoadSound("assets/carregaBateria.mp3");
+    }
+    
+    SetMusicVolume(j->trilhaSonora.musica, 1.0f);
+    j->trilhaSonora.musica.looping = true;
+    PlayMusicStream(j->trilhaSonora.musica);
 }
 
 void IniciaJogo(Jogo *j){
@@ -60,30 +75,13 @@ void IniciaJogo(Jogo *j){
     IniciaBody(j);
     IniciaFood(j);
     IniciaObstaculos(j);
+    IniciaTrilhaSonora(j);
     j->tempo = GetTime();
 }
 
 void DesenhaFood(Jogo *j){
     DrawRectangleRec(j->food.pos, j->food.color);
 }
-/*
-void DesenhaBordas(Jogo *j){
-    //Desenha as barreiras nas bordas
-    if(j->map == 0){
-        for (int i = 0; i < 4; i++){
-            DrawRectangleRec(j->bordas[i].pos, LIGHTGRAY);
-        }
-    } else if(j->map == 1){
-        for (int i = 0; i < 4; i++){
-            DrawRectangleRec(j->bordas[i].pos, PINK);
-        }
-    } else {
-        for (int i = 0; i < 4; i++){
-            DrawRectangleRec(j->bordas[i].pos, YELLOW);
-        }
-    }  
-}
-    */
 
 void Draw_Backgound(Jogo* j){
     if(j->map == 0){
@@ -113,6 +111,10 @@ void AtualizaDirecao(Jogo *j){
         j->body.direcao = 3;
         j->cooldown = GetTime();
     }
+}
+
+void AtualizaMusica(Jogo *j) { 
+    UpdateMusicStream(j->trilhaSonora.musica); 
 }
 
 
@@ -241,6 +243,7 @@ void RemoveCauda(Body* body){
 void FinalizaTrilhaSonora(Jogo *j) {
     UnloadSound(j->trilhaSonora.colisaoCorpo);
     UnloadSound(j->trilhaSonora.colisaoFruta);
+    UnloadMusicStream(j->trilhaSonora.musica);
 }
 
 void FinalizaCobra(Jogo *j){

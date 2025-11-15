@@ -31,6 +31,7 @@ int main(){
             BeginDrawing();
             Draw_Backgound(&jogo);
             if (gameOver){
+                AtualizaMusica(&jogo);
                 DesenhaJogo(&jogo);
                 AtualizaRodada(&jogo);
                 if ((ColisaoBody(&jogo))||(ColisaoObstaculos(&jogo))){
