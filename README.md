@@ -7,7 +7,7 @@ Este projeto tem como objetivo desenvolver um jogo no estilo do famoso "jogo da 
 
 ## 👨‍💻 Desenvolvedores
 
-- Bernardo Resende Brasil — `Bernardoresende2006`
+- Bernardo Rezende Brasil — `Bernardoresende2006`
 - João Pedro Netto Lima — `jpnetto`
 - Sophia Santana Silva — `sophiasantanas`
 
@@ -20,7 +20,6 @@ Este projeto foi criado com foco em **desempenho**, **simplicidade** e **portabi
 Principais recursos:
 
 - 🖼️ Renderização 2D/3D com Raylib
-- 🎮 Suporte a teclado, mouse e joystick
 - 🔊 Áudio integrado com controle de volume e efeitos
 - 🧩 Estrutura modular e fácil de expandir
 

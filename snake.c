@@ -260,10 +260,20 @@ int ColisaoFood(Jogo *j){
 }
 
 int ColisaoBordas(Jogo *j){
-    if (CheckCollisionRecs(j->body.head->pos, j->bordas[0].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[1].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[2].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[3].pos)){
+    /*if (CheckCollisionRecs(j->body.head->pos, j->bordas[0].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[1].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[2].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[3].pos)){
         PlaySound(j->trilhaSonora.colisaoCorpo);
         return 1;
+    }*/
+    if(CheckCollisionRecs(j->body.head->pos, j->bordas[0].pos)){
+        j->body.head->pos.y = j->altura - j->body.head->pos.height - 10;
+    } else if(CheckCollisionRecs(j->body.head->pos, j->bordas[1].pos)){
+        j->body.head->pos.x = 10;
+    } else if(CheckCollisionRecs(j->body.head->pos, j->bordas[2].pos)){
+        j->body.head->pos.y = 10;
+    } else if(CheckCollisionRecs(j->body.head->pos, j->bordas[3].pos)){
+        j->body.head->pos.x = j->largura - j->body.head->pos.width - 10;
     }
+
     return 0;
 }
 

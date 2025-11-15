@@ -23,7 +23,7 @@ int main(){
         
         InitWindow(jogo.largura, jogo.altura, "Cobrinha dos BackyEndigans");
         SetTargetFPS(60);
-        srand(time(NULL));
+        srand(time(NULL));  
         
         IniciaJogo(&jogo);
         while (!WindowShouldClose()){
