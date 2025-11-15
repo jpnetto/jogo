@@ -1,10 +1,7 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 #include "raylib.h"
-#include "janela.h"
 
-#define LARGURA 660
-#define ALTURA 660
 #define STD_SIZE_X 40
 #define STD_SIZE_Y 40
 #define TEMPO 0.2
@@ -20,6 +17,7 @@ typedef struct Bordas{
 typedef struct Food{
     Rectangle pos;
     Color color;
+    //Texture texture;(Não tem funcionalidade ainda)
 }Food;
 
 // Estruturas novas/atualizadas
@@ -35,15 +33,21 @@ typedef struct Body{
     int direcao;
     int size;
     Color color;
+    //Texture texture;(Não tem funcionalidade ainda)
 } Body;
 
 typedef struct Jogo{
+    int largura;
+    int altura;
     Body body;
     Bordas bordas[4];
     Food food;
     double tempo;
     double cooldown;
-    int score;
+    int contador;
+    Sound colisaoCorpo;
+    Sound colisaoFruta;
+    //Texture2D fundo;(Não tem funcionalidade ainda)
 } Jogo;
 
 
@@ -58,6 +62,7 @@ void AtualizaDirecao(Jogo *j);
 // Funções novas
 void AtualizaHead(Body *body, float x, float y);
 void RemoveCauda(Body *body);
+void FinalizaJogo(Jogo* j);
 
 // Funções muito modificadas
 void IniciaJogo(Jogo *j);
@@ -69,7 +74,6 @@ void AtualizaRodada(Jogo *j);
 int ColisaoFood(Jogo *j);
 int ColisaoBordas(Jogo *j);
 int ColisaoBody(Jogo *j);
-
 
 
 #endif

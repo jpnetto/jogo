@@ -8,42 +8,55 @@
 #include <time.h>
 
 int main(){
+    InitAudioDevice();
+    int spacereset = 1;
     Jogo jogo;
-    int gameOver = 1;
-
-    //Cria a janela;
-    InitWindow(LARGURA, ALTURA, "Cobrinha dos BackyEndigans");
-    SetTargetFPS(40);
-    srand(time(NULL));
+    Startgame(&jogo); //Começa o jogo com o tamanho médio e contador zerado
+    while(spacereset){
+        spacereset = 0;
+        InitWindow(660, 660, " ");
     
-    IniciaJogo(&jogo);
-    while (!WindowShouldClose()){
-        BeginDrawing();
-        ClearBackground(SKYBLUE);
-        if (gameOver){
-            DesenhaJogo(&jogo);
-            AtualizaRodada(&jogo);
-            if (ColisaoBordas(&jogo)){
-                gameOver = 0;
-                continue;
+        if (Menu_screen(&jogo)) return 0; //Garante que o jogo só rode se o jogador apertar em iniciar
+        int gameOver = 1;
+        
+        InitWindow(jogo.largura, jogo.altura, "Cobrinha dos BackyEndigans");
+        SetTargetFPS(60);
+        srand(time(NULL));
+        
+        IniciaJogo(&jogo);
+        while (!WindowShouldClose()){
+            BeginDrawing();
+            ClearBackground(SKYBLUE);
+            if (gameOver){
+                DesenhaJogo(&jogo);
+                AtualizaRodada(&jogo);
+                if (ColisaoBordas(&jogo)){
+                    gameOver = 0;
+                    continue;
+                }
+                if (ColisaoBody(&jogo)){
+                    gameOver = 0;
+                    continue;
+                }
+                DrawText(TextFormat("Pontuação: %d", jogo.contador), 15, 15, 30, WHITE);
+            } else {
+                Death_message(&jogo);
+                if (IsKeyPressed(KEY_ENTER)){
+                    FinalizaJogo(&jogo);
+                    Reset_score(&jogo); //Quando aperta enter, começa um jogo novo, então o contador é resetado também
+                    IniciaJogo(&jogo);
+                    gameOver = 1;
+                } else if(IsKeyPressed(KEY_SPACE)){
+                    spacereset = 1;
+                    break;
+                };
             }
-            if (ColisaoBody(&jogo)){
-                gameOver = 0;
-                continue;
-            }
-                
-        } else {
-            DrawText("FIM DE JOGO!", 200, 250, 40, RED);
-            DrawText("PRESSIONE ENTER PARA REINICIAR", 50, 350, 30, RED);
-            if (IsKeyPressed(KEY_ENTER)){
-                Reset_score(); //Quando aperta enter, começa um jogo novo, então o contador é resetado também
-                IniciaJogo(&jogo);
-                 gameOver = 1;
-            }
+            
+            EndDrawing();
         }
-        DrawText(TextFormat("Pontuação: %d", Contador), 15, 15, 30, WHITE); 
-        EndDrawing();
+        CloseWindow();
+        CloseAudioDevice();
     }
-    CloseWindow();
+
     return 0;
 }
