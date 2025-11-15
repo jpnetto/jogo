@@ -78,6 +78,7 @@ void AtualizaDirecao(Jogo *j);
 void AtualizaHead(Body *body, float x, float y);
 void RemoveCauda(Body *body);
 void IniciaTrilhaSonora(Jogo* j);
+void AtualizaMusica(Jogo *j);
 void FinalizaTrilhaSonora(Jogo* j);
 void FinalizaCobra(Jogo* j);
 
