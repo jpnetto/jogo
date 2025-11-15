@@ -50,6 +50,7 @@ int main(){
                     gameOver = 1;
                 } else if(IsKeyPressed(KEY_SPACE)){
                     FinalizaCobra(&jogo);
+                    Reset_score(&jogo);
                     spacereset = 1;
                     break;
                 };
