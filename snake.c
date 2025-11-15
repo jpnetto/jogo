@@ -15,8 +15,9 @@ void IniciaBody(Jogo *j){
     if(new == NULL){
         return;
     }
-
-    new->pos = (Rectangle){j->largura/2 - STD_SIZE_X, j->altura - STD_SIZE_Y - 10, STD_SIZE_X, STD_SIZE_Y};
+    
+    new->pos = (Rectangle){j->largura/2 - STD_SIZE_X - 200, j->altura - STD_SIZE_Y - 100, STD_SIZE_X, STD_SIZE_Y};
+    
     // Mantive as coordenadas de início utilizadas no IniciaBody do código base enviado pelo professor.
 
     new->color = SNAKE_COLOR;
@@ -55,11 +56,11 @@ void IniciaTrilhaSonora(Jogo *j){
         j->trilhaSonora.colisaoFruta = LoadSound("assets/coleta.mp3");
         j->trilhaSonora.musica = LoadMusicStream("assets/theBackyardigans.mp3");
     }
-    if(j->map==1){
+    else if(j->map==1){
         j->trilhaSonora.colisaoCorpo = LoadSound("assets/curtoCircuito.mp3");
         j->trilhaSonora.colisaoFruta = LoadSound("assets/carregaBateria.mp3");
     }
-    if(j->map==2){
+    else if(j->map==2){
         j->trilhaSonora.colisaoCorpo = LoadSound("assets/curtoCircuito.mp3");
         j->trilhaSonora.colisaoFruta = LoadSound("assets/carregaBateria.mp3");
     }

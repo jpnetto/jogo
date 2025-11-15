@@ -58,8 +58,9 @@ typedef struct Jogo{
     TrilhaSonora trilhaSonora;
     int map;
 
-    Obstaculos obstaculosLaterais[4];
-    Obstaculos obstaculos;
+    Obstaculos obstaculosMapa0[4];
+    Obstaculos obstaculosMapa1[8];
+    Obstaculos obstaculosMapa2[10];
     
     //Texture2D fundo;(Não tem funcionalidade ainda)
 } Jogo;
