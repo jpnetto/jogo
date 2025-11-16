@@ -39,22 +39,81 @@ void IniciaObstaculosMapa0(Jogo* j){
 }
 
 void IniciaObstaculosMapa1(Jogo* j){
-    j->obstaculosMapa1[0].pos = (Rectangle) {j->largura / 4, 0, 10, j->altura * 0.75f}; 
+    float espessura = 10.0f; 
     
-    // Parede Vertical Direita (Aproximadamente 3/4 da largura)
-    j->obstaculosMapa1[1].pos = (Rectangle) {j->largura * 0.75f, j->altura * 0.25f, 10, j->altura * 0.75f};
+    j->obstaculosMapa1[0].pos = (Rectangle) {
+        j->largura / 4, 
+        0, 
+        espessura, 
+        j->altura * 0.75f
+    }; 
     
-    // Parede Horizontal Superior (No centro superior)
-    j->obstaculosMapa1[2].pos = (Rectangle) {j->largura / 4, j->altura / 4, j->largura / 2, 10};
+    j->obstaculosMapa1[1].pos = (Rectangle) {
+        j->largura * 0.75f, 
+        j->altura * 0.25f, 
+        espessura, 
+        j->altura * 0.75f
+    };
     
-    // Bloco Central (Pequeno bloco isolado)
-    j->obstaculosMapa1[3].pos = (Rectangle) {j->largura / 2 - 10, j->altura / 2 - 10, 20, 20};
+    j->obstaculosMapa1[2].pos = (Rectangle) {
+        j->largura / 4, 
+        j->altura / 4, 
+        j->largura / 2, 
+        espessura
+    };
+    
+    float tamanho_bloco_central = espessura * 2.0f;
+    j->obstaculosMapa1[3].pos = (Rectangle) {
+        j->largura / 2 - tamanho_bloco_central / 2.0f, // Centraliza
+        j->altura / 2 - tamanho_bloco_central / 2.0f,  // Centraliza
+        tamanho_bloco_central, 
+        tamanho_bloco_central
+    };
 }
 
 void IniciaObstaculosMapa2(Jogo* j){
-    float espessura_tronco = 10.0f; 
+
+    float espessura_tronco = 5.0f;
     float margem = 0.10f; 
+
+   if(j->largura == 500){
+        
+        // Crie uma margem de segurança para Y, afastando do topo e da base
+        float margem_y = espessura_tronco * 2.0f; // Ex: 10.0f
+
+        // 1. Tronco Esquerdo Interno
+        j->obstaculosMapa2[1].pos = (Rectangle) {
+            j->largura * 0.35f, 
+            margem_y, // Começa afastado do topo
+            espessura_tronco,
+            j->altura * 0.80f - margem_y // Reduz a altura para manter a base afastada
+        }; 
+        
+        // 2. Tronco Direito Interno
+        j->obstaculosMapa2[2].pos = (Rectangle) {
+            j->largura * 0.65f, 
+            margem_y* 0.10f, // Começa afastado do topo (não mais em 0)
+            espessura_tronco,
+            j->altura * 10.0f - margem_y // Reduz a altura
+        };
+        
+         
+         // 4. Tronco Caído no topo 
+         j->obstaculosMapa2[4].pos = (Rectangle) {
+            j->largura * 0.10f, 
+            margem_y - 0.1f, // Começa no Y da margem de segurança (não mais em 0.05f)
+            j->largura * 0.15f, 
+            espessura_tronco
+        };
+
+
+    }
     
+    else{
+        espessura_tronco = 10.0f; 
+        margem = 0.10f; 
+    
+
     j->obstaculosMapa2[0].pos = (Rectangle) {
         j->largura * margem, 
         0, 
@@ -96,6 +155,7 @@ void IniciaObstaculosMapa2(Jogo* j){
         j->largura * 0.15f, 
         espessura_tronco
     };
+    }
 
 }
 
