@@ -52,19 +52,51 @@ void IniciaObstaculosMapa1(Jogo* j){
 }
 
 void IniciaObstaculosMapa2(Jogo* j){
-       
-    float margem = 0.10f; // Margem de 25% do total
-    float espessura = 20.0f; // Espessura do obstáculo
+    float espessura_tronco = 10.0f; 
+    float margem = 0.10f; 
     
-    // Parede de Cima do Anel (Com uma abertura central para entrada/saída)
-    j->obstaculosMapa2[0].pos = (Rectangle) {j->largura * margem, j->altura * margem, j->largura * (0.5f - 0.05f), espessura}; // Lado esquerdo da abertura
-    j->obstaculosMapa2[1].pos = (Rectangle) {j->largura * 0.5f + espessura * 2.0f, j->altura * margem, j->largura * (0.5f - margem) - espessura, espessura}; // Lado direito da abertura
+    j->obstaculosMapa2[0].pos = (Rectangle) {
+        j->largura * margem, 
+        0, 
+        espessura_tronco,
+        j->altura * 0.90f 
+    }; 
+    
+    j->obstaculosMapa2[1].pos = (Rectangle) {
+        j->largura * 0.35f, 
+        j->altura * 0.10f, 
+        espessura_tronco,
+        j->altura * 0.80f 
+    }; 
+    
+    j->obstaculosMapa2[2].pos = (Rectangle) {
+        j->largura * 0.65f, 
+        0, 
+        espessura_tronco,
+        j->altura * 0.90f 
+    };
+    
+    j->obstaculosMapa2[3].pos = (Rectangle) {
+        j->largura * (1.0f - margem) - espessura_tronco, 
+        j->altura * 0.10f, 
+        espessura_tronco,
+        j->altura * 0.80f 
+    };
 
-    // Parede de Baixo do Anel (Parede sólida)
-    j->obstaculosMapa2[2].pos = (Rectangle) {j->largura * margem, j->altura * (1.0f - margem) - espessura, j->largura * (1.0f - 2.0f * margem), espessura};
-    
-    // Parede Vertical no Centro (Cria um divisor interno no anel)
-    j->obstaculosMapa2[3].pos = (Rectangle) {j->largura / 2, j->altura * margem, espessura, j->altura * (1.0f - 2.0f * margem)};
+    j->obstaculosMapa2[4].pos = (Rectangle) {
+        j->largura * 0.10f, 
+        j->altura * 0.05f, 
+        j->largura * 0.15f, 
+        espessura_tronco
+    };
+
+    j->obstaculosMapa2[5].pos = (Rectangle) {
+        j->largura * 0.75f, 
+        j->altura * 0.90f, 
+        j->largura * 0.15f, 
+        espessura_tronco
+    };
+
 }
 
 
