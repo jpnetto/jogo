@@ -16,7 +16,7 @@ void IniciaBody(Jogo *j){
         return;
     }
     
-    new->pos = (Rectangle){j->largura/2 - STD_SIZE_X - 200, j->altura - STD_SIZE_Y - 100, STD_SIZE_X, STD_SIZE_Y};
+    new->pos = (Rectangle){j->largura/2 - STD_SIZE_X - 200, j->altura - STD_SIZE_Y - 90, STD_SIZE_X, STD_SIZE_Y};
     
     // Mantive as coordenadas de início utilizadas no IniciaBody do código base enviado pelo professor.
 
@@ -48,6 +48,8 @@ void IniciaBordas(Jogo *j){
 void IniciaFood(Jogo *j){
     j->food.pos = (Rectangle) {(float)(rand() % ((j->altura - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10), (float)(rand() % ((j->altura - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10), STD_SIZE_X, STD_SIZE_Y};
     j->food.color = FOOD_COLOR;
+    j->food.texture = LoadTexture("assets/Comida.png");
+    
 }
 
 void IniciaTrilhaSonora(Jogo *j){
@@ -80,7 +82,7 @@ void IniciaJogo(Jogo *j){
 }
 
 void DesenhaFood(Jogo *j){
-    DrawRectangleRec(j->food.pos, j->food.color);
+    DrawTexture(j->food.texture, j->food.pos.x, j->food.pos.y, WHITE);
 }
 
 void Draw_Backgound(Jogo* j){
@@ -268,10 +270,23 @@ int ColisaoFood(Jogo *j){
 
 int ColisaoBordas(Jogo *j){
     if (CheckCollisionRecs(j->body.head->pos, j->bordas[0].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[1].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[2].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[3].pos)){
-        PlaySound(j->trilhaSonora.colisaoCorpo);
-        return 1;
-    }
+        /*if (CheckCollisionRecs(j->body.head->pos, j->bordas[0].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[1].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[2].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[3].pos)){
+            PlaySound(j->trilhaSonora.colisaoCorpo);
+            return 1;
+        }*/
+        if(CheckCollisionRecs(j->body.head->pos, j->bordas[0].pos)){
+            j->body.head->pos.y = j->altura - j->body.head->pos.height - 10;
+        } else if(CheckCollisionRecs(j->body.head->pos, j->bordas[1].pos)){
+            j->body.head->pos.x = 10;
+        } else if(CheckCollisionRecs(j->body.head->pos, j->bordas[2].pos)){
+            j->body.head->pos.y = 10;
+        } else if(CheckCollisionRecs(j->body.head->pos, j->bordas[3].pos)){
+            j->body.head->pos.x = j->largura - j->body.head->pos.width - 10;
+        }
+
     return 0;
+    }
+    return 1;
 }
 
 

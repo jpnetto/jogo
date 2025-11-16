@@ -7,22 +7,19 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <time.h>
-
+//paro
 int main(){
     InitAudioDevice();
     int spacereset = 1;
     Jogo jogo;
     Startgame(&jogo); //Começa o jogo com o tamanho médio e contador zerado
     IniciaTrilhaSonora(&jogo);
-
     while(spacereset){
         spacereset = 0;
         InitWindow(660, 660, " ");
-    
         if (Menu_screen(&jogo))return 0; //Garante que o jogo só rode se o jogador apertar em iniciar
+        InitWindow(jogo.largura, jogo.altura, "Cobrinha dos BackEndygans");
         int gameOver = 1;
-        
-        InitWindow(jogo.largura, jogo.altura, "Cobrinha dos BackyEndigans");
         SetTargetFPS(60);
         srand(time(NULL));  
         
@@ -57,10 +54,11 @@ int main(){
             
             EndDrawing();
         }
-        CloseWindow();
-
+        EndDrawing();
+        if(spacereset)CloseWindow();
     }
-
+    UnloadTexture(jogo.fundo);
+    UnloadTexture(jogo.food.texture);
     FinalizaTrilhaSonora(&jogo);
     CloseAudioDevice();
 

@@ -21,7 +21,7 @@ typedef struct Obstaculos{
 typedef struct Food{
     Rectangle pos;
     Color color;
-    //Texture texture;(Não tem funcionalidade ainda)
+    Texture texture;
 }Food;
 
 // Estruturas novas/atualizadas
@@ -59,10 +59,10 @@ typedef struct Jogo{
     int map;
 
     Obstaculos obstaculosMapa0[4];
-    Obstaculos obstaculosMapa1[8];
+    Obstaculos obstaculosMapa1[4];
     Obstaculos obstaculosMapa2[10];
     
-    //Texture2D fundo;(Não tem funcionalidade ainda)
+    Texture2D fundo;
 } Jogo;
 
 

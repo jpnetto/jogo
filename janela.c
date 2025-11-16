@@ -47,9 +47,13 @@ int Menu_screen(Jogo* j){
     int cursor = 0;
     int retorno = 1;
     Rectangle selection;
+    j->fundo = LoadTexture("assets/Fundo_Menu.jpg");
     while (!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(LIME);
+
+        DrawTexture(j->fundo, 0, 0, WHITE);
+        
         DrawText("Cobrinha", 210, 50, 50, BLACK);
         DrawText("dos", 280, 115, 50, BLACK);
         DrawText("BackyEndigans", 155, 180, 50, BLACK);
@@ -78,9 +82,9 @@ int Menu_screen(Jogo* j){
                 retorno = 0;
                 break;
             } else if(cursor == 1){
-                CloseWindow();
+                EndDrawing();
                 Options_screen(j);
-                InitWindow(660, 660, " ");
+                j->fundo = LoadTexture("assets/Fundo_Menu.jpg");
             } else{
                 retorno = 0;
                 break; 
@@ -90,12 +94,12 @@ int Menu_screen(Jogo* j){
         DrawRectangleRec(selection, BLACK);
         EndDrawing();
     }
+    EndDrawing();
     CloseWindow();
     return retorno;    
 }
 
 void Options_screen(Jogo* j){
-    InitWindow(660, 660, "Cobrinha dos BackyEndigans");
     int cursor = 0;
     Rectangle selection;
     while (!WindowShouldClose()){
@@ -124,14 +128,14 @@ void Options_screen(Jogo* j){
         }
         if(IsKeyPressed(KEY_ENTER)){
             if(cursor == 0){
-                CloseWindow();
+                EndDrawing();
                 Size_map(j);
-                InitWindow(660, 660, "Cobrinha dos BackyEndigans");
+                continue;
 
             } else if(cursor == 1){
-                CloseWindow();
+                EndDrawing();
                 Choose_of_map(j);
-                InitWindow(660, 660, "Cobrinha dos BackyEndigans");
+                continue;
             } else{
                 EndDrawing();
                 break; 
@@ -140,12 +144,11 @@ void Options_screen(Jogo* j){
         DrawRectangleRec(selection, WHITE);
         EndDrawing();
     }
-    CloseWindow();
+    EndDrawing();
 }
 
-
+//Paro
 void Size_map(Jogo* j){
-    InitWindow(660, 660, "Cobrinha dos BackyEndigans");
     int cursor = 0;
     Rectangle selection;
     while (!WindowShouldClose()){
@@ -189,7 +192,7 @@ void Size_map(Jogo* j){
         DrawRectangleRec(selection, WHITE);
         EndDrawing();
     }
-    CloseWindow();
+    EndDrawing();
 }
 
 void Size_cursor(Rectangle* selection, int a, int b, int c, int d){
@@ -200,7 +203,6 @@ void Size_cursor(Rectangle* selection, int a, int b, int c, int d){
 }
 
 void Choose_of_map(Jogo* j){
-    InitWindow(660, 660, "Cobrinha dos BackyEndigans");
     int cursor = 0;
     Rectangle selection;
     while (!WindowShouldClose()){
@@ -241,5 +243,5 @@ void Choose_of_map(Jogo* j){
         DrawRectangleRec(selection, WHITE);
         EndDrawing();
     }
-    CloseWindow();
+    EndDrawing();
 }

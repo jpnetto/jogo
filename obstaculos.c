@@ -43,42 +43,42 @@ void IniciaObstaculosMapa1(Jogo* j){
     const int W = j->largura;
     const int H = j->altura;
 
-    j->obstaculosMapa2[0].pos = (Rectangle) {H/3, W/3, W - W/3, T};
-    j->obstaculosMapa2[1].pos = (Rectangle) {W - T, 0, T, H};
-    j->obstaculosMapa2[2].pos = (Rectangle) {0, H - T, W, T};
-    j->obstaculosMapa2[3].pos = (Rectangle) {0, 0, T, H};
+    // j->obstaculosMapa1[0].pos = (Rectangle) {H/3, W/3, W - W/3, T};
+    j->obstaculosMapa1[0].pos = (Rectangle) {W - T, 0, T, H};
+    // j->obstaculosMapa1[2].pos = (Rectangle) {0, H - T, W, T};
+    j->obstaculosMapa1[1].pos = (Rectangle) {0, 0, T, H};
 
     const int CX = W / 2;     
     const int CY = H / 2;    
     const int GAP = 50;       
 
-    j->obstaculosMapa1[4].pos = (Rectangle) {
-        CX - T/2,         
-        T,                
-        T,                
-        CY - T - GAP/2 - 40  
+    j->obstaculosMapa1[2].pos = (Rectangle) {
+        290,         
+        10,                
+        80,                
+        CY - 40 
     };
     
-    j->obstaculosMapa1[5].pos = (Rectangle) {
-        CX - T/2,         
+    j->obstaculosMapa1[3].pos = (Rectangle) {
+        CX - T,         
         CY + GAP/2 + 40,       
-        T,               
+        40,               
         H - CY - GAP/2,
     };
     
-    j->obstaculosMapa1[6].pos = (Rectangle) {
-        T,                
-        CY - T/2,         
-        CX - T - GAP/2 - 40,   
-        T                 
-    };
+    // j->obstaculosMapa1[4].pos = (Rectangle) {
+    //     T,                
+    //     CY - T/2,         
+    //     CX - T - GAP/2 - 40,   
+    //     T                 
+    // };
     
-    j->obstaculosMapa1[7].pos = (Rectangle) {
-        CX + GAP/2 + 40,      
-        CY - T/2,         
-        W - CX - GAP/2,
-        T                 
-    };
+    // j->obstaculosMapa1[5].pos = (Rectangle) {
+    //     CX + GAP/2 + 40,      
+    //     CY - T/2,         
+    //     W - CX - GAP/2,
+    //     T                 
+    // };
 }
 void IniciaObstaculosMapa2(Jogo* j){
     //Obstaculos de cima
