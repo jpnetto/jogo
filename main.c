@@ -3,13 +3,13 @@
 #include "snake.h"
 #include "janela.h"
 #include "obstaculos.h"
+#include "ranking.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <time.h>
 //paro
 int main(){
-    InitAudioDevice();
     int spacereset = 1;
     Jogo jogo;
     Startgame(&jogo); //Começa o jogo com o tamanho médio e contador zerado
@@ -57,10 +57,7 @@ int main(){
         EndDrawing();
         if(spacereset)CloseWindow();
     }
-    UnloadTexture(jogo.fundo);
-    UnloadTexture(jogo.food.texture);
-    FinalizaTrilhaSonora(&jogo);
-    CloseAudioDevice();
+    Unload_textures(&jogo);
 
     return 0;
 }

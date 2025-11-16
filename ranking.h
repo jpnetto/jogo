@@ -15,6 +15,5 @@ void exibeRanking(FILE* f);
 void criaRanking();
 void adicionaRanking();
 void insereRanking(Jogador jogadores[], int n);
-int Ranking_screen(Jogo* j);
 
 #endif

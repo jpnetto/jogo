@@ -7,6 +7,7 @@
 #include "janela.h"
 
 void Startgame(Jogo*j){
+    InitAudioDevice();
     j->map = 0;
     j->contador = 0;
     j->largura = 660;
@@ -85,7 +86,11 @@ int Menu_screen(Jogo* j){
                 EndDrawing();
                 Options_screen(j);
                 j->fundo = LoadTexture("assets/Fundo_Menu.jpg");
-            } else{
+            } else if(cursor == 2){
+                EndDrawing();
+                Ranking_screen(j);
+                continue;
+            }else{
                 retorno = 0;
                 break; 
             } 
@@ -241,6 +246,27 @@ void Choose_of_map(Jogo* j){
             break; 
         }
         DrawRectangleRec(selection, WHITE);
+        EndDrawing();
+    }
+    EndDrawing();
+}
+
+void Ranking_screen(Jogo* j){
+    int cursor = 0;
+    Rectangle selection;
+    j->fundo = LoadTexture("assets/Fundo_Menu.jpg");
+    while (!WindowShouldClose()){
+        BeginDrawing();
+        ClearBackground(WHITE);
+
+        DrawTexture(j->fundo, 0, 0, WHITE);
+        
+        DrawText("Ranking", 230, 30, 50, BLACK);
+        
+        if(IsKeyPressed(KEY_ENTER)){
+            break;   
+        }
+        DrawRectangleRec(selection, BLACK);
         EndDrawing();
     }
     EndDrawing();

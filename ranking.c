@@ -43,28 +43,3 @@ void insereRanking(Jogador jogadores[], int n){
     fclose(f);
     printf("Ranking salvo com sucesso!\n");
 }
-
-int Ranking_screen(Jogo* j){
-    int cursor = 0;
-    int retorno = 1;
-    Rectangle selection;
-    j->fundo = LoadTexture("assets/Fundo_Menu.jpg");
-    while (!WindowShouldClose()){
-        BeginDrawing();
-        ClearBackground(LIME);
-
-        DrawTexture(j->fundo, 0, 0, WHITE);
-        
-        DrawText("Ranking", 210, 50, 50, BLACK);
-        
-        if(IsKeyPressed(KEY_ENTER)){
-            retorno = 0;
-            break;   
-        }
-        DrawRectangleRec(selection, BLACK);
-        EndDrawing();
-    }
-    EndDrawing();
-    CloseWindow();
-    return retorno;    
-}

@@ -23,4 +23,6 @@ void Options_screen(Jogo* j);
 
 void Draw_Backgound(Jogo* j);
 
+void Ranking_screen(Jogo* j);
+
 #endif

@@ -37,9 +37,7 @@ typedef struct Body{
     int direcao;
     int size;
     Color color;
-    Texture texture0;
-    Texture texture1;
-    Texture texture2;
+    Texture texture[3];
 } Body;
 
 typedef struct TrilhaSonora{
@@ -95,4 +93,5 @@ int ColisaoBordas(Jogo *j);
 int ColisaoFood(Jogo *j);
 int ColisaoBody(Jogo *j);
 
+void Unload_textures(Jogo*);
 #endif
