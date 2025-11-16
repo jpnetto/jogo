@@ -32,6 +32,9 @@ void IniciaBody(Jogo *j){
     for(int i=1; i<3; i++){
         AtualizaHead(&j->body, j->body.head->pos.x, j->body.head->pos.y);
     }
+    j->body.texture0 = LoadTexture("assets/Head_Cobra.png");
+    j->body.texture1 = LoadTexture("assets/Body_Cobra.png");
+    j->body.texture2 = LoadTexture("assets/Cauda_Cobra.png");
 }
 
 void IniciaBordas(Jogo *j){
@@ -124,7 +127,9 @@ void DesenhaBody(Jogo *j){
     Block *aux = j->body.head;
 
     while(aux!=NULL){
-        DrawRectangleRec(aux->pos, aux->color);
+        if(aux == j->body.head)DrawTexture(j->body.texture0, aux->pos.x, aux->pos.y, WHITE);
+        else if(aux == j->body.tail)DrawTexture(j->body.texture2, aux->pos.x, aux->pos.y, WHITE);
+        else DrawTexture(j->body.texture1, aux->pos.x, aux->pos.y, WHITE);
         aux = aux->prox;
     }
 }

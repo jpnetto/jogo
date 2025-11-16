@@ -37,7 +37,9 @@ typedef struct Body{
     int direcao;
     int size;
     Color color;
-    //Texture texture;(Não tem funcionalidade ainda)
+    Texture texture0;
+    Texture texture1;
+    Texture texture2;
 } Body;
 
 typedef struct TrilhaSonora{
