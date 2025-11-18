@@ -14,9 +14,8 @@ int main(){
     Jogo jogo;
     Startgame(&jogo); //Começa o jogo com o tamanho médio e contador zerado
     IniciaTrilhaSonora(&jogo);
-    
+    InitWindow(660, 660, " ");
     while(spacereset){
-        InitWindow(660, 660, " ");
         spacereset = 0;
         if (Menu_screen(&jogo))return 0; //Garante que o jogo só rode se o jogador apertar em iniciar
         SetWindowSize(jogo.largura, jogo.altura);
@@ -56,7 +55,7 @@ int main(){
             EndDrawing();
         }
         EndDrawing();
-        if(spacereset)CloseWindow();
+        if(spacereset)SetWindowSize(660, 660);;
     }
     Unload_textures(&jogo);
 
