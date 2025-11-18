@@ -19,6 +19,7 @@ int main(){
         spacereset = 0;
         if (Menu_screen(&jogo))return 0; //Garante que o jogo só rode se o jogador apertar em iniciar
         SetWindowSize(jogo.largura, jogo.altura);
+        SetWindowTitle("Cobrinha dos BackEndygans");
         int gameOver = 1;
         SetTargetFPS(60);
         srand(time(NULL));  
@@ -55,7 +56,10 @@ int main(){
             EndDrawing();
         }
         EndDrawing();
-        if(spacereset)SetWindowSize(660, 660);;
+        if(spacereset){
+            SetWindowSize(660, 660);
+            SetWindowTitle(" ");
+        }
     }
     Unload_textures(&jogo);
 
