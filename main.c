@@ -14,11 +14,12 @@ int main(){
     Jogo jogo;
     Startgame(&jogo); //Começa o jogo com o tamanho médio e contador zerado
     IniciaTrilhaSonora(&jogo);
+    
     while(spacereset){
-        spacereset = 0;
         InitWindow(660, 660, " ");
+        spacereset = 0;
         if (Menu_screen(&jogo))return 0; //Garante que o jogo só rode se o jogador apertar em iniciar
-        InitWindow(jogo.largura, jogo.altura, "Cobrinha dos BackEndygans");
+        SetWindowSize(jogo.largura, jogo.altura);
         int gameOver = 1;
         SetTargetFPS(60);
         srand(time(NULL));  

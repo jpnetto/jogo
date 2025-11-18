@@ -100,7 +100,6 @@ int Menu_screen(Jogo* j){
         EndDrawing();
     }
     EndDrawing();
-    CloseWindow();
     return retorno;    
 }
 
@@ -110,11 +109,12 @@ void Options_screen(Jogo* j){
     while (!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(BLACK);
-        DrawText("Configurações:", 20, 20, 30, WHITE);
-        DrawText("Aperte ENTER na posicao desejada", 55, 100, 30, WHITE);
-        DrawText("Tamanho", 240, 200, 40, WHITE);
-        DrawText("Mapas", 260, 350, 40, WHITE);
-        DrawText("Retornar", 235, 500, 40, WHITE);
+        DrawTexture(j->fundo, 0, 0, WHITE);
+        DrawText("Configurações:", 20, 20, 30, BLACK);
+        DrawText("Aperte ENTER na posicao desejada", 55, 100, 30, BLACK);
+        DrawText("Tamanho", 240, 200, 40, BLACK);
+        DrawText("Mapas", 260, 350, 40, BLACK);
+        DrawText("Retornar", 235, 500, 40, BLACK);
         
         if(IsKeyPressed(KEY_UP)){
             if(cursor<=0)cursor = 0;
@@ -146,7 +146,7 @@ void Options_screen(Jogo* j){
                 break; 
             }
         }
-        DrawRectangleRec(selection, WHITE);
+        DrawRectangleRec(selection, BLACK);
         EndDrawing();
     }
     EndDrawing();
@@ -159,11 +159,12 @@ void Size_map(Jogo* j){
     while (!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(BLACK);
-        DrawText("Tamanho:", 20, 20, 30, WHITE);
-        DrawText("Aperte ENTER na posicao desejada", 55, 100, 30, WHITE);
-        DrawText("Mapa Pequeno", 185, 200, 40, WHITE);
-        DrawText("Mapa Médio", 185, 350, 40, WHITE);
-        DrawText("Mapa Grande", 185, 500, 40, WHITE);
+        DrawTexture(j->fundo, 0, 0, WHITE);
+        DrawText("Tamanho:", 20, 20, 30, BLACK);
+        DrawText("Aperte ENTER na posicao desejada", 55, 100, 30, BLACK);
+        DrawText("Mapa Pequeno", 185, 200, 40, BLACK);
+        DrawText("Mapa Médio", 185, 350, 40, BLACK);
+        DrawText("Mapa Grande", 185, 500, 40, BLACK);
         
         if(IsKeyPressed(KEY_UP)){
             if(cursor<=0)cursor = 0;
@@ -194,7 +195,7 @@ void Size_map(Jogo* j){
             EndDrawing();
             break; 
         }
-        DrawRectangleRec(selection, WHITE);
+        DrawRectangleRec(selection, BLACK);
         EndDrawing();
     }
     EndDrawing();
@@ -212,12 +213,13 @@ void Choose_of_map(Jogo* j){
     Rectangle selection;
     while (!WindowShouldClose()){
         BeginDrawing();
-        ClearBackground(BLACK);
-        DrawText("Mapas:", 20, 20, 30, WHITE);
-        DrawText("Aperte ENTER na posicao desejada", 55, 100, 30, WHITE);
-        DrawText("Mapa 1", 250, 200, 40, WHITE);
-        DrawText("Mapa 2", 250, 350, 40, WHITE);
-        DrawText("Mapa 3", 250, 500, 40, WHITE);
+        ClearBackground(WHITE);
+        DrawTexture(j->fundo, 0, 0, WHITE);
+        DrawText("Mapas:", 20, 20, 30, BLACK);
+        DrawText("Aperte ENTER na posicao desejada", 55, 100, 30, BLACK);
+        DrawText("Mapa 1", 250, 200, 40, BLACK);
+        DrawText("Mapa 2", 250, 350, 40, BLACK);
+        DrawText("Mapa 3", 250, 500, 40, BLACK);
         
         if(IsKeyPressed(KEY_UP)){
             if(cursor<=0)cursor = 0;
@@ -245,14 +247,13 @@ void Choose_of_map(Jogo* j){
             EndDrawing();
             break; 
         }
-        DrawRectangleRec(selection, WHITE);
+        DrawRectangleRec(selection, BLACK);
         EndDrawing();
     }
     EndDrawing();
 }
 
 void Ranking_screen(Jogo* j){
-    int cursor = 0;
     Rectangle selection;
     j->fundo = LoadTexture("assets/Fundo_Menu.jpg");
     while (!WindowShouldClose()){
