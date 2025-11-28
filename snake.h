@@ -37,7 +37,7 @@ typedef struct Body{
     int direcao;
     int size;
     Color color;
-    Texture texture[3];
+    Texture texture[7];
 } Body;
 
 typedef struct TrilhaSonora{
@@ -57,6 +57,7 @@ typedef struct Jogo{
     int contador;
     TrilhaSonora trilhaSonora;
     int map;
+    char name_player[21];
 
     Obstaculos obstaculosMapa0[4];
     Obstaculos obstaculosMapa1[4];
@@ -92,6 +93,8 @@ int ColisaoBordas(Jogo *j);
 // Funções atualizadas
 int ColisaoFood(Jogo *j);
 int ColisaoBody(Jogo *j);
+
+void IniciaTexturasBody(Jogo* j);
 
 void Unload_textures(Jogo*);
 #endif

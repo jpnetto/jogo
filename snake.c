@@ -32,9 +32,7 @@ void IniciaBody(Jogo *j){
     for(int i=1; i<3; i++){
         AtualizaHead(&j->body, j->body.head->pos.x, j->body.head->pos.y);
     }
-    j->body.texture[0] = LoadTexture("assets/Head_Cobra.png");
-    j->body.texture[1] = LoadTexture("assets/Body_Cobra.png");
-    j->body.texture[2] = LoadTexture("assets/Cauda_Cobra.png");
+    IniciaTexturasBody(j);
 }
 
 void IniciaBordas(Jogo *j){
@@ -100,19 +98,19 @@ void Draw_Backgound(Jogo* j){
 
 void AtualizaDirecao(Jogo *j){
     //Atualiza para qual direção a cobra vai  
-    if((IsKeyDown(KEY_UP)||IsKeyDown(KEY_W)) && j->body.direcao != 2 && GetTime() - j->cooldown > COOLDOWN){
+    if((IsKeyPressed(KEY_UP)||IsKeyPressed(KEY_W)) && j->body.direcao != 2 && GetTime() - j->cooldown > COOLDOWN){
         j->body.direcao = 0;
         j->cooldown = GetTime();
     }
-    if((IsKeyDown(KEY_RIGHT)||IsKeyDown(KEY_D)) && j->body.direcao != 3 && GetTime() - j->cooldown > COOLDOWN){
+    if((IsKeyPressed(KEY_RIGHT)||IsKeyPressed(KEY_D)) && j->body.direcao != 3 && GetTime() - j->cooldown > COOLDOWN){
         j->body.direcao = 1;
         j->cooldown = GetTime();
     }
-    if((IsKeyDown(KEY_DOWN)||IsKeyDown(KEY_S)) && j->body.direcao != 0 && GetTime() - j->cooldown > COOLDOWN){
+    if((IsKeyPressed(KEY_DOWN)||IsKeyPressed(KEY_S)) && j->body.direcao != 0 && GetTime() - j->cooldown > COOLDOWN){
         j->body.direcao = 2;
         j->cooldown = GetTime();
     }
-    if((IsKeyDown(KEY_LEFT)||IsKeyDown(KEY_A)) && j->body.direcao != 1 && GetTime() - j->cooldown > COOLDOWN){
+    if((IsKeyPressed(KEY_LEFT)||IsKeyPressed(KEY_A)) && j->body.direcao != 1 && GetTime() - j->cooldown > COOLDOWN){
         j->body.direcao = 3;
         j->cooldown = GetTime();
     }
@@ -317,10 +315,21 @@ int ColisaoBody(Jogo *j){
     return 0;
 }
 
+void IniciaTexturasBody(Jogo* j){
+    j->body.texture[0] = LoadTexture("assets/texture_snake/Head_snake.png");
+    j->body.texture[1] = LoadTexture("assets/texture_snake/Body_snake.png");
+    j->body.texture[2] = LoadTexture("assets/texture_snake/Cauda_snake.png");
+    j->body.texture[3] = LoadTexture("assets/texture_snake/Virada01.png");
+    j->body.texture[4] = LoadTexture("assets/texture_snake/Virada02.png");
+    j->body.texture[5] = LoadTexture("assets/texture_snake/Virada03.png");
+    j->body.texture[6] = LoadTexture("assets/texture_snake/Virada04.png");
+}
+
+
 void Unload_textures(Jogo* j){
     UnloadTexture(j->fundo);
     UnloadTexture(j->food.texture);
-    for(int i = 0; i<3;i++){
+    for(int i = 0; i<j->body.size;i++){
         UnloadTexture(j->body.texture[i]);
     }
     FinalizaTrilhaSonora(j);

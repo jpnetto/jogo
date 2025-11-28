@@ -15,14 +15,16 @@ void Death_message(Jogo*);
 
 int Menu_screen(Jogo*);
 
-void Startgame(Jogo*j);
+void Startgame(Jogo*);
 
-void Choose_of_map(Jogo* j);
+void Choose_of_map(Jogo*);
 
-void Options_screen(Jogo* j);
+void Options_screen(Jogo*);
 
-void Draw_Backgound(Jogo* j);
+void Draw_Backgound(Jogo*);
 
-void Ranking_screen(Jogo* j);
+void Ranking_screen(Jogo*);
+
+void Change_name(Jogo*);
 
 #endif
