@@ -47,7 +47,7 @@ void IniciaBordas(Jogo *j){
 }
 
 void IniciaFood(Jogo *j){
-    j->food.pos = (Rectangle) {(float)(rand() % ((j->altura - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10), (float)(rand() % ((j->altura - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10), STD_SIZE_X, STD_SIZE_Y};
+    j->food.pos = (Rectangle) {j->largura/2 - STD_SIZE_X - 200, j->altura - 330, STD_SIZE_X, STD_SIZE_Y};
     j->food.color = FOOD_COLOR;
     j->food.texture = LoadTexture("assets/Comida.png");
     
