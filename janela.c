@@ -3,12 +3,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include <time.h>
+
 #include "janela.h"
 #include "ranking.h"
 
 void Startgame(Jogo*j){
     InitAudioDevice();
+    strcpy(j->name_player, "Jogador01");
     j->map = 0;
     j->contador = 0;
     j->largura = 660;
@@ -24,6 +27,7 @@ void Increase_score(Jogo* j){
 }
 
 void Death_message(Jogo* j){
+    DrawTexture(j->fundo, 0, 0, WHITE);
     if(j->largura == 500){
         DrawText("FIM DE JOGO!", 65, 120, 55, RED);
         DrawText(TextFormat("Sua Pontuação: %d", j->contador), 75, 240, 40, BLACK);
@@ -52,16 +56,17 @@ int Menu_screen(Jogo* j){
     j->fundo = LoadTexture("assets/Fundo_Menu.jpg");
     while (!WindowShouldClose()){
         BeginDrawing();
-        ClearBackground(LIME);
+        ClearBackground(WHITE);
 
         DrawTexture(j->fundo, 0, 0, WHITE);
         
         DrawText("Cobrinha", 210, 50, 50, BLACK);
         DrawText("dos", 280, 115, 50, BLACK);
         DrawText("BackyEndigans", 155, 180, 50, BLACK);
-        DrawText("Iniciar", 20, 440, 30, BLACK);
-        DrawText("Configurações de Mapa", 20, 500, 30, BLACK);
-        DrawText("Ranking", 20, 560, 30, BLACK);
+        DrawText("Iniciar", 20, 410, 30, BLACK);
+        DrawText("Configurações de Mapa", 20, 470, 30, BLACK);
+        DrawText("Alterar Nome", 20, 530, 30, BLACK);
+        DrawText("Ranking", 20, 590, 30, BLACK);
         
         
         if(IsKeyPressed(KEY_UP)){
@@ -69,15 +74,17 @@ int Menu_screen(Jogo* j){
             else cursor--;
         };
         if(IsKeyPressed(KEY_DOWN)){
-            if(cursor>1)cursor = 2;
+            if(cursor>2)cursor = 3;
             else cursor++;
         };
         if(cursor <= 0){
-            Size_cursor(&selection, 20, 475, 90, 5);
+            Size_cursor(&selection, 20, 445, 90, 5);
         } else if(cursor == 1){
-            Size_cursor(&selection, 20, 535, 355, 5);
-        } else if(cursor > 1){
-            Size_cursor(&selection, 20, 595, 120, 5);
+            Size_cursor(&selection, 20, 505, 355, 5);
+        } else if(cursor == 2){
+            Size_cursor(&selection, 20, 565, 200, 5);
+        } else{
+            Size_cursor(&selection, 20, 625, 120, 5);
         }
         if(IsKeyPressed(KEY_ENTER)){
             if(cursor == 0){
@@ -86,8 +93,12 @@ int Menu_screen(Jogo* j){
             } else if(cursor == 1){
                 EndDrawing();
                 Options_screen(j);
-                j->fundo = LoadTexture("assets/Fundo_Menu.jpg");
+                continue;
             } else if(cursor == 2){
+                EndDrawing();
+                Change_name(j);
+                continue;
+            } else if(cursor == 3){
                 EndDrawing();
                 Ranking_screen(j);
                 continue;
@@ -256,7 +267,6 @@ void Choose_of_map(Jogo* j){
 
 void Ranking_screen(Jogo* j){
     Rectangle selection;
-    j->fundo = LoadTexture("assets/Fundo_Menu.jpg");
     while (!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(WHITE);
@@ -269,6 +279,42 @@ void Ranking_screen(Jogo* j){
             break;   
         }
         DrawRectangleRec(selection, BLACK);
+        EndDrawing();
+    }
+    EndDrawing();
+}
+
+void Change_name(Jogo* j){
+    char nome[21];
+    strcpy(nome, j->name_player); //mandamos o nome atual do usuario para a string nova que vai ser trabalhada
+    char letra;
+    while (!WindowShouldClose()){
+        letra = GetCharPressed();
+        int tamanho = strlen(nome);
+        if (tamanho < 20 && letra >= 32 && letra <= 126 && letra!=' '){ 
+            nome[tamanho] = letra;
+            nome[tamanho+1] = '\0';
+        }
+
+        if (IsKeyPressed(KEY_BACKSPACE)) {
+            int tamanho = strlen(nome);
+            nome[tamanho-1] = '\0';
+        }
+        BeginDrawing();
+        DrawTexture(j->fundo, 0, 0, WHITE);
+        DrawText("Alterar Nome:", 20, 20, 30, BLACK);
+        DrawText("Escreva um nome para jogar", 115, 100, 30, BLACK);
+        DrawText("(Máximo de 20 caracteres)", 190, 135, 20, RED);
+        DrawText("Retornar", 235, 500, 40, BLACK);
+
+        if(IsKeyPressed(KEY_ENTER)){
+            strcpy(j->name_player, nome);
+            EndDrawing();
+            break; 
+        }
+        DrawRectangle(80, 195, 500, 60, WHITE);
+        DrawText(nome, 120, 210, 30, BLACK);
+        DrawRectangle(230, 545, 200, 5, BLACK);
         EndDrawing();
     }
     EndDrawing();
