@@ -9,11 +9,11 @@
 typedef struct {
     char nome[50];
     int pontos;
-} Jogador;
+} Jogadores;
 
-void exibeRanking(FILE* f);
 void criaRanking();
-void adicionaRanking();
-void insereRanking(Jogador jogadores[], int n);
+void insereRanking(char *nome, int pontos);
+void exibeRanking();
+void ordenaRanking();
 
 #endif

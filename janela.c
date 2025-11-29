@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <time.h>
 #include "janela.h"
+#include "ranking.h"
 
 void Startgame(Jogo*j){
     InitAudioDevice();
@@ -263,7 +264,7 @@ void Ranking_screen(Jogo* j){
         DrawTexture(j->fundo, 0, 0, WHITE);
         
         DrawText("Ranking", 230, 30, 50, BLACK);
-        
+        exibeRanking();
         if(IsKeyPressed(KEY_ENTER)){
             break;   
         }
