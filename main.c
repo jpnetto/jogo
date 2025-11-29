@@ -35,18 +35,20 @@ int main(){
                 AtualizaRodada(&jogo);
                 if ((ColisaoBody(&jogo))||(ColisaoObstaculos(&jogo))){
                     gameOver = 0;
-                    continue;
+                    continue; 
                 }
                 ColisaoBordas(&jogo);
                 DrawText(TextFormat("Pontuação: %d", jogo.contador), 15, 15, 30, WHITE);
             } else {
                 Death_message(&jogo);
                 if (IsKeyPressed(KEY_ENTER)){
+                    insereRanking(jogo.name_player, jogo.contador);
                     FinalizaCobra(&jogo);
                     Reset_score(&jogo); //Quando aperta enter, começa um jogo novo, então o contador é resetado também
                     IniciaJogo(&jogo);
                     gameOver = 1;
                 } else if(IsKeyPressed(KEY_SPACE)){
+                    insereRanking(jogo.name_player, jogo.contador);
                     FinalizaCobra(&jogo);
                     Reset_score(&jogo);
                     spacereset = 1;

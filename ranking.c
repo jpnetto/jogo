@@ -18,15 +18,45 @@ void criaRanking() {
 
 // Insere jogadores no ranking (append)
 void insereRanking(char *nome, int pontos) {
-    FILE *f = fopen("ranking.txt", "a");
-    if (f == NULL) {
-        printf("Erro ao abrir ranking.txt\n");
-        return;
+    FILE *f = fopen("ranking.txt", "r");
+    Jogadores v[10];
+    int tam = 0;
+    char linha[100], nome_txt[50];
+    int pontuacao;
+
+    if (f != NULL) {
+        while (fgets(linha, sizeof(linha), f)) {
+            if (sscanf(linha, "%s %d", nome_txt, &pontuacao) == 2) {
+                strcpy(v[tam].nome, nome_txt);
+                v[tam].pontos = pontuacao;
+                tam++;
+            }
+        }
+        fclose(f);
     }
 
-    fprintf(f, "%s %d\n", nome, pontos);
+    int existe = 0; //usado para saber se o nome ja existe na array
+    for (int i = 0; i < tam; i++) {
+        if (strcmp(v[i].nome, nome) == 0) {
+            if (pontos > v[i].pontos) {
+                v[i].pontos = pontos;
+            }
+            existe = 1;
+            break;
+        }
+    }
+    if (!existe) {
+        strcpy(v[tam].nome, nome);
+        v[tam].pontos = pontos;
+        tam++;
+    }
+    f = fopen("ranking.txt", "w");
+    for (int i = 0; i < tam; i++) {
+        fprintf(f, "%s %d\n", v[i].nome, v[i].pontos);
+    }
     fclose(f);
 }
+
 
 // Exibe ranking na interface raylib
 void exibeRanking() {
