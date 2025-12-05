@@ -19,7 +19,7 @@ void criaRanking() {
 // Insere jogadores no ranking (append)
 void insereRanking(char *nome, int pontos) {
     FILE *f = fopen("ranking.txt", "r");
-    Jogadores v[10];
+    Jogadores v[20];
     int tam = 0;
     char linha[100], nome_txt[50];
     int pontuacao;
@@ -62,10 +62,10 @@ void insereRanking(char *nome, int pontos) {
 void exibeRanking() {
     FILE *f = fopen("ranking.txt", "r");
     char linha[100];
-    int y = 100;
+    int y = 60;
     char nome[50];
     int pontuacao, tam=0;
-    Jogadores v[10];
+    Jogadores v[20];
     
     //pega do .txt
     while (fgets(linha, sizeof(linha), f)) {
@@ -94,8 +94,8 @@ void exibeRanking() {
 
     for (int i = 0; i < tam; i++) {
         // monta "Nome - Pontos"
-        DrawText(TextFormat("%d - %s",v[i].pontos, v[i].nome), 100, y, 35, DARKGREEN);
-        y += 50;
+        DrawText(TextFormat("%d - %s",v[i].pontos, v[i].nome), 100, y, 20, RED);
+        y += 30;
     }
 
 

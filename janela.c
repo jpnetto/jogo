@@ -273,7 +273,7 @@ void Ranking_screen(Jogo* j){
 
         DrawTexture(j->fundo, 0, 0, WHITE);
         
-        DrawText("Ranking", 230, 30, 50, BLACK);
+        DrawText("Ranking", 230, 10, 50, BLACK);
         exibeRanking();
         if(IsKeyPressed(KEY_ENTER)){
             break;   
