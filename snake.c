@@ -30,7 +30,7 @@ void IniciaBody(Jogo *j){
 
     // É o que dá corpo à cobrinha inicial.
     for(int i=1; i<3; i++){
-        AtualizaHead(&j->body, j->body.head->pos.x, j->body.head->pos.y);
+        AtualizaHead(j,&j->body, j->body.head->pos.x, j->body.head->pos.y);
     }
     IniciaTexturasBody(j);
 }
@@ -123,11 +123,31 @@ void AtualizaMusica(Jogo *j) {
 
 void DesenhaBody(Jogo *j){
     Block *aux = j->body.head;
+    int curently_direction = aux->direcao;
 
     while(aux!=NULL){
-        if(aux == j->body.head)DrawTexture(j->body.texture[0], aux->pos.x, aux->pos.y, WHITE);
-        else if(aux == j->body.tail)DrawTexture(j->body.texture[2], aux->pos.x, aux->pos.y, WHITE);
-        else DrawTexture(j->body.texture[1], aux->pos.x, aux->pos.y, WHITE);
+        Rectangle source = {0,0,40,40}; //o source serve para fazer um recorte do pixel que sera mexido
+        Rectangle thepos = {aux->pos.x+20 ,aux->pos.y+20 ,40,40}; //o thepos serve para desenhar onde a imagem vai ser colocada na tela. pegamos o recorte com o source e o thepos será onde e com como esse recorte vai ser desenhado
+        Vector2 origin = {20,20}; //aqui é o centro de rotacao que o recorte vai fazer
+        float rotation = 90.0*aux->direcao; //aqui a rotacao se baseia na direcao da cobra
+        if(aux == j->body.head){
+            DrawTexturePro(j->body.texture[0], source, thepos, origin, rotation, WHITE);
+        }
+        else if(aux == j->body.tail){
+            DrawTexturePro(j->body.texture[2], source, thepos, origin, rotation, WHITE);
+        } 
+        else if(curently_direction!=aux->direcao){
+            if(curently_direction==0){
+                if(aux->direcao==1)rotation = rotation = 90.0*aux->direcao;
+                if(aux->direcao==3)rotation = rotation = 90.0*aux->direcao;
+            }
+            // if(curently_direction==1)
+            // if(curently_direction==2)
+            // if(curently_direction==3)
+            DrawTexturePro(j->body.texture[3], source, thepos, origin, rotation, WHITE);
+            curently_direction = aux->direcao;
+        }
+        else DrawTexturePro(j->body.texture[1], source, thepos, origin, rotation, WHITE);
         aux = aux->prox;
     }
 }
@@ -162,7 +182,7 @@ void AtualizaPosBody(Jogo *j){
 
     // Enviamos as coordenadas calculadas para a AtualizaHead.
     // Ou seja, toda posição que a cobra anda, aumenta um novo block. 
-    AtualizaHead(&j->body, x, y);
+    AtualizaHead(j,&j->body, x, y);
 
 
     // Para impedir que a cauda seja removida em caso de colisão com o último bloco.
@@ -220,11 +240,12 @@ void AtualizaLocalFood(Jogo *j){
 
 }
 
-void AtualizaHead(Body *body, float x, float y){
+void AtualizaHead(Jogo* j,Body *body, float x, float y){
     Block* new = (Block*)malloc(sizeof(Block));
     new->pos = (Rectangle){x, y, body->head->pos.width, body->head->pos.height};
     new->color = body->color;
     new->prox = body->head;
+    new->direcao = j->body.direcao;
     body->head = new;
     body->size++;
 }
@@ -320,16 +341,13 @@ void IniciaTexturasBody(Jogo* j){
     j->body.texture[1] = LoadTexture("assets/texture_snake/Body_snake.png");
     j->body.texture[2] = LoadTexture("assets/texture_snake/Cauda_snake.png");
     j->body.texture[3] = LoadTexture("assets/texture_snake/Virada01.png");
-    j->body.texture[4] = LoadTexture("assets/texture_snake/Virada02.png");
-    j->body.texture[5] = LoadTexture("assets/texture_snake/Virada03.png");
-    j->body.texture[6] = LoadTexture("assets/texture_snake/Virada04.png");
 }
 
 
 void Unload_textures(Jogo* j){
     UnloadTexture(j->fundo);
     UnloadTexture(j->food.texture);
-    for(int i = 0; i<j->body.size;i++){
+    for(int i = 0; i<4;i++){
         UnloadTexture(j->body.texture[i]);
     }
     FinalizaTrilhaSonora(j);

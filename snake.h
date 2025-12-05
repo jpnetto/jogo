@@ -29,6 +29,7 @@ typedef struct Block{
     Rectangle pos;
     Color color;
     struct Block *prox;
+    int direcao;
 } Block;
 
 typedef struct Body{
@@ -37,7 +38,7 @@ typedef struct Body{
     int direcao;
     int size;
     Color color;
-    Texture texture[7];
+    Texture texture[4];
 } Body;
 
 typedef struct TrilhaSonora{
@@ -76,7 +77,7 @@ void DesenhaJogo(Jogo *j);
 void AtualizaDirecao(Jogo *j);
 
 // Funções novas
-void AtualizaHead(Body *body, float x, float y);
+void AtualizaHead(Jogo* j,Body *body, float x, float y);
 void RemoveCauda(Body *body);
 void IniciaTrilhaSonora(Jogo* j);
 void AtualizaMusica(Jogo *j);
