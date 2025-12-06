@@ -19,7 +19,7 @@ void criaRanking() {
 // Insere jogadores no ranking (append)
 void insereRanking(char *nome, int pontos) {
     FILE *f = fopen("ranking.txt", "r");
-    Jogadores v[10];
+    Jogadores v[20];
     int tam = 0;
     char linha[100], nome_txt[50];
     int pontuacao;
@@ -62,10 +62,10 @@ void insereRanking(char *nome, int pontos) {
 void exibeRanking() {
     FILE *f = fopen("ranking.txt", "r");
     char linha[100];
-    int y = 100;
+    int y = 112;
     char nome[50];
     int pontuacao, tam=0;
-    Jogadores v[10];
+    Jogadores v[20];
     
     //pega do .txt
     while (fgets(linha, sizeof(linha), f)) {
@@ -88,14 +88,20 @@ void exibeRanking() {
     }
 
     if (f == NULL) {
-        DrawText("Ainda nao existe ranking salvo.", 100, y, 20, RED);
+        DrawText("Ainda nao existe ranking salvo.", 100, y, 20, BLACK);
         return;
     }
 
     for (int i = 0; i < tam; i++) {
-        // monta "Nome - Pontos"
-        DrawText(TextFormat("%d - %s",v[i].pontos, v[i].nome), 100, y, 35, DARKGREEN);
-        y += 50;
+        // monta "Classificacao - Pontos - Nome"
+        if(i==0)DrawText(TextFormat("%dº", i+1), 60, y, 29, BLACK);
+        if(i<9&&i>0)DrawText(TextFormat("%dº", i+1), 55, y, 29, BLACK);
+        if(i>=9)DrawText(TextFormat("%dº", i+1), 50, y, 29, BLACK);
+        if(v[i].pontos<10)DrawText(TextFormat("%d",v[i].pontos), 275, y, 29, BLACK);
+        if(v[i].pontos>=10&&v[i].pontos<100)DrawText(TextFormat("%d",v[i].pontos), 270, y, 29, BLACK);
+        if(v[i].pontos>=100)DrawText(TextFormat("%d",v[i].pontos), 260, y, 29, BLACK);
+        DrawText(TextFormat("%s", v[i].nome), 400, y, 29, BLACK);
+        y += 27;
     }
 
 

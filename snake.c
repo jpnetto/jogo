@@ -134,16 +134,26 @@ void DesenhaBody(Jogo *j){
             DrawTexturePro(j->body.texture[0], source, thepos, origin, rotation, WHITE);
         }
         else if(aux == j->body.tail){
+            rotation = 90.0*curently_direction;
             DrawTexturePro(j->body.texture[2], source, thepos, origin, rotation, WHITE);
         } 
         else if(curently_direction!=aux->direcao){
-            if(curently_direction==0){
-                if(aux->direcao==1)rotation = rotation = 90.0*aux->direcao;
-                if(aux->direcao==3)rotation = rotation = 90.0*aux->direcao;
+            if(curently_direction==1){
+                if(aux->direcao==0)rotation = 0;
+                if(aux->direcao==2)rotation = 270.0;
             }
-            // if(curently_direction==1)
-            // if(curently_direction==2)
-            // if(curently_direction==3)
+            if(curently_direction==3){
+                if(aux->direcao==2)rotation = 180.0;
+                if(aux->direcao==0)rotation = 90.0;
+            }
+            if(curently_direction==0){
+                if(aux->direcao==1)rotation = 180.0;
+                if(aux->direcao==3)rotation = 270.0;
+            }
+            if(curently_direction==2){
+                if(aux->direcao==1)rotation = 90.0;
+                if(aux->direcao==3)rotation = 0;
+            }
             DrawTexturePro(j->body.texture[3], source, thepos, origin, rotation, WHITE);
             curently_direction = aux->direcao;
         }

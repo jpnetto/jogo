@@ -265,33 +265,41 @@ void Choose_of_map(Jogo* j){
     EndDrawing();
 }
 
+
 void Ranking_screen(Jogo* j){
-    Rectangle selection;
+    Texture2D rank = LoadTexture("assets/back_rank.png");
     while (!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(WHITE);
 
-        DrawTexture(j->fundo, 0, 0, WHITE);
+        DrawTexture(rank, 0, 0, WHITE);
         
-        DrawText("Ranking", 230, 30, 50, BLACK);
+        DrawText("Ranking", 230, 10, 50, BLACK);
+        DrawText("Classificação", 5, 70, 25, BLACK);
+        DrawText("Pontuação", 200, 70, 30, BLACK);
+        DrawText("Jogador", 450, 70, 30, BLACK);
         exibeRanking();
         if(IsKeyPressed(KEY_ENTER)){
             break;   
         }
-        DrawRectangleRec(selection, BLACK);
+        DrawRectangleRec((Rectangle){175,65,10,600}, BLACK);
+        DrawRectangleRec((Rectangle){380,65,10,600}, BLACK);
+        DrawRectangleRec((Rectangle){0,62,660,5}, BLACK);
+        DrawRectangleRec((Rectangle){0,105,660,5}, BLACK);
         EndDrawing();
     }
     EndDrawing();
+    UnloadTexture(rank);
 }
 
 void Change_name(Jogo* j){
-    char nome[21];
+    char nome[16];
     strcpy(nome, j->name_player); //mandamos o nome atual do usuario para a string nova que vai ser trabalhada
     char letra;
     while (!WindowShouldClose()){
         letra = GetCharPressed();
         int tamanho = strlen(nome);
-        if (tamanho < 20 && letra >= 32 && letra <= 126 && letra!=' '){ 
+        if (tamanho < 15 && letra >= 32 && letra <= 126 && letra!=' '){ 
             nome[tamanho] = letra;
             nome[tamanho+1] = '\0';
         }
@@ -304,7 +312,7 @@ void Change_name(Jogo* j){
         DrawTexture(j->fundo, 0, 0, WHITE);
         DrawText("Alterar Nome:", 20, 20, 30, BLACK);
         DrawText("Escreva um nome para jogar", 115, 100, 30, BLACK);
-        DrawText("(Máximo de 20 caracteres)", 190, 135, 20, RED);
+        DrawText("(Máximo de 15 caracteres)", 190, 135, 20, RED);
         DrawText("Retornar", 235, 500, 40, BLACK);
 
         if(IsKeyPressed(KEY_ENTER)){

@@ -21,8 +21,6 @@ void Choose_of_map(Jogo*);
 
 void Options_screen(Jogo*);
 
-void Draw_Backgound(Jogo*);
-
 void Ranking_screen(Jogo*);
 
 void Change_name(Jogo*);

@@ -58,7 +58,7 @@ typedef struct Jogo{
     int contador;
     TrilhaSonora trilhaSonora;
     int map;
-    char name_player[21];
+    char name_player[16];
 
     Obstaculos obstaculosMapa0[4];
     Obstaculos obstaculosMapa1[4];
@@ -83,7 +83,7 @@ void IniciaTrilhaSonora(Jogo* j);
 void AtualizaMusica(Jogo *j);
 void FinalizaTrilhaSonora(Jogo* j);
 void FinalizaCobra(Jogo* j);
-
+void Draw_Backgound(Jogo*);
 // Funções muito modificadas
 void IniciaJogo(Jogo *j);
 void AtualizaDirecao(Jogo *j);
