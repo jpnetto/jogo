@@ -63,19 +63,19 @@ void IniciaFood(Jogo *j){
 
 void IniciaTrilhaSonora(Jogo *j){
     if(j->map==0){
-        j->trilhaSonora.colisaoCorpo = LoadSound("assets/gameOver.mp3");
-        j->trilhaSonora.colisaoFruta = LoadSound("assets/coleta.mp3");
-        j->trilhaSonora.musica = LoadMusicStream("assets/theBackyardigans.mp3");
+        j->trilhaSonora.colisaoCorpo = LoadSound("assets/trilha_sonora/gameOver.mp3");
+        j->trilhaSonora.colisaoFruta = LoadSound("assets/trilha_sonora/coleta.mp3");
+        j->trilhaSonora.musica = LoadMusicStream("assets/trilha_sonora/theBackyardigans.mp3");
     }
     else if(j->map==1){
-        j->trilhaSonora.colisaoCorpo = LoadSound("assets/curtoCircuito.mp3");
-        j->trilhaSonora.colisaoFruta = LoadSound("assets/carregaBateria.mp3");
-        j->trilhaSonora.musica = LoadMusicStream("assets/soundtrack.mp3");
+        j->trilhaSonora.colisaoCorpo = LoadSound("assets/trilha_sonora/curtoCircuito.mp3");
+        j->trilhaSonora.colisaoFruta = LoadSound("assets/trilha_sonora/carregaBateria.mp3");
+        j->trilhaSonora.musica = LoadMusicStream("assets/trilha_sonora/soundtrack.mp3");
     }
     else if(j->map==2){
-        j->trilhaSonora.colisaoCorpo = LoadSound("assets/curtoCircuito.mp3");
-        j->trilhaSonora.colisaoFruta = LoadSound("assets/carregaBateria.mp3");
-        j->trilhaSonora.musica = LoadMusicStream("assets/soundtrack.mp3");
+        j->trilhaSonora.colisaoCorpo = LoadSound("assets/trilha_sonora/curtoCircuito.mp3");
+        j->trilhaSonora.colisaoFruta = LoadSound("assets/trilha_sonora/carregaBateria.mp3");
+        j->trilhaSonora.musica = LoadMusicStream("assets/trilha_sonora/soundtrack.mp3");
     }
     
     SetMusicVolume(j->trilhaSonora.musica, 1.0f);
