@@ -6,6 +6,7 @@
 #include <time.h>
 #include "janela.h"
 #include "obstaculos.h"
+#include <math.h>
 
 
 void IniciaBody(Jogo *j){
@@ -49,7 +50,12 @@ void IniciaBordas(Jogo *j){
 void IniciaFood(Jogo *j){
     j->food.pos = (Rectangle) {j->largura/2 - STD_SIZE_X - 200, j->altura - 330, STD_SIZE_X, STD_SIZE_Y};
     j->food.color = FOOD_COLOR;
-    j->food.texture = LoadTexture("assets/Comida.png");
+    j->food.texture[0] = LoadTexture("assets/texture_food/Food01.png");
+    j->food.texture[1] = LoadTexture("assets/texture_food/Food02.png");
+    j->food.texture[2] = LoadTexture("assets/texture_food/Food03.png");
+    j->food.texture[3] = LoadTexture("assets/texture_food/Food04.png");
+    j->food.texture[4] = LoadTexture("assets/texture_food/Food04.png");
+    j->food.texture[5] = LoadTexture("assets/texture_food/Food04.png");
     
 }
 
@@ -83,9 +89,16 @@ void IniciaJogo(Jogo *j){
 }
 
 void DesenhaFood(Jogo *j){
-    DrawTexture(j->food.texture, j->food.pos.x, j->food.pos.y, WHITE);
-}
+    float t = GetTime();
+    float onesec = fmod(t, 1.0f);
+    if(onesec < 0.1f)DrawTexture(j->food.texture[0], j->food.pos.x, j->food.pos.y, WHITE);
+    if((onesec >= 0.1f && onesec < 0.2f)||(onesec >= 0.9f))DrawTexture(j->food.texture[1], j->food.pos.x, j->food.pos.y, WHITE);
+    if((onesec >= 0.2f && onesec < 0.3f)||(onesec >= 0.8f && onesec < 0.9f))DrawTexture(j->food.texture[2], j->food.pos.x, j->food.pos.y, WHITE);
+    if((onesec >= 0.3f && onesec < 0.4f)||(onesec >= 0.7f && onesec < 0.8f))DrawTexture(j->food.texture[3], j->food.pos.x, j->food.pos.y, WHITE);
+    if((onesec >= 0.4f && onesec < 0.5f)||(onesec >= 0.6f && onesec < 0.7f))DrawTexture(j->food.texture[4], j->food.pos.x, j->food.pos.y, WHITE);
+    if(onesec >= 0.5f && onesec < 0.6f)DrawTexture(j->food.texture[5], j->food.pos.x, j->food.pos.y, WHITE);
 
+}
 void Draw_Backgound(Jogo* j){
     if(j->map == 0){
         ClearBackground(SKYBLUE);
@@ -356,9 +369,11 @@ void IniciaTexturasBody(Jogo* j){
 
 void Unload_textures(Jogo* j){
     UnloadTexture(j->fundo);
-    UnloadTexture(j->food.texture);
     for(int i = 0; i<4;i++){
         UnloadTexture(j->body.texture[i]);
+    }
+    for(int i = 0; i<6;i++){
+        UnloadTexture(j->food.texture[i]);
     }
     FinalizaTrilhaSonora(j);
     CloseAudioDevice();

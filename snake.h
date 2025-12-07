@@ -21,7 +21,7 @@ typedef struct Obstaculos{
 typedef struct Food{
     Rectangle pos;
     Color color;
-    Texture texture;
+    Texture texture[6];
 }Food;
 
 // Estruturas novas/atualizadas
