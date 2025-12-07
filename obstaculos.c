@@ -108,34 +108,38 @@ void IniciaObstaculosMapa2(Jogo* j) {
         };
     }
     if(j->largura==660){
+        /*
         j->obstaculosMapa2[0].pos = (Rectangle) {
             j->largura * 0.40f, j->altura  * 0.8f, espessura*2, espessura*2
-        };
+            
+        };*/
         j->obstaculosMapa2[1].pos = (Rectangle) {
-            j->largura * 0.55f, j->altura  * 0.20f, espessura*3, espessura
+            j->largura * 0.55f, j->altura  * 0.20f, espessura*3, espessura/2
         };
 
         j->obstaculosMapa2[2].pos = (Rectangle) {
-            j->largura * 0.70f, j->altura  * 0.20, espessura, espessura*3
+            j->largura * 0.70f, j->altura  * 0.20, espessura/2, espessura*3
         };
 
         j->obstaculosMapa2[3].pos = (Rectangle) {
-            j->largura * 0.70f, j->altura  * 0.70f, espessura, espessura*3
+            j->largura * 0.70f, j->altura  * 0.70f, espessura/2, espessura*3
         };
 
         j->obstaculosMapa2[4].pos = (Rectangle) {
-            j->largura * 0.20f, j->altura  * 0.50, espessura, espessura*3
+            j->largura * 0.30f, j->altura  * 0.20, espessura/2, espessura*3
         };
 
         j->obstaculosMapa2[5].pos = (Rectangle) {
-            j->largura * 0.20f, j->altura * 0.70f, espessura, espessura*3
+            j->largura * 0.30f, j->altura * 0.70f, espessura/2, espessura*3
         };
 
         j->obstaculosMapa2[6].pos = (Rectangle) {
-            j->largura * 0.55f, j->altura  * 0.82f, espessura*3, espessura
+            j->largura * 0.30f, j->altura  * 0.70f, espessura*3, espessura/2
         };
+        
         j->obstaculosMapa2[7].pos = (Rectangle) {
-            j->largura * 0.90f, j->altura  * 0.40f, espessura*2, espessura*2
+            j->largura * 0.f, j->altura  * 0.40f, espessura*2, espessura*3
+            
     };
 }
     else{
@@ -207,7 +211,7 @@ void DesenhaObstaculosMapa1(Jogo* j){
             j->obstaculosMapa1[i].pos
         );
         */
-        DrawRectangleRec(j->obstaculosMapa2[i].pos, GRAY);
+        DrawRectangleRec(j->obstaculosMapa1[i].pos, GRAY);
     }
 
 }
