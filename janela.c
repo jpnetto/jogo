@@ -27,7 +27,7 @@ void Increase_score(Jogo* j){
 }
 
 void Death_message(Jogo* j){
-    DrawTexture(j->fundo, 0, 0, WHITE);
+    DrawTexture(j->fundo[0], 0, 0, WHITE);
     if(j->largura == 500){
         DrawText("FIM DE JOGO!", 65, 120, 55, RED);
         DrawText(TextFormat("Sua Pontuação: %d", j->contador), 75, 240, 40, BLACK);
@@ -53,12 +53,12 @@ int Menu_screen(Jogo* j){
     int cursor = 0;
     int retorno = 1;
     Rectangle selection;
-    j->fundo = LoadTexture("assets/Fundo_Menu.jpg");
+    j->fundo[0] = LoadTexture("assets/texture_background/Fundo_Menu.jpg");
     while (!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(WHITE);
 
-        DrawTexture(j->fundo, 0, 0, WHITE);
+        DrawTexture(j->fundo[0], 0, 0, WHITE);
         
         DrawText("Cobrinha", 210, 50, 50, BLACK);
         DrawText("dos", 280, 115, 50, BLACK);
@@ -121,7 +121,7 @@ void Options_screen(Jogo* j){
     while (!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(BLACK);
-        DrawTexture(j->fundo, 0, 0, WHITE);
+        DrawTexture(j->fundo[0], 0, 0, WHITE);
         DrawText("Configurações:", 20, 20, 30, BLACK);
         DrawText("Aperte ENTER na posicao desejada", 55, 100, 30, BLACK);
         DrawText("Tamanho", 240, 200, 40, BLACK);
@@ -171,7 +171,7 @@ void Size_map(Jogo* j){
     while (!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(BLACK);
-        DrawTexture(j->fundo, 0, 0, WHITE);
+        DrawTexture(j->fundo[0], 0, 0, WHITE);
         DrawText("Tamanho:", 20, 20, 30, BLACK);
         DrawText("Aperte ENTER na posicao desejada", 55, 100, 30, BLACK);
         DrawText("Mapa Pequeno", 185, 200, 40, BLACK);
@@ -226,7 +226,7 @@ void Choose_of_map(Jogo* j){
     while (!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(WHITE);
-        DrawTexture(j->fundo, 0, 0, WHITE);
+        DrawTexture(j->fundo[0], 0, 0, WHITE);
         DrawText("Mapas:", 20, 20, 30, BLACK);
         DrawText("Aperte ENTER na posicao desejada", 55, 100, 30, BLACK);
         DrawText("Mapa 1", 250, 200, 40, BLACK);
@@ -309,7 +309,7 @@ void Change_name(Jogo* j){
             nome[tamanho-1] = '\0';
         }
         BeginDrawing();
-        DrawTexture(j->fundo, 0, 0, WHITE);
+        DrawTexture(j->fundo[0], 0, 0, WHITE);
         DrawText("Alterar Nome:", 20, 20, 30, BLACK);
         DrawText("Escreva um nome para jogar", 115, 100, 30, BLACK);
         DrawText("(Máximo de 15 caracteres)", 190, 135, 20, RED);

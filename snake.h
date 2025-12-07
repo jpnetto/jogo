@@ -81,8 +81,7 @@ typedef struct Jogo{
     Obstaculos obstaculosMapa2;
     
     TexturaObstaculos textObstaculo;
-    Texture2D fundoMap[2];
-    Texture2D fundo;
+    Texture2D fundo[10];
 } Jogo;
 
 

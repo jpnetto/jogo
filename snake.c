@@ -93,8 +93,8 @@ void IniciaJogo(Jogo *j){
     IniciaFood(j);
     IniciaObstaculos(j);
     IniciaTrilhaSonora(j);
-    IniciaTexturasMap(j);
     IniciaTexturasObstaculos(j);
+    IniciaTexturasMap(j);
     j->tempo = GetTime();
 }
 
@@ -110,29 +110,31 @@ void DesenhaFood(Jogo *j){
 
 }
 void Draw_Backgound(Jogo* j){
-    float sw = j->largura;
-    float sh = j->altura;
-    float iw = j->fundoMap[2].width;
-    float ih = j->fundoMap[2].height;
-
-    float scale = fmax(sw / iw, sh / ih);
-    float newW = iw * scale;
-    float newH = ih * scale;
-    float posX = (sw - newW) / 2.0f;
-    float posY = (sh - newH) / 2.0f;
-
-    Rectangle auxiliar1 = { 0, 0, iw, ih };
-    Rectangle auxiliar2 = { posX, posY, newW, newH };
-    Vector2 origem = { 0, 0 };
-
+    ClearBackground(WHITE);
     if(j->map==0){
-        DrawTexturePro(j->fundoMap[0], auxiliar1, auxiliar2, origem, 0, WHITE);
-    }
-    else if(j->map==0){
-        DrawTexturePro(j->fundoMap[1], auxiliar1, auxiliar2, origem, 0, WHITE);
-    }
-    else{
-        DrawTexturePro(j->fundoMap[2], auxiliar1, auxiliar2, origem, 0, WHITE);
+        if(j->largura==500){
+            DrawTexture(j->fundo[1], 0, 0, WHITE);
+        } else if(j->largura==660){
+            DrawTexture(j->fundo[2], 0, 0, WHITE);
+        } else{
+            DrawTexture(j->fundo[3], 0, 0, WHITE);
+        }
+    } else if(j->map==1){
+        if(j->largura==500){
+            DrawTexture(j->fundo[4], 0, 0, WHITE);
+        } else if(j->largura==660){
+            DrawTexture(j->fundo[5], 0, 0, WHITE);
+        } else{
+            DrawTexture(j->fundo[6], 0, 0, WHITE);
+        }
+    } else{
+        if(j->largura==500){
+            DrawTexture(j->fundo[7], 0, 0, WHITE);
+        } else if(j->largura==660){
+            DrawTexture(j->fundo[8], 0, 0, WHITE);
+        } else{
+            DrawTexture(j->fundo[9], 0, 0, WHITE);
+        }
     } 
 }
 
@@ -424,25 +426,23 @@ void IniciaTexturasBody(Jogo* j){
 }
 
 void IniciaTexturasMap(Jogo* j){
-    
-    Texture2D fundoMap0 = LoadTexture("assets/map2.jpg");
-    j->fundoMap[0] = fundoMap0;
-    Texture2D fundoMap1= LoadTexture("assets/map2.jpg");
-    j->fundoMap[1] = fundoMap1; 
-    Texture2D fundoMap2 = LoadTexture("assets/map2.jpg");
-    j->fundoMap[2] = fundoMap2;
-    for(int i=0; i<2; i++){
-        SetTextureFilter(j->fundoMap[i], TEXTURE_FILTER_POINT);
-    }
+    j->fundo[1] = LoadTexture("assets/texture_background/fundo01.png");
+    j->fundo[2] = LoadTexture("assets/texture_background/fundo02.png");
+    j->fundo[3] = LoadTexture("assets/texture_background/fundo03.png");
+    j->fundo[4] = LoadTexture("assets/texture_background/fundo04.png");
+    j->fundo[5] = LoadTexture("assets/texture_background/fundo05.png");
+    j->fundo[6] = LoadTexture("assets/texture_background/fundo06.png");
+    j->fundo[7] = LoadTexture("assets/texture_background/fundo07.png");
+    j->fundo[8] = LoadTexture("assets/texture_background/fundo08.png");
+    j->fundo[9] = LoadTexture("assets/texture_background/fundo09.png");
 }
 
 
 void Unload_textures(Jogo* j){
-    for(int i=0; i<2; i++){
-        UnloadTexture(j->fundoMap[i]);
+    for(int i=0; i<10; i++){
+        UnloadTexture(j->fundo[i]);
     }
     UnloadTexture(j->textObstaculo.r);
-    UnloadTexture(j->fundo);
     for(int i = 0; i<4;i++){
         UnloadTexture(j->body.texture[i]);
     }
