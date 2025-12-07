@@ -428,9 +428,9 @@ void IniciaTexturasMap(Jogo* j){
 }
 
 void IniciaTexturasObstaculos(Jogo* j){
-    j->obstaculosMapa0->textura = LoadTexture("assets/texture_obstaculos/flores.png");
-    j->obstaculosMapa1->textura = LoadTexture("assets/texture_obstaculos/cerca.png");
-    j->obstaculosMapa2->textura = LoadTexture("assets/texture_obstaculos/fogo.png");
+    j->obstaculosMapa0->textura = LoadTexture("assets/texture_obstaculo/flores.png");
+    j->obstaculosMapa1->textura = LoadTexture("assets/texture_obstaculo/cerca.png");
+    j->obstaculosMapa2->textura = LoadTexture("assets/texture_obstaculo/fogo.png");
 }
 
 void Unload_textures(Jogo* j){
