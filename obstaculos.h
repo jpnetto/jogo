@@ -13,7 +13,6 @@ void IniciaObstaculosMapa2(Jogo* j);
 void DesenhaObstaculosMapa0(Jogo* j);
 void DesenhaObstaculosMapa1(Jogo* j);
 void DesenhaObstaculosMapa2(Jogo* j);
-void DesenhaTexturaObstaculo(Texture2D textura, Rectangle obstaculo);
 
 int ColisaoObstaculosMapa0(Jogo* j);
 int ColisaoObstaculosMapa1(Jogo* j);

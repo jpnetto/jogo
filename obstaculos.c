@@ -206,10 +206,7 @@ void DesenhaObstaculosMapa0(Jogo* j){
 
 void DesenhaObstaculosMapa1(Jogo* j){
     for (int i = 0; i < 4; i++) {
-        DesenhaTexturaObstaculo(
-            j->obstaculosMapa1->texturaVertical,
-            j->obstaculosMapa1[i].pos
-        );
+         DrawRectangleRec(j->obstaculosMapa2[i].pos, ORANGE);
         
     }
 
@@ -222,30 +219,6 @@ void DesenhaObstaculosMapa2(Jogo* j){
 
 
 
-void DesenhaTexturaObstaculo(Texture2D textura, Rectangle obstaculo){
-
-    Rectangle origem = { 0, 0, textura.width, textura.height };
-    float proporcao = (float)textura.width / (float)textura.height;
-
-    float finalW = obstaculo.width;
-    float finalH = obstaculo.width / proporcao;
-
-    if (finalH > obstaculo.height) {
-        finalH = obstaculo.height;
-        finalW = obstaculo.height * proporcao;
-    }
-
-    Rectangle final = {
-        obstaculo.x + obstaculo.width  / 2.0f,
-        obstaculo.y + obstaculo.height / 2.0f,
-        finalW,
-        finalH
-    };
-
-    Vector2 vector = { finalW/2.0f, finalH/2.0f };
-    DrawTexturePro(textura, origem, final, vector, 0.0f, WHITE);
-   /* DrawRectangleRec(obstaculo, DARKPURPLE); */
-}
 
 int ColisaoObstaculos(Jogo* j){
     if(ColisaoObstaculosMapa0(j)){

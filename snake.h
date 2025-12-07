@@ -16,10 +16,6 @@ typedef struct Bordas{
 
 typedef struct Obstaculos{
     Rectangle pos;
-    Texture2D texturaVertical;
-    Texture2D texturaHorizontal;
-    Texture2D texturaQuadrado;
-
 }Obstaculos;
 
 typedef struct Food{
@@ -64,7 +60,7 @@ typedef struct Jogo{
     TrilhaSonora trilhaSonora;
     int map;
     char name_player[16];
-    
+
     Obstaculos obstaculosMapa0[4];
     Obstaculos obstaculosMapa1[4];
     Obstaculos obstaculosMapa2[16];

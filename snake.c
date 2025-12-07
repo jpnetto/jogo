@@ -89,7 +89,7 @@ void IniciaJogo(Jogo *j){
     IniciaFood(j);
     IniciaObstaculos(j);
     IniciaTrilhaSonora(j);
-    IniciaTexturasObstaculos(j);
+    /*IniciaTexturasObstaculos(j);*/
     IniciaTexturasMap(j);
     j->tempo = GetTime();
 }
@@ -427,6 +427,7 @@ void IniciaTexturasMap(Jogo* j){
     j->fundo[9] = LoadTexture("assets/texture_background/fundo09.png");
 }
 
+/*
 void IniciaTexturasObstaculos(Jogo* j){
     j->obstaculosMapa0->texturaVertical = LoadTexture("assets/texture_obstaculo/flores.png");
     j->obstaculosMapa0->texturaHorizontal = LoadTexture("assets/texture_obstaculo/floresHorizontal.png");
@@ -436,11 +437,13 @@ void IniciaTexturasObstaculos(Jogo* j){
     j->obstaculosMapa0->texturaHorizontal = LoadTexture("assets/texture_obstaculo/lavaHorizontal.png");
     j->obstaculosMapa0->texturaQuadrado = LoadTexture("assets/texture_obstaculo/fogo.png");
 }
+*/
 
 void Unload_textures(Jogo* j){
     for(int i=0; i<10; i++){
         UnloadTexture(j->fundo[i]);
     }
+    /*
     UnloadTexture(j->obstaculosMapa0->texturaVertical);
     UnloadTexture(j->obstaculosMapa1->texturaVertical);
     UnloadTexture(j->obstaculosMapa2->texturaVertical);
@@ -448,6 +451,7 @@ void Unload_textures(Jogo* j){
     UnloadTexture(j->obstaculosMapa1->texturaHorizontal);
     UnloadTexture(j->obstaculosMapa2->texturaHorizontal);
     UnloadTexture(j->obstaculosMapa2->texturaQuadrado);
+    */
 
 
 
