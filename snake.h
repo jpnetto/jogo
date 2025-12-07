@@ -16,7 +16,10 @@ typedef struct Bordas{
 
 typedef struct Obstaculos{
     Rectangle pos;
-    Texture2D textura;
+    Texture2D texturaVertical;
+    Texture2D texturaHorizontal;
+    Texture2D texturaQuadrado;
+
 }Obstaculos;
 
 typedef struct Food{

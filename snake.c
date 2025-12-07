@@ -357,7 +357,7 @@ int ColisaoFoodObstaculo(Jogo *j, float x, float y){
     else if (j->map == 2)
     {
         for (int i = 0; i < 16; i++) {
-            if (CheckCollisionRecs(comida, j->obstaculosMapa1[i].pos))
+            if (CheckCollisionRecs(comida, j->obstaculosMapa2[i].pos))
                 return 1;
         }
     }
@@ -428,18 +428,29 @@ void IniciaTexturasMap(Jogo* j){
 }
 
 void IniciaTexturasObstaculos(Jogo* j){
-    j->obstaculosMapa0->textura = LoadTexture("assets/texture_obstaculo/flores.png");
-    j->obstaculosMapa1->textura = LoadTexture("assets/texture_obstaculo/cerca.png");
-    j->obstaculosMapa2->textura = LoadTexture("assets/texture_obstaculo/fogo.png");
+    j->obstaculosMapa0->texturaVertical = LoadTexture("assets/texture_obstaculo/flores.png");
+    j->obstaculosMapa0->texturaHorizontal = LoadTexture("assets/texture_obstaculo/floresHorizontal.png");
+    j->obstaculosMapa1->texturaVertical = LoadTexture("assets/texture_obstaculo/cerca.png");
+    j->obstaculosMapa0->texturaHorizontal = LoadTexture("assets/texture_obstaculo/cercaHorizontal.png");
+    j->obstaculosMapa2->texturaVertical = LoadTexture("assets/texture_obstaculo/lavaVertical.png");
+    j->obstaculosMapa0->texturaHorizontal = LoadTexture("assets/texture_obstaculo/lavaHorizontal.png");
+    j->obstaculosMapa0->texturaQuadrado = LoadTexture("assets/texture_obstaculo/fogo.png");
 }
 
 void Unload_textures(Jogo* j){
     for(int i=0; i<10; i++){
         UnloadTexture(j->fundo[i]);
     }
-    UnloadTexture(j->obstaculosMapa0->textura);
-    UnloadTexture(j->obstaculosMapa1->textura);
-    UnloadTexture(j->obstaculosMapa2->textura);
+    UnloadTexture(j->obstaculosMapa0->texturaVertical);
+    UnloadTexture(j->obstaculosMapa1->texturaVertical);
+    UnloadTexture(j->obstaculosMapa2->texturaVertical);
+    UnloadTexture(j->obstaculosMapa0->texturaHorizontal);
+    UnloadTexture(j->obstaculosMapa1->texturaHorizontal);
+    UnloadTexture(j->obstaculosMapa2->texturaHorizontal);
+    UnloadTexture(j->obstaculosMapa2->texturaQuadrado);
+
+
+
 
     for(int i = 0; i<4;i++){
         UnloadTexture(j->body.texture[i]);

@@ -206,12 +206,11 @@ void DesenhaObstaculosMapa0(Jogo* j){
 
 void DesenhaObstaculosMapa1(Jogo* j){
     for (int i = 0; i < 4; i++) {
-        /*DesenhaTexturaObstaculo(
-            j->obstaculosMapa1->textura,
+        DesenhaTexturaObstaculo(
+            j->obstaculosMapa1->texturaVertical,
             j->obstaculosMapa1[i].pos
         );
-        */
-        DrawRectangleRec(j->obstaculosMapa1[i].pos, GRAY);
+        
     }
 
 }
@@ -224,6 +223,7 @@ void DesenhaObstaculosMapa2(Jogo* j){
 
 
 void DesenhaTexturaObstaculo(Texture2D textura, Rectangle obstaculo){
+
     Rectangle origem = { 0, 0, textura.width, textura.height };
     float proporcao = (float)textura.width / (float)textura.height;
 
