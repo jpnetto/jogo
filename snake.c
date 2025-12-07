@@ -356,7 +356,7 @@ int ColisaoFoodObstaculo(Jogo *j, float x, float y){
     }
     else if (j->map == 2)
     {
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 16; i++) {
             if (CheckCollisionRecs(comida, j->obstaculosMapa1[i].pos))
                 return 1;
         }
