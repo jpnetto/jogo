@@ -73,18 +73,36 @@ void IniciaObstaculosMapa1(Jogo* j){
 }
 
 void IniciaObstaculosMapa2(Jogo* j) {
-
-    j->obstaculosMapa2.c[0].pos = (Vector2){ 200, 150 };
-    j->obstaculosMapa2.c[0].raio = 60;
-
-    j->obstaculosMapa2.c[1].pos = (Vector2){ 400, 300 };
-    j->obstaculosMapa2.c[1].raio = 80;
-
-    j->obstaculosMapa2.c[2].pos = (Vector2){ 600, 200 };
-    j->obstaculosMapa2.c[2].raio = 50;
-
-    j->obstaculosMapa2.c[3].pos = (Vector2){ 500, 450 };
-    j->obstaculosMapa2.c[3].raio = 40;
+    float espessura = 10.0f; 
+    
+    j->obstaculosMapa2[0].pos = (Rectangle) {
+        j->largura / 4, 
+        0, 
+        espessura, 
+        j->altura * 0.75f
+    }; 
+    
+    j->obstaculosMapa2[1].pos = (Rectangle) {
+        j->largura * 0.75f, 
+        j->altura * 0.25f, 
+        espessura, 
+        j->altura * 0.75f
+    };
+    
+    j->obstaculosMapa2[2].pos = (Rectangle) {
+        j->largura / 4, 
+        j->altura / 4, 
+        j->largura / 2, 
+        espessura
+    };
+    
+    float tamanho_bloco_central = espessura * 2.0f;
+    j->obstaculosMapa2[3].pos = (Rectangle) {
+        j->largura / 2 - tamanho_bloco_central / 2.0f, // Centraliza
+        j->altura / 2 - tamanho_bloco_central / 2.0f,  // Centraliza
+        tamanho_bloco_central, 
+        tamanho_bloco_central
+    };
 }
 
 void DesenhaObstaculosMapa0(Jogo* j){
@@ -96,15 +114,15 @@ void DesenhaObstaculosMapa0(Jogo* j){
 void DesenhaObstaculosMapa1(Jogo* j){
     for (int i = 0; i < 4; i++) {
         DesenhaTexturaObstaculo(
-            j->textObstaculo.r,
+            j->obstaculosMapa1->textura,
             j->obstaculosMapa1[i].pos
         );
     }
 
 }
 void DesenhaObstaculosMapa2(Jogo* j){
-    for (int i = 0; i < 4; i++) {
-        DrawCircleV(j->obstaculosMapa2.c[i].pos, j->obstaculosMapa2.c[i].raio, RED);
+    for (int i = 0; i < 4; i++){
+        DrawRectangleRec(j->obstaculosMapa2[i].pos, ORANGE);
     }
 }
 
@@ -131,11 +149,8 @@ void DesenhaTexturaObstaculo(Texture2D textura, Rectangle obstaculo){
 
     Vector2 vector = { finalW/2.0f, finalH/2.0f };
     DrawTexturePro(textura, origem, final, vector, 0.0f, WHITE);
-    DrawRectangleRec(obstaculo, DARKPURPLE);
+   /* DrawRectangleRec(obstaculo, DARKPURPLE); */
 }
-
-
-
 
 int ColisaoObstaculos(Jogo* j){
     if(ColisaoObstaculosMapa0(j)){
@@ -178,21 +193,12 @@ int ColisaoObstaculosMapa1(Jogo* j){
 
 int ColisaoObstaculosMapa2(Jogo *j){
     if(j->map==2){ 
-        for(int i = 0; i < 4; i++){  
-        Vector2 centerSnake = {
-            j->body.head->pos.x + j->body.size / 2.0f,
-            j->body.head->pos.y + j->body.size / 2.0f
-        };
-
-        float dist = Vector2Distance(centerSnake, j->obstaculosMapa2.c[i].pos);
-        float raioSnake = j->body.size / 2.0f;
-
-        if(dist < (j->obstaculosMapa2.c[i].raio + raioSnake)){
+        for(int i=0; i<8; i++){
+            if(CheckCollisionRecs(j->body.head->pos, j->obstaculosMapa2[i].pos)){
             return 1;
-        }
+            }
+        }   
     }
-    }
-    
     return 0;
 }
 

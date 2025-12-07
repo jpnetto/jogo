@@ -60,10 +60,6 @@ void IniciaFood(Jogo *j){
     
 }
 
-void IniciaTexturasObstaculos(Jogo* j){
-    j->textObstaculo.r = LoadTexture("assets/obstaculo.png");
-    
-}
 
 void IniciaTrilhaSonora(Jogo *j){
     if(j->map==0){
@@ -74,7 +70,7 @@ void IniciaTrilhaSonora(Jogo *j){
     else if(j->map==1){
         j->trilhaSonora.colisaoCorpo = LoadSound("assets/curtoCircuito.mp3");
         j->trilhaSonora.colisaoFruta = LoadSound("assets/carregaBateria.mp3");
-        j->trilhaSonora.musica = LoadMusicStream("assets/theBackyardigans.mp3");
+        j->trilhaSonora.musica = LoadMusicStream("assets/soundtrack.mp3");
     }
     else if(j->map==2){
         j->trilhaSonora.colisaoCorpo = LoadSound("assets/curtoCircuito.mp3");
@@ -360,14 +356,8 @@ int ColisaoFoodObstaculo(Jogo *j, float x, float y){
     }
     else if (j->map == 2)
     {
-        Vector2 centerFood = {
-            comida.x + comida.width / 2.0f,
-            comida.y + comida.height / 2.0f
-        };
-        float raioFood = comida.width / 2.0f; 
-        for (int i = 0; i < 10; i++){
-            float dist = Vector2Distance(centerFood, j->obstaculosMapa2.c[i].pos);
-            if (dist < (raioFood + j->obstaculosMapa2.c[i].raio))
+        for (int i = 0; i < 8; i++) {
+            if (CheckCollisionRecs(comida, j->obstaculosMapa1[i].pos))
                 return 1;
         }
     }
@@ -437,12 +427,20 @@ void IniciaTexturasMap(Jogo* j){
     j->fundo[9] = LoadTexture("assets/texture_background/fundo09.png");
 }
 
+void IniciaTexturasObstaculos(Jogo* j){
+    j->obstaculosMapa0->textura = LoadTexture("assets/texture_obstaculos/flores.png");
+    j->obstaculosMapa1->textura = LoadTexture("assets/texture_obstaculos/cerca.png");
+    j->obstaculosMapa2->textura = LoadTexture("assets/texture_obstaculos/fogo.png");
+}
 
 void Unload_textures(Jogo* j){
     for(int i=0; i<10; i++){
         UnloadTexture(j->fundo[i]);
     }
-    UnloadTexture(j->textObstaculo.r);
+    UnloadTexture(j->obstaculosMapa0->textura);
+    UnloadTexture(j->obstaculosMapa1->textura);
+    UnloadTexture(j->obstaculosMapa2->textura);
+
     for(int i = 0; i<4;i++){
         UnloadTexture(j->body.texture[i]);
     }
