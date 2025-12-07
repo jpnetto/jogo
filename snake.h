@@ -14,9 +14,20 @@ typedef struct Bordas{
     Rectangle pos;
 }Bordas;
 
-typedef struct Obstaculos{
+typedef struct ObstaculosRetangulares{
     Rectangle pos;
+}ObstaculosRetangulares;
+
+typedef struct ObstaculosRedondos{
+    Vector2 pos;    
+    float raio;
+}ObstaculosRedondos;
+
+typedef struct Obstaculos{
+    ObstaculosRedondos c[10];
+    ObstaculosRetangulares r[10];
 }Obstaculos;
+
 
 typedef struct Food{
     Rectangle pos;
@@ -47,6 +58,11 @@ typedef struct TrilhaSonora{
     Music musica;
 } TrilhaSonora;
 
+typedef struct TexturaObstaculos{
+    Texture2D r;
+    Texture2D c;
+}TexturaObstaculos;
+
 typedef struct Jogo{
     int largura;
     int altura;
@@ -59,11 +75,13 @@ typedef struct Jogo{
     TrilhaSonora trilhaSonora;
     int map;
     char name_player[16];
-
-    Obstaculos obstaculosMapa0[4];
-    Obstaculos obstaculosMapa1[4];
-    Obstaculos obstaculosMapa2[10];
     
+    ObstaculosRetangulares obstaculosMapa0[4];
+    ObstaculosRetangulares obstaculosMapa1[4];
+    Obstaculos obstaculosMapa2;
+    
+    TexturaObstaculos textObstaculo;
+    Texture2D fundoMap[2];
     Texture2D fundo;
 } Jogo;
 
@@ -94,8 +112,11 @@ int ColisaoBordas(Jogo *j);
 // Funções atualizadas
 int ColisaoFood(Jogo *j);
 int ColisaoBody(Jogo *j);
+int ColisaoFoodObstaculo(Jogo *j, float x, float y);
 
 void IniciaTexturasBody(Jogo* j);
+void IniciaTexturasMap(Jogo* j);
 
 void Unload_textures(Jogo*);
+
 #endif

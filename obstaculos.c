@@ -1,4 +1,5 @@
 #include "raylib.h"
+#include "raymath.h"
 #include "snake.h"
 #include "obstaculos.h"
 
@@ -71,96 +72,20 @@ void IniciaObstaculosMapa1(Jogo* j){
     };
 }
 
-void IniciaObstaculosMapa2(Jogo* j){
+void IniciaObstaculosMapa2(Jogo* j) {
 
-    float espessura_tronco = 5.0f;
-    float margem = 0.10f; 
+    j->obstaculosMapa2.c[0].pos = (Vector2){ 200, 150 };
+    j->obstaculosMapa2.c[0].raio = 60;
 
-   if(j->largura == 500){
-        
-        // Crie uma margem de segurança para Y, afastando do topo e da base
-        float margem_y = espessura_tronco * 2.0f; // Ex: 10.0f
+    j->obstaculosMapa2.c[1].pos = (Vector2){ 400, 300 };
+    j->obstaculosMapa2.c[1].raio = 80;
 
-        // 1. Tronco Esquerdo Interno
-        j->obstaculosMapa2[1].pos = (Rectangle) {
-            j->largura * 0.35f, 
-            margem_y, // Começa afastado do topo
-            espessura_tronco,
-            j->altura * 0.80f - margem_y // Reduz a altura para manter a base afastada
-        }; 
-        
-        // 2. Tronco Direito Interno
-        j->obstaculosMapa2[2].pos = (Rectangle) {
-            j->largura * 0.65f, 
-            margem_y* 0.10f, // Começa afastado do topo (não mais em 0)
-            espessura_tronco,
-            j->altura * 10.0f - margem_y // Reduz a altura
-        };
-        
-         
-         // 4. Tronco Caído no topo 
-         j->obstaculosMapa2[4].pos = (Rectangle) {
-            j->largura * 0.10f, 
-            margem_y - 0.1f, // Começa no Y da margem de segurança (não mais em 0.05f)
-            j->largura * 0.15f, 
-            espessura_tronco
-        };
+    j->obstaculosMapa2.c[2].pos = (Vector2){ 600, 200 };
+    j->obstaculosMapa2.c[2].raio = 50;
 
-
-    }
-    
-    else{
-        espessura_tronco = 10.0f; 
-        margem = 0.10f; 
-    
-
-    j->obstaculosMapa2[0].pos = (Rectangle) {
-        j->largura * margem, 
-        0, 
-        espessura_tronco,
-        j->altura * 0.90f 
-    }; 
-    
-    j->obstaculosMapa2[1].pos = (Rectangle) {
-        j->largura * 0.35f, 
-        j->altura * 0.10f, 
-        espessura_tronco,
-        j->altura * 0.80f 
-    }; 
-    
-    j->obstaculosMapa2[2].pos = (Rectangle) {
-        j->largura * 0.65f, 
-        0, 
-        espessura_tronco,
-        j->altura * 0.90f 
-    };
-    
-    j->obstaculosMapa2[3].pos = (Rectangle) {
-        j->largura * (1.0f - margem) - espessura_tronco, 
-        j->altura * 0.10f, 
-        espessura_tronco,
-        j->altura * 0.80f 
-    };
-
-    j->obstaculosMapa2[4].pos = (Rectangle) {
-        j->largura * 0.10f, 
-        j->altura * 0.05f, 
-        j->largura * 0.15f, 
-        espessura_tronco
-    };
-
-    j->obstaculosMapa2[5].pos = (Rectangle) {
-        j->largura * 0.75f, 
-        j->altura * 0.90f, 
-        j->largura * 0.15f, 
-        espessura_tronco
-    };
-    }
-
+    j->obstaculosMapa2.c[3].pos = (Vector2){ 500, 450 };
+    j->obstaculosMapa2.c[3].raio = 40;
 }
-
-
-
 
 void DesenhaObstaculosMapa0(Jogo* j){
     for (int i = 0; i < 4; i++){
@@ -169,16 +94,47 @@ void DesenhaObstaculosMapa0(Jogo* j){
 }
 
 void DesenhaObstaculosMapa1(Jogo* j){
-    for(int i=0; i<8; i++){
-        DrawRectangleRec(j->obstaculosMapa1[i].pos, DARKBLUE);
+    for (int i = 0; i < 4; i++) {
+        DesenhaTexturaObstaculo(
+            j->textObstaculo.r,
+            j->obstaculosMapa1[i].pos
+        );
+    }
+
+}
+void DesenhaObstaculosMapa2(Jogo* j){
+    for (int i = 0; i < 4; i++) {
+        DrawCircleV(j->obstaculosMapa2.c[i].pos, j->obstaculosMapa2.c[i].raio, RED);
     }
 }
 
-void DesenhaObstaculosMapa2(Jogo* j){
-    for(int i=0; i<8; i++){
-        DrawRectangleRec(j->obstaculosMapa2[i].pos, BLACK);
+
+
+void DesenhaTexturaObstaculo(Texture2D textura, Rectangle obstaculo){
+    Rectangle origem = { 0, 0, textura.width, textura.height };
+    float proporcao = (float)textura.width / (float)textura.height;
+
+    float finalW = obstaculo.width;
+    float finalH = obstaculo.width / proporcao;
+
+    if (finalH > obstaculo.height) {
+        finalH = obstaculo.height;
+        finalW = obstaculo.height * proporcao;
     }
+
+    Rectangle final = {
+        obstaculo.x + obstaculo.width  / 2.0f,
+        obstaculo.y + obstaculo.height / 2.0f,
+        finalW,
+        finalH
+    };
+
+    Vector2 vector = { finalW/2.0f, finalH/2.0f };
+    DrawTexturePro(textura, origem, final, vector, 0.0f, WHITE);
+    DrawRectangleRec(obstaculo, DARKPURPLE);
 }
+
+
 
 
 int ColisaoObstaculos(Jogo* j){
@@ -216,18 +172,27 @@ int ColisaoObstaculosMapa1(Jogo* j){
             }
         }   
     }
+    
     return 0;
 }
 
-int ColisaoObstaculosMapa2(Jogo* j){
-    if(j->map==2){
-        for(int i=0; i<10; i++){
-            if(CheckCollisionRecs(j->body.head->pos, j->obstaculosMapa2[i].pos)){
+int ColisaoObstaculosMapa2(Jogo *j){
+    if(j->map==2){ 
+        for(int i = 0; i < 4; i++){  
+        Vector2 centerSnake = {
+            j->body.head->pos.x + j->body.size / 2.0f,
+            j->body.head->pos.y + j->body.size / 2.0f
+        };
+
+        float dist = Vector2Distance(centerSnake, j->obstaculosMapa2.c[i].pos);
+        float raioSnake = j->body.size / 2.0f;
+
+        if(dist < (j->obstaculosMapa2.c[i].raio + raioSnake)){
             return 1;
-            }
-        }   
+        }
     }
+    }
+    
     return 0;
 }
-
 

@@ -1,4 +1,5 @@
 #include "raylib.h"
+#include "raymath.h"
 #include "snake.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -59,6 +60,11 @@ void IniciaFood(Jogo *j){
     
 }
 
+void IniciaTexturasObstaculos(Jogo* j){
+    j->textObstaculo.r = LoadTexture("assets/obstaculo.png");
+    
+}
+
 void IniciaTrilhaSonora(Jogo *j){
     if(j->map==0){
         j->trilhaSonora.colisaoCorpo = LoadSound("assets/gameOver.mp3");
@@ -68,10 +74,12 @@ void IniciaTrilhaSonora(Jogo *j){
     else if(j->map==1){
         j->trilhaSonora.colisaoCorpo = LoadSound("assets/curtoCircuito.mp3");
         j->trilhaSonora.colisaoFruta = LoadSound("assets/carregaBateria.mp3");
+        j->trilhaSonora.musica = LoadMusicStream("assets/theBackyardigans.mp3");
     }
     else if(j->map==2){
         j->trilhaSonora.colisaoCorpo = LoadSound("assets/curtoCircuito.mp3");
         j->trilhaSonora.colisaoFruta = LoadSound("assets/carregaBateria.mp3");
+        j->trilhaSonora.musica = LoadMusicStream("assets/soundtrack.mp3");
     }
     
     SetMusicVolume(j->trilhaSonora.musica, 1.0f);
@@ -85,6 +93,8 @@ void IniciaJogo(Jogo *j){
     IniciaFood(j);
     IniciaObstaculos(j);
     IniciaTrilhaSonora(j);
+    IniciaTexturasMap(j);
+    IniciaTexturasObstaculos(j);
     j->tempo = GetTime();
 }
 
@@ -100,13 +110,30 @@ void DesenhaFood(Jogo *j){
 
 }
 void Draw_Backgound(Jogo* j){
-    if(j->map == 0){
-        ClearBackground(SKYBLUE);
-    } else if(j->map == 1){
-        ClearBackground(BLUE);
-    } else {
-        ClearBackground(GREEN);
+    float sw = j->largura;
+    float sh = j->altura;
+    float iw = j->fundoMap[2].width;
+    float ih = j->fundoMap[2].height;
+
+    float scale = fmax(sw / iw, sh / ih);
+    float newW = iw * scale;
+    float newH = ih * scale;
+    float posX = (sw - newW) / 2.0f;
+    float posY = (sh - newH) / 2.0f;
+
+    Rectangle auxiliar1 = { 0, 0, iw, ih };
+    Rectangle auxiliar2 = { posX, posY, newW, newH };
+    Vector2 origem = { 0, 0 };
+
+    if(j->map==0){
+        DrawTexturePro(j->fundoMap[0], auxiliar1, auxiliar2, origem, 0, WHITE);
     }
+    else if(j->map==0){
+        DrawTexturePro(j->fundoMap[1], auxiliar1, auxiliar2, origem, 0, WHITE);
+    }
+    else{
+        DrawTexturePro(j->fundoMap[2], auxiliar1, auxiliar2, origem, 0, WHITE);
+    } 
 }
 
 void AtualizaDirecao(Jogo *j){
@@ -255,7 +282,7 @@ void AtualizaLocalFood(Jogo *j){
     coordAltura = (float)(rand() % ((j->altura - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10);
     coordLargura = (float)(rand() % ((j->largura - 20) / STD_SIZE_Y) * STD_SIZE_Y + 10);
     
-    if(verificaColisaoFoodCorpo(j, coordAltura, coordLargura)){
+    if((verificaColisaoFoodCorpo(j, coordAltura, coordLargura)||(ColisaoFoodObstaculo(j, coordAltura, coordLargura)==1))){
         AtualizaLocalFood(j);
     } else{
         j->food.pos = (Rectangle) {coordAltura, coordLargura, STD_SIZE_X, STD_SIZE_Y};
@@ -315,6 +342,36 @@ int ColisaoFood(Jogo *j){
     return 0;
 }
 
+int ColisaoFoodObstaculo(Jogo *j, float x, float y){
+    Rectangle comida = (Rectangle){ x, y, STD_SIZE_X, STD_SIZE_Y };
+    if (j->map == 0){
+        for (int i = 0; i < 4; i++){
+            if (CheckCollisionRecs(comida, j->obstaculosMapa0[i].pos))
+            return 1;
+        }
+    }
+    else if (j->map == 1){
+        for (int i = 0; i < 8; i++) {
+            if (CheckCollisionRecs(comida, j->obstaculosMapa1[i].pos))
+                return 1;
+        }
+    }
+    else if (j->map == 2)
+    {
+        Vector2 centerFood = {
+            comida.x + comida.width / 2.0f,
+            comida.y + comida.height / 2.0f
+        };
+        float raioFood = comida.width / 2.0f; 
+        for (int i = 0; i < 10; i++){
+            float dist = Vector2Distance(centerFood, j->obstaculosMapa2.c[i].pos);
+            if (dist < (raioFood + j->obstaculosMapa2.c[i].raio))
+                return 1;
+        }
+    }
+    return 0; 
+}
+
 int ColisaoBordas(Jogo *j){
     if (CheckCollisionRecs(j->body.head->pos, j->bordas[0].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[1].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[2].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[3].pos)){
         /*if (CheckCollisionRecs(j->body.head->pos, j->bordas[0].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[1].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[2].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[3].pos)){
@@ -366,8 +423,25 @@ void IniciaTexturasBody(Jogo* j){
     j->body.texture[3] = LoadTexture("assets/texture_snake/Virada01.png");
 }
 
+void IniciaTexturasMap(Jogo* j){
+    
+    Texture2D fundoMap0 = LoadTexture("assets/map2.jpg");
+    j->fundoMap[0] = fundoMap0;
+    Texture2D fundoMap1= LoadTexture("assets/map2.jpg");
+    j->fundoMap[1] = fundoMap1; 
+    Texture2D fundoMap2 = LoadTexture("assets/map2.jpg");
+    j->fundoMap[2] = fundoMap2;
+    for(int i=0; i<2; i++){
+        SetTextureFilter(j->fundoMap[i], TEXTURE_FILTER_POINT);
+    }
+}
+
 
 void Unload_textures(Jogo* j){
+    for(int i=0; i<2; i++){
+        UnloadTexture(j->fundoMap[i]);
+    }
+    UnloadTexture(j->textObstaculo.r);
     UnloadTexture(j->fundo);
     for(int i = 0; i<4;i++){
         UnloadTexture(j->body.texture[i]);
