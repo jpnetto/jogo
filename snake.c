@@ -162,13 +162,7 @@ void Draw_Backgound(Jogo* j){
         } else{
             DrawTexture(j->fundo[9], 0, 0, WHITE);
         }
-        for (int i = 0; i < 16; i++) {
-    DrawRectangleLines(j->obstaculosMapa2[i].pos.x,
-                       j->obstaculosMapa2[i].pos.y,
-                       j->obstaculosMapa2[i].pos.width,
-                       j->obstaculosMapa2[i].pos.height,
-                       BLUE);
-}
+        
     } 
 }
 
