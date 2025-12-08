@@ -20,11 +20,10 @@ int main(){
         spacereset = 0;
         if (Menu_screen(&jogo))return 0; //Garante que o jogo só rode se o jogador apertar em iniciar
         SetWindowSize(jogo.largura, jogo.altura);
-        SetWindowTitle("Cobrinha dos BackEndygans");
         int gameOver = 1;
         SetTargetFPS(60);
         srand(time(NULL));  
-        
+        SetWindowTitle(TextFormat("Pontuação: %d                     Cobrinha dos BackEndygans                                     ", jogo.contador));
         IniciaJogo(&jogo);
         while (!WindowShouldClose()){
             BeginDrawing();
@@ -38,7 +37,6 @@ int main(){
                     continue; 
                 }
                 ColisaoBordas(&jogo);
-                DrawText(TextFormat("Pontuação: %d", jogo.contador), 15, 15, 30, WHITE);
             } else {
                 Death_message(&jogo);
                 if (IsKeyPressed(KEY_ENTER)){

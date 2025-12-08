@@ -275,6 +275,7 @@ void AtualizaPosBody(Jogo *j){
     if(ColisaoFood(j)){
         AtualizaLocalFood(j);
         Increase_score(j);//Toda vez que encosta na comida o Contador aumenta
+        SetWindowTitle(TextFormat("Pontuação: %d                     Cobrinha dos BackEndygans                                     ", j->contador));
     }
     else{
         RemoveCauda(&j->body);
@@ -366,6 +367,7 @@ void FinalizaCobra(Jogo *j){
 int ColisaoFood(Jogo *j){
     if (CheckCollisionRecs(j->body.head->pos, j->food.pos)){
         PlaySound(j->trilhaSonora.colisaoFruta);
+        
         return 1;
     }
     return 0;
