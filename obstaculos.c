@@ -16,6 +16,7 @@ void IniciaObstaculos(Jogo *j){
     }
 }
 
+/*Manter função para modificar posição dos obstáculos, caso necessário
 void DesenhaObstaculos(Jogo* j){
     if(j->map==0){
         DesenhaObstaculosMapa0(j);
@@ -27,6 +28,7 @@ void DesenhaObstaculos(Jogo* j){
         DesenhaObstaculosMapa2(j);
     }
 }
+    */
     
 
 void IniciaObstaculosMapa0(Jogo* j){
@@ -191,6 +193,7 @@ void IniciaObstaculosMapa2(Jogo* j) {
 
 }
 
+/*Manter função para modificar posição dos obstáculos, caso necessário
 
 void DesenhaObstaculosMapa0(Jogo* j){
     for (int i = 0; i < 4; i++){
@@ -210,7 +213,7 @@ void DesenhaObstaculosMapa2(Jogo* j){
         DrawRectangleRec(j->obstaculosMapa2[i].pos, ORANGE);
     }
 }
-
+*/
 
 
 

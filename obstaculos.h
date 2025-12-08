@@ -3,7 +3,8 @@
 #include "snake.h"
 
 void IniciaObstaculos(Jogo* j);
-void DesenhaObstaculos(Jogo* j);
+// void DesenhaObstaculos(Jogo* j); *Manter função para modificar posição dos obstáculos, caso necessário
+
 int ColisaoObstaculos(Jogo* j);
 
 void IniciaObstaculosMapa0(Jogo* j);
