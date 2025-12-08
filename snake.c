@@ -163,7 +163,7 @@ void Draw_Backgound(Jogo* j){
             DrawTexture(j->fundo[9], 0, 0, WHITE);
         }
         
-    } 
+    }
 }
 
 void AtualizaDirecao(Jogo *j){
@@ -452,10 +452,10 @@ void IniciaTexturasBody(Jogo* j){
     j->body.texture[5] = LoadTexture("assets/texture_snake/Radius_Body.png");
     j->body.texture[6] = LoadTexture("assets/texture_snake/Radius_Tail.png");
     j->body.texture[7] = LoadTexture("assets/texture_snake/Radius_Turn.png");
-    j->body.texture[8] = LoadTexture("assets/texture_snake/Radius_Head.png");
-    j->body.texture[9] = LoadTexture("assets/texture_snake/Radius_Body.png");
-    j->body.texture[10] = LoadTexture("assets/texture_snake/Radius_Tail.png");
-    j->body.texture[11] = LoadTexture("assets/texture_snake/Radius_Turn.png");
+    j->body.texture[8] = LoadTexture("assets/texture_snake/Sand_Head.png");
+    j->body.texture[9] = LoadTexture("assets/texture_snake/Sand_Body.png");
+    j->body.texture[10] = LoadTexture("assets/texture_snake/Sand_Tail.png");
+    j->body.texture[11] = LoadTexture("assets/texture_snake/Sand_Turn.png");
 }
 
 void IniciaTexturasMap(Jogo* j){

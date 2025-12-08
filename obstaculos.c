@@ -169,12 +169,12 @@ void IniciaObstaculosMapa2(Jogo* j) {
     j->obstaculosMapa2[11].pos = (Rectangle) { j->largura - espessura2+10, 0, espessura2-10, tamanho-10 }; // vertical
 
     // inferior esquerdo
-    j->obstaculosMapa2[12].pos = (Rectangle) { 0, j->altura - espessura2+10, tamanho-10, espessura2-10}; // horizontal
-    j->obstaculosMapa2[13].pos = (Rectangle) { 0, j->altura - tamanho+10, espessura2-10, tamanho-10 }; // vertical
+    j->obstaculosMapa2[12].pos = (Rectangle) { 0, j->altura - espessura2, tamanho-10, espessura2-10}; // horizontal
+    j->obstaculosMapa2[13].pos = (Rectangle) { 0, j->altura - tamanho, espessura2-10, tamanho-10 }; // vertical
 
     // inferior direito
-    j->obstaculosMapa2[14].pos = (Rectangle) { j->largura - tamanho+10, j->altura - espessura2+10, tamanho-10, espessura2-10 }; // horizontal
-    j->obstaculosMapa2[15].pos = (Rectangle) { j->largura - espessura2+10, j->altura - tamanho+10, espessura2-10, tamanho-10 }; // vertical
+    j->obstaculosMapa2[14].pos = (Rectangle) { j->largura - tamanho+10, j->altura - espessura2, tamanho-10, espessura2-10 }; // horizontal
+    j->obstaculosMapa2[15].pos = (Rectangle) { j->largura - espessura2+10, j->altura - tamanho, espessura2-10, tamanho-10 }; // vertical
 
 }
 
