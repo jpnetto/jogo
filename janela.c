@@ -20,7 +20,8 @@ void Startgame(Jogo*j){
 
 void Reset_score(Jogo* j){
     j->contador = 0;
-    SetWindowTitle(TextFormat("Pontuação: %d                     Cobrinha dos BackEndygans                                     ", j->contador));
+    if(j->largura==500) SetWindowTitle(TextFormat("Pontuação: %d         Cobrinha dos BackEndygans    ", j->contador));
+    else SetWindowTitle(TextFormat("Pontuação: %d                Cobrinha dos BackEndygans                           ", j->contador));
 }
 
 void Increase_score(Jogo* j){

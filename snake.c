@@ -162,6 +162,13 @@ void Draw_Backgound(Jogo* j){
         } else{
             DrawTexture(j->fundo[9], 0, 0, WHITE);
         }
+        for (int i = 0; i < 16; i++) {
+    DrawRectangleLines(j->obstaculosMapa2[i].pos.x,
+                       j->obstaculosMapa2[i].pos.y,
+                       j->obstaculosMapa2[i].pos.width,
+                       j->obstaculosMapa2[i].pos.height,
+                       BLUE);
+}
     } 
 }
 
@@ -275,7 +282,8 @@ void AtualizaPosBody(Jogo *j){
     if(ColisaoFood(j)){
         AtualizaLocalFood(j);
         Increase_score(j);//Toda vez que encosta na comida o Contador aumenta
-        SetWindowTitle(TextFormat("Pontuação: %d                     Cobrinha dos BackEndygans                                     ", j->contador));
+        if(j->largura==500) SetWindowTitle(TextFormat("Pontuação: %d         Cobrinha dos BackEndygans    ", j->contador));
+        else SetWindowTitle(TextFormat("Pontuação: %d                Cobrinha dos BackEndygans                           ", j->contador));
     }
     else{
         RemoveCauda(&j->body);
