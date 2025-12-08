@@ -316,11 +316,12 @@ void Change_name(Jogo* j){
         DrawText("Escreva um nome para jogar", 115, 100, 30, BLACK);
         DrawText("(Máximo de 15 caracteres)", 190, 135, 20, RED);
         DrawText("Retornar", 235, 500, 40, BLACK);
-
-        if(IsKeyPressed(KEY_ENTER)){
-            strcpy(j->name_player, nome);
-            EndDrawing();
-            break; 
+        if(tamanho){
+            if(IsKeyPressed(KEY_ENTER)){
+                        strcpy(j->name_player, nome);
+                        EndDrawing();
+                        break; 
+                    }
         }
         DrawRectangle(80, 195, 500, 60, WHITE);
         DrawText(nome, 120, 210, 30, BLACK);
