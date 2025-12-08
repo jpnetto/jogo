@@ -85,9 +85,9 @@ void IniciaTrilhaSonora(Jogo *j){
         j->trilhaSonora.musica = LoadMusicStream("assets/trilha_sonora/soundtrack.mp3");
     }
     else if(j->map==2){
-        j->trilhaSonora.colisaoCorpo = LoadSound("assets/trilha_sonora/curtoCircuito.mp3");
-        j->trilhaSonora.colisaoFruta = LoadSound("assets/trilha_sonora/carregaBateria.mp3");
-        j->trilhaSonora.musica = LoadMusicStream("assets/trilha_sonora/soundtrack.mp3");
+        j->trilhaSonora.colisaoCorpo = LoadSound("assets/trilha_sonora/death3.mp3");
+        j->trilhaSonora.colisaoFruta = LoadSound("assets/trilha_sonora/coleta.mp3");
+        j->trilhaSonora.musica = LoadMusicStream("assets/trilha_sonora/caverna.mp3");
     }
     
     SetMusicVolume(j->trilhaSonora.musica, 1.0f);
@@ -466,32 +466,11 @@ void IniciaTexturasMap(Jogo* j){
     j->fundo[9] = LoadTexture("assets/texture_background/fundo09.png");
 }
 
-/*
-void IniciaTexturasObstaculos(Jogo* j){
-    j->obstaculosMapa0->texturaVertical = LoadTexture("assets/texture_obstaculo/flores.png");
-    j->obstaculosMapa0->texturaHorizontal = LoadTexture("assets/texture_obstaculo/floresHorizontal.png");
-    j->obstaculosMapa1->texturaVertical = LoadTexture("assets/texture_obstaculo/cerca.png");
-    j->obstaculosMapa0->texturaHorizontal = LoadTexture("assets/texture_obstaculo/cercaHorizontal.png");
-    j->obstaculosMapa2->texturaVertical = LoadTexture("assets/texture_obstaculo/lavaVertical.png");
-    j->obstaculosMapa0->texturaHorizontal = LoadTexture("assets/texture_obstaculo/lavaHorizontal.png");
-    j->obstaculosMapa0->texturaQuadrado = LoadTexture("assets/texture_obstaculo/fogo.png");
-}
-*/
 
 void Unload_textures(Jogo* j){
     for(int i=0; i<10; i++){
         UnloadTexture(j->fundo[i]);
     }
-    /*
-    UnloadTexture(j->obstaculosMapa0->texturaVertical);
-    UnloadTexture(j->obstaculosMapa1->texturaVertical);
-    UnloadTexture(j->obstaculosMapa2->texturaVertical);
-    UnloadTexture(j->obstaculosMapa0->texturaHorizontal);
-    UnloadTexture(j->obstaculosMapa1->texturaHorizontal);
-    UnloadTexture(j->obstaculosMapa2->texturaHorizontal);
-    UnloadTexture(j->obstaculosMapa2->texturaQuadrado);
-    */
-
 
 
 
