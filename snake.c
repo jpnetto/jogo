@@ -235,7 +235,7 @@ void DesenhaJogo(Jogo *j){
     // DesenhaBordas(j);
     DesenhaBody(j);
     DesenhaFood(j);
-    //DesenhaObstaculos(j);
+    DesenhaObstaculos(j);
 }
 
 void AtualizaPosBody(Jogo *j){

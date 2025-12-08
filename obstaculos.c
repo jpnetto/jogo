@@ -15,7 +15,7 @@ void IniciaObstaculos(Jogo *j){
         IniciaObstaculosMapa2(j);
     }
 }
-/*
+
 void DesenhaObstaculos(Jogo* j){
     if(j->map==0){
         DesenhaObstaculosMapa0(j);
@@ -27,7 +27,7 @@ void DesenhaObstaculos(Jogo* j){
         DesenhaObstaculosMapa2(j);
     }
 }
-    */
+    
 
 void IniciaObstaculosMapa0(Jogo* j){
     //Obstaculos de cima
@@ -70,7 +70,7 @@ void IniciaObstaculosMapa2(Jogo* j) {
     float espessura, espessura2, tamanho;
 
     if(j->largura==500){
-        espessura = 25.0f;
+        espessura = 20.0f;
         espessura2 = 20.0f;
         tamanho = 80.0f;
     }
@@ -89,11 +89,11 @@ void IniciaObstaculosMapa2(Jogo* j) {
         };
 
         j->obstaculosMapa2[2].pos = (Rectangle) {
-            j->largura * 0.70f, j->altura  * 0.20, espessura, espessura*3
+            j->largura * 0.65f, j->altura  * 0.20, espessura, espessura*3
         };
 
         j->obstaculosMapa2[3].pos = (Rectangle) {
-            j->largura * 0.70f, j->altura  * 0.75f, espessura, espessura*3
+            j->largura * 0.65f, j->altura  * 0.75f, espessura, espessura*3
         };
 
         j->obstaculosMapa2[4].pos = (Rectangle) {
@@ -108,7 +108,7 @@ void IniciaObstaculosMapa2(Jogo* j) {
             j->largura * 0.55f, j->altura  * 0.82f, espessura*3, espessura
         };
     }
-    if(j->largura==660){
+    else if(j->largura==660){
         /*
         j->obstaculosMapa2[0].pos = (Rectangle) {
             j->largura * 0.40f, j->altura  * 0.8f, espessura*2, espessura*2
