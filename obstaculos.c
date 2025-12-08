@@ -15,7 +15,7 @@ void IniciaObstaculos(Jogo *j){
         IniciaObstaculosMapa2(j);
     }
 }
-
+/*
 void DesenhaObstaculos(Jogo* j){
     if(j->map==0){
         DesenhaObstaculosMapa0(j);
@@ -27,6 +27,7 @@ void DesenhaObstaculos(Jogo* j){
         DesenhaObstaculosMapa2(j);
     }
 }
+    */
 
 void IniciaObstaculosMapa0(Jogo* j){
     //Obstaculos de cima
@@ -206,7 +207,7 @@ void DesenhaObstaculosMapa0(Jogo* j){
 
 void DesenhaObstaculosMapa1(Jogo* j){
     for (int i = 0; i < 4; i++) {
-         DrawRectangleRec(j->obstaculosMapa2[i].pos, ORANGE);
+         DrawRectangleRec(j->obstaculosMapa1[i].pos, ORANGE);
         
     }
 
