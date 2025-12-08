@@ -200,11 +200,11 @@ void DesenhaBody(Jogo *j){
         Vector2 origin = {20,20}; //aqui é o centro de rotacao que o recorte vai fazer
         float rotation = 90.0*aux->direcao; //aqui a rotacao se baseia na direcao da cobra
         if(aux == j->body.head){
-            DrawTexturePro(j->body.texture[0], source, thepos, origin, rotation, WHITE);
+            DrawTexturePro(j->body.texture[0+j->map*4], source, thepos, origin, rotation, WHITE);
         }
         else if(aux == j->body.tail){
             rotation = 90.0*curently_direction;
-            DrawTexturePro(j->body.texture[2], source, thepos, origin, rotation, WHITE);
+            DrawTexturePro(j->body.texture[2+j->map*4], source, thepos, origin, rotation, WHITE);
         } 
         else if(curently_direction!=aux->direcao){
             if(curently_direction==1){
@@ -223,10 +223,10 @@ void DesenhaBody(Jogo *j){
                 if(aux->direcao==1)rotation = 90.0;
                 if(aux->direcao==3)rotation = 0;
             }
-            DrawTexturePro(j->body.texture[3], source, thepos, origin, rotation, WHITE);
+            DrawTexturePro(j->body.texture[3+j->map*4], source, thepos, origin, rotation, WHITE);
             curently_direction = aux->direcao;
         }
-        else DrawTexturePro(j->body.texture[1], source, thepos, origin, rotation, WHITE);
+        else DrawTexturePro(j->body.texture[1+j->map*4], source, thepos, origin, rotation, WHITE);
         aux = aux->prox;
     }
 }
@@ -440,10 +440,18 @@ int ColisaoBody(Jogo *j){
 }
 
 void IniciaTexturasBody(Jogo* j){
-    j->body.texture[0] = LoadTexture("assets/texture_snake/Head_snake.png");
-    j->body.texture[1] = LoadTexture("assets/texture_snake/Body_snake.png");
-    j->body.texture[2] = LoadTexture("assets/texture_snake/Cauda_snake.png");
-    j->body.texture[3] = LoadTexture("assets/texture_snake/Virada01.png");
+    j->body.texture[0] = LoadTexture("assets/texture_snake/Uniqua_Head.png");
+    j->body.texture[1] = LoadTexture("assets/texture_snake/Uniqua_Body.png");
+    j->body.texture[2] = LoadTexture("assets/texture_snake/Uniqua_Tail.png");
+    j->body.texture[3] = LoadTexture("assets/texture_snake/Uniqua_Turn.png");
+    j->body.texture[4] = LoadTexture("assets/texture_snake/Radius_Head.png");
+    j->body.texture[5] = LoadTexture("assets/texture_snake/Radius_Body.png");
+    j->body.texture[6] = LoadTexture("assets/texture_snake/Radius_Tail.png");
+    j->body.texture[7] = LoadTexture("assets/texture_snake/Radius_Turn.png");
+    j->body.texture[8] = LoadTexture("assets/texture_snake/Radius_Head.png");
+    j->body.texture[9] = LoadTexture("assets/texture_snake/Radius_Body.png");
+    j->body.texture[10] = LoadTexture("assets/texture_snake/Radius_Tail.png");
+    j->body.texture[11] = LoadTexture("assets/texture_snake/Radius_Turn.png");
 }
 
 void IniciaTexturasMap(Jogo* j){
