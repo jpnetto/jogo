@@ -51,12 +51,24 @@ void IniciaBordas(Jogo *j){
 void IniciaFood(Jogo *j){
     j->food.pos = (Rectangle) {j->largura/2 - STD_SIZE_X - 200, j->altura - 330, STD_SIZE_X, STD_SIZE_Y};
     j->food.color = FOOD_COLOR;
-    j->food.texture[0] = LoadTexture("assets/texture_food/Food01.png");
-    j->food.texture[1] = LoadTexture("assets/texture_food/Food02.png");
-    j->food.texture[2] = LoadTexture("assets/texture_food/Food03.png");
-    j->food.texture[3] = LoadTexture("assets/texture_food/Food04.png");
-    j->food.texture[4] = LoadTexture("assets/texture_food/Food04.png");
-    j->food.texture[5] = LoadTexture("assets/texture_food/Food04.png");
+    j->food.texture[0] = LoadTexture("assets/texture_food/Apple01.png");
+    j->food.texture[1] = LoadTexture("assets/texture_food/Apple02.png");
+    j->food.texture[2] = LoadTexture("assets/texture_food/Apple03.png");
+    j->food.texture[3] = LoadTexture("assets/texture_food/Apple04.png");
+    j->food.texture[4] = LoadTexture("assets/texture_food/Apple05.png");
+    j->food.texture[5] = LoadTexture("assets/texture_food/Apple06.png");
+    j->food.texture[6] = LoadTexture("assets/texture_food/Battery01.png");
+    j->food.texture[7] = LoadTexture("assets/texture_food/Battery02.png");
+    j->food.texture[8] = LoadTexture("assets/texture_food/Battery03.png");
+    j->food.texture[9] = LoadTexture("assets/texture_food/Battery04.png");
+    j->food.texture[10] = LoadTexture("assets/texture_food/Battery05.png");
+    j->food.texture[11] = LoadTexture("assets/texture_food/Battery06.png");
+    j->food.texture[12] = LoadTexture("assets/texture_food/Diamante01.png");
+    j->food.texture[13] = LoadTexture("assets/texture_food/Diamante02.png");
+    j->food.texture[14] = LoadTexture("assets/texture_food/Diamante03.png");
+    j->food.texture[15] = LoadTexture("assets/texture_food/Diamante04.png");
+    j->food.texture[16] = LoadTexture("assets/texture_food/Diamante05.png");
+    j->food.texture[17] = LoadTexture("assets/texture_food/Diamante06.png");
     
 }
 
@@ -97,12 +109,31 @@ void IniciaJogo(Jogo *j){
 void DesenhaFood(Jogo *j){
     float t = GetTime();
     float onesec = fmod(t, 1.0f);
-    if(onesec < 0.1f)DrawTexture(j->food.texture[0], j->food.pos.x, j->food.pos.y, WHITE);
-    if((onesec >= 0.1f && onesec < 0.2f)||(onesec >= 0.9f))DrawTexture(j->food.texture[1], j->food.pos.x, j->food.pos.y, WHITE);
-    if((onesec >= 0.2f && onesec < 0.3f)||(onesec >= 0.8f && onesec < 0.9f))DrawTexture(j->food.texture[2], j->food.pos.x, j->food.pos.y, WHITE);
-    if((onesec >= 0.3f && onesec < 0.4f)||(onesec >= 0.7f && onesec < 0.8f))DrawTexture(j->food.texture[3], j->food.pos.x, j->food.pos.y, WHITE);
-    if((onesec >= 0.4f && onesec < 0.5f)||(onesec >= 0.6f && onesec < 0.7f))DrawTexture(j->food.texture[4], j->food.pos.x, j->food.pos.y, WHITE);
-    if(onesec >= 0.5f && onesec < 0.6f)DrawTexture(j->food.texture[5], j->food.pos.x, j->food.pos.y, WHITE);
+    if(j->map==0){
+        if(onesec < 0.1f)DrawTexture(j->food.texture[0], j->food.pos.x, j->food.pos.y, WHITE);
+        if((onesec >= 0.1f && onesec < 0.2f)||(onesec >= 0.9f))DrawTexture(j->food.texture[1], j->food.pos.x, j->food.pos.y, WHITE);
+        if((onesec >= 0.2f && onesec < 0.3f)||(onesec >= 0.8f && onesec < 0.9f))DrawTexture(j->food.texture[2], j->food.pos.x, j->food.pos.y, WHITE);
+        if((onesec >= 0.3f && onesec < 0.4f)||(onesec >= 0.7f && onesec < 0.8f))DrawTexture(j->food.texture[3], j->food.pos.x, j->food.pos.y, WHITE);
+        if((onesec >= 0.4f && onesec < 0.5f)||(onesec >= 0.6f && onesec < 0.7f))DrawTexture(j->food.texture[4], j->food.pos.x, j->food.pos.y, WHITE);
+        if(onesec >= 0.5f && onesec < 0.6f)DrawTexture(j->food.texture[5], j->food.pos.x, j->food.pos.y, WHITE);
+    }
+    if(j->map==1){
+        if(onesec < 0.1f)DrawTexture(j->food.texture[6], j->food.pos.x, j->food.pos.y, WHITE);
+        if((onesec >= 0.1f && onesec < 0.2f)||(onesec >= 0.9f))DrawTexture(j->food.texture[7], j->food.pos.x, j->food.pos.y, WHITE);
+        if((onesec >= 0.2f && onesec < 0.3f)||(onesec >= 0.8f && onesec < 0.9f))DrawTexture(j->food.texture[8], j->food.pos.x, j->food.pos.y, WHITE);
+        if((onesec >= 0.3f && onesec < 0.4f)||(onesec >= 0.7f && onesec < 0.8f))DrawTexture(j->food.texture[9], j->food.pos.x, j->food.pos.y, WHITE);
+        if((onesec >= 0.4f && onesec < 0.5f)||(onesec >= 0.6f && onesec < 0.7f))DrawTexture(j->food.texture[10], j->food.pos.x, j->food.pos.y, WHITE);
+        if(onesec >= 0.5f && onesec < 0.6f)DrawTexture(j->food.texture[11], j->food.pos.x, j->food.pos.y, WHITE);
+    }
+    if(j->map==2){
+        if(onesec < 0.1f)DrawTexture(j->food.texture[12], j->food.pos.x, j->food.pos.y, WHITE);
+        if((onesec >= 0.1f && onesec < 0.2f)||(onesec >= 0.9f))DrawTexture(j->food.texture[13], j->food.pos.x, j->food.pos.y, WHITE);
+        if((onesec >= 0.2f && onesec < 0.3f)||(onesec >= 0.8f && onesec < 0.9f))DrawTexture(j->food.texture[14], j->food.pos.x, j->food.pos.y, WHITE);
+        if((onesec >= 0.3f && onesec < 0.4f)||(onesec >= 0.7f && onesec < 0.8f))DrawTexture(j->food.texture[15], j->food.pos.x, j->food.pos.y, WHITE);
+        if((onesec >= 0.4f && onesec < 0.5f)||(onesec >= 0.6f && onesec < 0.7f))DrawTexture(j->food.texture[16], j->food.pos.x, j->food.pos.y, WHITE);
+        if(onesec >= 0.5f && onesec < 0.6f)DrawTexture(j->food.texture[17], j->food.pos.x, j->food.pos.y, WHITE);
+    }
+    
 
 }
 void Draw_Backgound(Jogo* j){
@@ -459,7 +490,7 @@ void Unload_textures(Jogo* j){
     for(int i = 0; i<4;i++){
         UnloadTexture(j->body.texture[i]);
     }
-    for(int i = 0; i<6;i++){
+    for(int i = 0; i<18;i++){
         UnloadTexture(j->food.texture[i]);
     }
     FinalizaTrilhaSonora(j);
