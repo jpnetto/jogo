@@ -23,8 +23,8 @@ int main(){
         int gameOver = 1;
         SetTargetFPS(60);
         srand(time(NULL));  
-        if(jogo.largura==500) SetWindowTitle(TextFormat("Pontuação: %d         Cobrinha dos BackEndygans    ", jogo.contador));
-        else SetWindowTitle(TextFormat("Pontuação: %d                Cobrinha dos BackEndygans                           ", jogo.contador));
+        if(jogo.largura==500) SetWindowTitle(TextFormat("Pontuação: %d         Cobrinha dos BackyEndigans    ", jogo.contador));
+        else SetWindowTitle(TextFormat("Pontuação: %d                Cobrinha dos BackyEndigans                           ", jogo.contador));
         IniciaJogo(&jogo);
         while (!WindowShouldClose()){
             BeginDrawing();

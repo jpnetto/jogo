@@ -9,6 +9,8 @@
 #include "janela.h"
 #include "ranking.h"
 
+//Começa o jogo com os valores padroes, sendo mapa 0, contagem de pontos = 0, e tamanho médio
+//Começa também o nome do jogador igual a Jogador01, apenas garantindo a presença de um nome para começar
 void Startgame(Jogo*j){
     InitAudioDevice();
     strcpy(j->name_player, "Jogador01");
@@ -18,16 +20,20 @@ void Startgame(Jogo*j){
     j->altura = 660;
 }
 
+//Reseta o contador do jogo
+//SetWindowTitle muda o nome da janela, nesse caso, reseta o nome da janela para "Pontuação: 0  Cobrinha dos BackyEndigans 
 void Reset_score(Jogo* j){
     j->contador = 0;
-    if(j->largura==500) SetWindowTitle(TextFormat("Pontuação: %d         Cobrinha dos BackEndygans    ", j->contador));
-    else SetWindowTitle(TextFormat("Pontuação: %d                Cobrinha dos BackEndygans                           ", j->contador));
+    if(j->largura==500) SetWindowTitle(TextFormat("Pontuação: %d         Cobrinha dos BackyEndigans    ", j->contador));
+    else SetWindowTitle(TextFormat("Pontuação: %d                Cobrinha dos BackyEndigans                           ", j->contador));
 }
 
+//Aumenta o contador da pontuação
 void Increase_score(Jogo* j){
     j->contador++;
 }
 
+//Escreve a mesma mensagem de morte porém em coordenadas e fonte diferente para cada tamanho de mapa, alinhando a mensagem final com o tamanho da tela 
 void Death_message(Jogo* j){
     DrawTexture(j->fundo[0], 0, 0, WHITE);
     if(j->largura == 500){
@@ -51,6 +57,10 @@ void Death_message(Jogo* j){
     }
 }
 
+//Abre a tela de Menu principal
+//Existe uma variavel de controle para desenhar o cursor seletor de opcao, que é aumentada e diminuida dependendo da seta pra cima ou pra baixo
+//Dependendendo de onde aperta enter, chama outra funcao ou inicia, se chamar outra funcao, abre ela e roda, depois retorna a esta
+//Declarei igual a int para garantir que o jogo só rode com o jogador apertando em iniciar, se fechar o menu, não roda nada 
 int Menu_screen(Jogo* j){
     int cursor = 0;
     int retorno = 1;
@@ -117,6 +127,9 @@ int Menu_screen(Jogo* j){
     return retorno;    
 }
 
+//Tela de configuracoes de mapa
+//Mesma ideia do menu, cursor seletor é determinado pelas setas, e Enter entra em uma das opcoes
+//Tamanho puxa a funcao que muda o tamanho do mapa, mapas escolhe entre os 3 mapas, e retornar encerra a funcao, voltando ao menu
 void Options_screen(Jogo* j){
     int cursor = 0;
     Rectangle selection;
@@ -166,7 +179,8 @@ void Options_screen(Jogo* j){
     EndDrawing();
 }
 
-//Paro
+//Tela de selecao de tamanho do mapa(Pequeno, Médio, Grande)
+//Mesma ideia do menu, cursor seletor é determinado pelas setas, e Enter entra em uma das opcoes
 void Size_map(Jogo* j){
     int cursor = 0;
     Rectangle selection;
@@ -215,6 +229,7 @@ void Size_map(Jogo* j){
     EndDrawing();
 }
 
+//Funcao só pra arrumar os valores referentes a coordenada e tamanho dos cursores
 void Size_cursor(Rectangle* selection, int a, int b, int c, int d){
     selection->x = a;
     selection->y = b;
@@ -222,6 +237,8 @@ void Size_cursor(Rectangle* selection, int a, int b, int c, int d){
     selection->height = d;
 }
 
+//Tela de Escolha de mapa(1,2,3)
+//Mesma ideia do menu, cursor seletor é determinado pelas setas, e Enter entra em uma das opcoes
 void Choose_of_map(Jogo* j){
     int cursor = 0;
     Rectangle selection;
@@ -267,7 +284,8 @@ void Choose_of_map(Jogo* j){
     EndDrawing();
 }
 
-
+//Tela do Ranking
+//Nessa parte do código, apenas printa o fundo com a tabela do rank, mas a funcao responsavel pelo print real da funcao está no ranking.c, na funcao exiberanking
 void Ranking_screen(Jogo* j){
     Texture2D rank = LoadTexture("assets/back_rank.png");
     while (!WindowShouldClose()){
@@ -294,6 +312,11 @@ void Ranking_screen(Jogo* j){
     UnloadTexture(rank);
 }
 
+//Colocar o nome de usuario
+//É declarado uma string aux para mudar ela baseado no digitado pelo usuario, e uma letra, que será a letra digitada pelo usuario
+//Ao usar letra = GetCharPressed();, declaramos a variavel letra como o caracter digitado pelo usuario
+//pega uma variavel e iguala a strlen, que seria o tamanho da string
+//Coloca a letra lida no espaco da string aux de indice tamanho, depois arruma o '\0' para a posicao posterior
 void Change_name(Jogo* j){
     char nome[16];
     strcpy(nome, j->name_player); //mandamos o nome atual do usuario para a string nova que vai ser trabalhada

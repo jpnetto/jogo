@@ -37,6 +37,7 @@ void IniciaBody(Jogo *j){
     IniciaTexturasBody(j);
 }
 
+//Bordas, apesar de nao serem obstaculos necessariamente, sao usadas na funcao para fazer elas sairem em um lado e aparecerem do outro
 void IniciaBordas(Jogo *j){
     //Borda de cima
     j->bordas[0].pos = (Rectangle) {0, 0, j->largura, 10};
@@ -48,8 +49,9 @@ void IniciaBordas(Jogo *j){
     j->bordas[3].pos = (Rectangle) {0, 0, 10, j->altura};
 }
 
+//Carrega as imagens das comidas e coloca spawn fixo na comida
 void IniciaFood(Jogo *j){
-    j->food.pos = (Rectangle) {j->largura/2 - STD_SIZE_X - 200, j->altura - 330, STD_SIZE_X, STD_SIZE_Y};
+    j->food.pos = (Rectangle) {j->largura/2 - STD_SIZE_X - 200, j->altura - 290, STD_SIZE_X, STD_SIZE_Y};
     j->food.color = FOOD_COLOR;
     j->food.texture[0] = LoadTexture("assets/texture_food/Apple01.png");
     j->food.texture[1] = LoadTexture("assets/texture_food/Apple02.png");
@@ -101,11 +103,13 @@ void IniciaJogo(Jogo *j){
     IniciaFood(j);
     IniciaObstaculos(j);
     IniciaTrilhaSonora(j);
-    /*IniciaTexturasObstaculos(j);*/
     IniciaTexturasMap(j);
     j->tempo = GetTime();
 }
 
+//Aqui roda os "GIFs" das comidas
+//Nada mais sao do que 6 imagens carregadas para rodar em loop de 1 seg, cada uma carrega pelo intervalo de 0.1seg
+//Feita utilizando modulo de float, usando a funcao da biblioteca math.h fmod
 void DesenhaFood(Jogo *j){
     float t = GetTime();
     float onesec = fmod(t, 1.0f);
@@ -276,8 +280,8 @@ void AtualizaPosBody(Jogo *j){
     if(ColisaoFood(j)){
         AtualizaLocalFood(j);
         Increase_score(j);//Toda vez que encosta na comida o Contador aumenta
-        if(j->largura==500) SetWindowTitle(TextFormat("Pontuação: %d         Cobrinha dos BackEndygans    ", j->contador));
-        else SetWindowTitle(TextFormat("Pontuação: %d                Cobrinha dos BackEndygans                           ", j->contador));
+        if(j->largura==500) SetWindowTitle(TextFormat("Pontuação: %d         Cobrinha dos BackyEndigans    ", j->contador));
+        else SetWindowTitle(TextFormat("Pontuação: %d                Cobrinha dos BackyEndigans                           ", j->contador));
     }
     else{
         RemoveCauda(&j->body);
@@ -327,7 +331,7 @@ void AtualizaHead(Jogo* j,Body *body, float x, float y){
     new->pos = (Rectangle){x, y, body->head->pos.width, body->head->pos.height};
     new->color = body->color;
     new->prox = body->head;
-    new->direcao = j->body.direcao;
+    new->direcao = j->body.direcao; //importante para desenho da cobra, principalmente as curvas
     body->head = new;
     body->size++;
 }
@@ -399,7 +403,7 @@ int ColisaoFoodObstaculo(Jogo *j, float x, float y){
     return 0; 
 }
 
-int ColisaoBordas(Jogo *j){
+void ColisaoBordas(Jogo *j){
     if (CheckCollisionRecs(j->body.head->pos, j->bordas[0].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[1].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[2].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[3].pos)){
         /*if (CheckCollisionRecs(j->body.head->pos, j->bordas[0].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[1].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[2].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[3].pos)){
             PlaySound(j->trilhaSonora.colisaoCorpo);
@@ -414,10 +418,14 @@ int ColisaoBordas(Jogo *j){
         } else if(CheckCollisionRecs(j->body.head->pos, j->bordas[3].pos)){
             j->body.head->pos.x = j->largura - j->body.head->pos.width - 10;
         }
-
-    return 0;
+        if(ColisaoFood(j)){
+            AtualizaLocalFood(j);
+            Increase_score(j);//Toda vez que encosta na comida o Contador aumenta
+            if(j->largura==500) SetWindowTitle(TextFormat("Pontuação: %d         Cobrinha dos BackyEndigans    ", j->contador));
+            else SetWindowTitle(TextFormat("Pontuação: %d                Cobrinha dos BackyEndigans                           ", j->contador));
+        }
     }
-    return 1;
+    return;
 }
 
 
@@ -475,10 +483,10 @@ void Unload_textures(Jogo* j){
     for(int i=0; i<10; i++){
         UnloadTexture(j->fundo[i]);
     }
-
-
-
-    for(int i = 0; i<4;i++){
+    for(int i = 0;i<12;i++){
+        UnloadTexture(j->food.texture[i]);
+    }
+    for(int i = 0; i<12;i++){
         UnloadTexture(j->body.texture[i]);
     }
     for(int i = 0; i<18;i++){

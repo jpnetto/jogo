@@ -90,7 +90,7 @@ void IniciaJogo(Jogo *j);
 void AtualizaDirecao(Jogo *j);
 void AtualizaPosBody(Jogo *j);
 void AtualizaRodada(Jogo *j);
-int ColisaoBordas(Jogo *j);
+void ColisaoBordas(Jogo *j);
 
 // Funções atualizadas
 int ColisaoFood(Jogo *j);
