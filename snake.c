@@ -237,10 +237,9 @@ void DesenhaBody(Jogo *j){
 }
 
 void DesenhaJogo(Jogo *j){
-    // DesenhaBordas(j);
     DesenhaBody(j);
     DesenhaFood(j);
-    // DesenhaObstaculos(j);
+    // DesenhaObstaculos(j); Auxiliar da manutenção dos obstáculos
 }
 
 void AtualizaPosBody(Jogo *j){
@@ -352,23 +351,6 @@ void RemoveCauda(Body* body){
 
 }
 
-void FinalizaTrilhaSonora(Jogo *j) {
-    UnloadSound(j->trilhaSonora.colisaoCorpo);
-    UnloadSound(j->trilhaSonora.colisaoFruta);
-    UnloadMusicStream(j->trilhaSonora.musica);
-}
-
-void FinalizaCobra(Jogo *j){
-    Block *aux = j->body.head;
-    while (aux != NULL) {
-        Block *prox = aux->prox;
-        free(aux);
-        aux = prox;
-    }
-    j->body.head = NULL;
-    j->body.tail = NULL;
-    j->body.size = 0;
-}
 
 int ColisaoFood(Jogo *j){
     if (CheckCollisionRecs(j->body.head->pos, j->food.pos)){
@@ -451,6 +433,20 @@ int ColisaoBody(Jogo *j){
     return 0;
 }
 
+
+void FinalizaCobra(Jogo *j){
+    Block *aux = j->body.head;
+    while (aux != NULL) {
+        Block *prox = aux->prox;
+        free(aux);
+        aux = prox;
+    }
+    j->body.head = NULL;
+    j->body.tail = NULL;
+    j->body.size = 0;
+}
+
+
 void IniciaTexturasBody(Jogo* j){
     j->body.texture[0] = LoadTexture("assets/texture_snake/Uniqua_Head.png");
     j->body.texture[1] = LoadTexture("assets/texture_snake/Uniqua_Body.png");
@@ -479,7 +475,7 @@ void IniciaTexturasMap(Jogo* j){
 }
 
 
-void Unload_textures(Jogo* j){
+void Unload(Jogo* j){
     for(int i=0; i<10; i++){
         UnloadTexture(j->fundo[i]);
     }
@@ -494,4 +490,10 @@ void Unload_textures(Jogo* j){
     }
     FinalizaTrilhaSonora(j);
     CloseAudioDevice();
+}
+
+void FinalizaTrilhaSonora(Jogo *j) {
+    UnloadSound(j->trilhaSonora.colisaoCorpo);
+    UnloadSound(j->trilhaSonora.colisaoFruta);
+    UnloadMusicStream(j->trilhaSonora.musica);
 }

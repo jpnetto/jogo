@@ -63,7 +63,7 @@ int main(){
             SetWindowTitle(" ");
         }
     }
-    Unload_textures(&jogo);
+    Unload(&jogo);
 
     return 0;
 }

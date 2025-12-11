@@ -71,7 +71,6 @@ typedef struct Jogo{
 
 void IniciaBordas(Jogo *j);
 void IniciaFood(Jogo *j);
-void DesenhaBordas(Jogo *j);
 void DesenhaFood(Jogo *j);
 void AtualizaLocalFood(Jogo *j);
 void DesenhaJogo(Jogo *j);
@@ -99,9 +98,8 @@ int ColisaoFoodObstaculo(Jogo *j, float x, float y);
 
 void IniciaTexturasBody(Jogo* j);
 void IniciaTexturasMap(Jogo* j);
-void IniciaTexturasObstaculos(Jogo* j);
 
 
-void Unload_textures(Jogo*);
+void Unload(Jogo*);
 
 #endif

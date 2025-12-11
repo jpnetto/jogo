@@ -30,24 +30,27 @@ void IniciaObstaculosMapa0(Jogo* j){
 void IniciaObstaculosMapa1(Jogo* j){
 
     if(j->largura <= 660){
-    float espessura = 10.0f; 
-    j->obstaculosMapa1[0].pos = (Rectangle) { j->largura / 4, 0, espessura, j->altura * 0.75f}; 
-    j->obstaculosMapa1[1].pos = (Rectangle) { j->largura * 0.75f, j->altura * 0.25f, espessura, j->altura * 0.75f};
-    j->obstaculosMapa1[2].pos = (Rectangle) { j->largura / 4, j->altura / 4, j->largura / 2, espessura};
-    float tamanho_bloco_central = espessura * 2.0f; 
-    j->obstaculosMapa1[3].pos = (Rectangle) { j->largura / 2 - tamanho_bloco_central / 2.0f, j->altura / 2 - tamanho_bloco_central / 2.0f, 
-    tamanho_bloco_central, tamanho_bloco_central};  
+        float espessura = 10.0f; 
+        j->obstaculosMapa1[0].pos = (Rectangle) { j->largura / 4, 0, espessura, j->altura * 0.75f}; 
+        j->obstaculosMapa1[1].pos = (Rectangle) { j->largura * 0.75f, j->altura * 0.25f, espessura, j->altura * 0.75f};
+        j->obstaculosMapa1[2].pos = (Rectangle) { j->largura / 4, j->altura / 4, j->largura / 2, espessura};
+
+        float tamanho_bloco_central = espessura * 2.0f; 
+
+        j->obstaculosMapa1[3].pos = (Rectangle) { 
+            j->largura / 2 - tamanho_bloco_central / 2.0f, j->altura / 2 - tamanho_bloco_central / 2.0f, tamanho_bloco_central, tamanho_bloco_central
+        };  
     }   else{
-    float espessura = 20.0f;
-    j->obstaculosMapa1[0].pos = (Rectangle) { j->largura / 4, 0, espessura, j->altura * 0.60f}; 
-    j->obstaculosMapa1[1].pos = (Rectangle) { j->largura * 0.75f, j->altura * 0.25f, espessura, j->altura * 2};
-    j->obstaculosMapa1[2].pos = (Rectangle) { j->largura / 4, j->altura / 4, j->largura / 2, espessura};
-    float tamanho_bloco_central = espessura * 2.0f; 
-    j->obstaculosMapa1[3].pos = (Rectangle) { j->largura / 2 - tamanho_bloco_central / 2.0f, j->altura / 2 - tamanho_bloco_central / 2.0f, 
-    tamanho_bloco_central, tamanho_bloco_central}; 
+        float espessura = 20.0f;
+        j->obstaculosMapa1[0].pos = (Rectangle) { j->largura / 4, 0, espessura, j->altura * 0.60f}; 
+        j->obstaculosMapa1[1].pos = (Rectangle) { j->largura * 0.75f, j->altura * 0.25f, espessura, j->altura * 2};
+        j->obstaculosMapa1[2].pos = (Rectangle) { j->largura / 4, j->altura / 4, j->largura / 2, espessura};
 
+        float tamanho_bloco_central = espessura * 2.0f; 
+        j->obstaculosMapa1[3].pos = (Rectangle) { j->largura / 2 - tamanho_bloco_central / 2.0f, j->altura / 2 - tamanho_bloco_central / 2.0f, 
+        tamanho_bloco_central, tamanho_bloco_central}; 
 
-}
+    }
 
 
 }
@@ -67,8 +70,9 @@ void IniciaObstaculosMapa2(Jogo* j) {
 
     }  
     if(j->largura==500){
+
         j->obstaculosMapa2[0].pos = (Rectangle) {
-            j->largura * 0.30f, j->altura  * 0.50f, espessura*3-20 , espessura
+            j->largura * 0.30f, j->altura  * 0.50f, espessura*3-20 , espessura -20
         };
         j->obstaculosMapa2[1].pos = (Rectangle) {
             j->largura * 0.55f+20, j->altura  * 0.20f, espessura*3-20, espessura
@@ -95,68 +99,70 @@ void IniciaObstaculosMapa2(Jogo* j) {
         };
     }
     else if(j->largura==660){
+        // horizontal do primeiro L 
         j->obstaculosMapa2[0].pos = (Rectangle) {
             j->largura * 0.30f, j->altura  * 0.7f, espessura*3, espessura-20
         };
+        // horizontal do segundo L
         j->obstaculosMapa2[1].pos = (Rectangle) {
             j->largura * 0.55f+10, j->altura  * 0.20f, espessura*3-10, espessura-20
         };
-
+        // vertical do segundo L
         j->obstaculosMapa2[2].pos = (Rectangle) {
             j->largura * 0.70f, j->altura  * 0.20, espessura-20, espessura*3-10
         };
-
+        // barra vertical 2
         j->obstaculosMapa2[3].pos = (Rectangle) {
             j->largura * 0.70f, j->altura  * 0.70f, espessura-20, espessura*3-20
         };
-
+        // barra vertical 1
         j->obstaculosMapa2[4].pos = (Rectangle) {
             j->largura * 0.30f, j->altura  * 0.20, espessura-10, espessura*3 - 10
         };
-
+        // vertical do primeiro L
         j->obstaculosMapa2[5].pos = (Rectangle) {
             (j->largura-20) * 0.30f, j->altura * 0.70f, espessura-10, espessura*3-20
         };
 
+        // quadrado na esquerda
         j->obstaculosMapa2[6].pos = (Rectangle) {
-            j->largura * 0, j->altura  * 0, espessura*0, espessura*0
-        };
-        j->obstaculosMapa2[7].pos = (Rectangle) {
             j->largura * 0, j->altura  * 0.40f, espessura*2, espessura*3
     };
 }
     else{
-            j->obstaculosMapa2[0].pos = (Rectangle) {
+        // da caverninha, vertical
+        j->obstaculosMapa2[0].pos = (Rectangle) {
             j->largura * 0.15f, j->altura  * 0.30f, espessura/2, espessura*8.5
         };
+        // da caverninha, horizontal 1
         j->obstaculosMapa2[1].pos = (Rectangle) {
             j->largura * 0.0f, j->altura  * 0.30f+20, espessura*3.2, espessura/2
         };
-
+        // da caverninha, horizontal 2
         j->obstaculosMapa2[2].pos = (Rectangle) {
             j->largura * 0.0f, j->altura  * 0.70, espessura*3.6, espessura/2
         };
-
+        // linha horizontal
         j->obstaculosMapa2[3].pos = (Rectangle) {
             j->largura * 0.15f, j->altura  * 0.50f, espessura*20, espessura/2-10
         };
-        
+        // quadrado 2 de cima
         j->obstaculosMapa2[4].pos = (Rectangle) {
             j->largura * 0.60f+20, j->altura  * 0.10f+20, espessura*2-20, espessura*2
         };
-        
+        // quadrado 1 de cima
         j->obstaculosMapa2[5].pos = (Rectangle) {
             j->largura * 0.30f+10, j->altura * 0.10f+20, espessura*3-20, espessura*3-20
         };
-        
+        // quadrado 1 de baixo
         j->obstaculosMapa2[6].pos = (Rectangle) {
             j->largura * 0.40f+10, j->altura  * 0.70f+10, espessura*3-20, espessura*3-20
         };
+        // quadrado 2 de baixo
         j->obstaculosMapa2[7].pos = (Rectangle) {
             j->largura * 0.70f+10, j->altura  * 0.70+10, espessura*3-20, espessura*3-20
             
     };
-        
     }
     
     
@@ -178,6 +184,8 @@ void IniciaObstaculosMapa2(Jogo* j) {
 
 }
 
+
+// Essa função só organiza a colisão dos obstáculos, coloquei o Playsound aqui para não precisar de outra função só pra isso.
 int ColisaoObstaculos(Jogo* j){
     if(ColisaoObstaculosMapa0(j)){
         PlaySound(j->trilhaSonora.colisaoCorpo);
@@ -193,6 +201,8 @@ int ColisaoObstaculos(Jogo* j){
     }
     return 0;
 }
+
+// Confere colisão de cada mapa
 
 int ColisaoObstaculosMapa0(Jogo* j){
     if(j->map==0){
@@ -227,4 +237,40 @@ int ColisaoObstaculosMapa2(Jogo *j){
     }
     return 0;
 }
+
+
+/* Auxiliares para arrumar a posição dos obstáculos
+
+void DesenhaObstaculos(Jogo* j){
+    if(j->map==0){
+        DesenhaObstaculosMapa0(j);
+    }
+    else if(j->map==1){
+        DesenhaObstaculosMapa1(j);
+    }
+    else if(j->map==2){
+        DesenhaObstaculosMapa2(j);
+    }
+}
+
+void DesenhaObstaculosMapa0(Jogo* j){
+    for (int i = 0; i < 4; i++){
+        DrawRectangleRec(j->obstaculosMapa0[i].pos, ORANGE);
+    }
+}
+
+void DesenhaObstaculosMapa1(Jogo* j){
+    for (int i = 0; i < 4; i++) {
+         DrawRectangleRec(j->obstaculosMapa1[i].pos, ORANGE);
+        
+    }
+
+}
+void DesenhaObstaculosMapa2(Jogo* j){
+    for (int i = 0; i < 16; i++){
+        DrawRectangleRec(j->obstaculosMapa2[i].pos, ORANGE);
+    }
+}
+
+*/
 
