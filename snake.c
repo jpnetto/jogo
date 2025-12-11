@@ -31,7 +31,7 @@ void IniciaBody(Jogo *j){
     j->body.color = SNAKE_COLOR;
 
     // É o que dá corpo à cobrinha inicial.
-    for(int i=1; i<3; i++){
+    for(int i=0; i<2; i++){
         AtualizaHead(j,&j->body, j->body.head->pos.x, j->body.head->pos.y);
     }
     IniciaTexturasBody(j);
@@ -335,6 +335,7 @@ void AtualizaHead(Jogo* j,Body *body, float x, float y){
     body->size++;
 }
 
+
 void RemoveCauda(Body* body){
     if(body->size <= 1){
         return;
@@ -387,10 +388,7 @@ int ColisaoFoodObstaculo(Jogo *j, float x, float y){
 
 void ColisaoBordas(Jogo *j){
     if (CheckCollisionRecs(j->body.head->pos, j->bordas[0].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[1].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[2].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[3].pos)){
-        /*if (CheckCollisionRecs(j->body.head->pos, j->bordas[0].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[1].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[2].pos) || CheckCollisionRecs(j->body.head->pos, j->bordas[3].pos)){
-            PlaySound(j->trilhaSonora.colisaoCorpo);
-            return 1;
-        }*/
+        
         if(CheckCollisionRecs(j->body.head->pos, j->bordas[0].pos)){
             j->body.head->pos.y = j->altura - j->body.head->pos.height - 10;
         } else if(CheckCollisionRecs(j->body.head->pos, j->bordas[1].pos)){

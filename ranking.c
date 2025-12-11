@@ -65,7 +65,7 @@ void exibeRanking() {
     int y = 112;
     char nome[50];
     int pontuacao, tam=0;
-    Jogadores v[20];
+    Jogadores v[100];
     
     //pega do .txt
     while (fgets(linha, sizeof(linha), f)) {
