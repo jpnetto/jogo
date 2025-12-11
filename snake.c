@@ -31,7 +31,7 @@ void IniciaBody(Jogo *j){
     j->body.color = SNAKE_COLOR;
 
     // É o que dá corpo à cobrinha inicial.
-    for(int i=0; i<2; i++){
+    for(int i=1; i<3; i++){
         AtualizaHead(j,&j->body, j->body.head->pos.x, j->body.head->pos.y);
     }
     IniciaTexturasBody(j);

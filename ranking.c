@@ -65,7 +65,7 @@ void exibeRanking() {
     int y = 112;
     char nome[50];
     int pontuacao, tam=0;
-    Jogadores v[100];
+    Jogadores v[20];
     
     //pega do .txt
     while (fgets(linha, sizeof(linha), f)) {
@@ -92,7 +92,7 @@ void exibeRanking() {
         return;
     }
 
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < tam; i++) {
         // monta "Classificacao - Pontos - Nome"
         if(i==0)DrawText(TextFormat("%dº", i+1), 60, y, 29, BLACK);
         if(i<9&&i>0)DrawText(TextFormat("%dº", i+1), 55, y, 29, BLACK);
@@ -108,4 +108,3 @@ void exibeRanking() {
 
     fclose(f);
 }
-
