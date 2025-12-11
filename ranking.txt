@@ -1,2 +1,25 @@
-Jogador01 8
-Sophia 3
+Jogador01 2
+Sophia 11
+D 16
+C 23
+KK 80
+A 1
+a 2
+b 4
+c 8
+d 10
+e 20
+f 50
+g 9
+h 9
+i 0
+j 0
+k 0
+l 0
+a 2
+b 4
+c 8
+d 10
+e 20
+f 50
+

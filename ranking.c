@@ -92,7 +92,7 @@ void exibeRanking() {
         return;
     }
 
-    for (int i = 0; i < tam; i++) {
+    for (int i = 0; i < 20; i++) {
         // monta "Classificacao - Pontos - Nome"
         if(i==0)DrawText(TextFormat("%dº", i+1), 60, y, 29, BLACK);
         if(i<9&&i>0)DrawText(TextFormat("%dº", i+1), 55, y, 29, BLACK);
